@@ -22,13 +22,11 @@
     --gold:#d4b46a;
     --gold-bright:#e5c67f;
     --gold-soft:#b8944d;
-    --gold-glow:rgba(212,180,106,0.35);
     --cream:#f5efe2;
     --text:#f5efe2;
     --text-dim:#a89f8a;
     --green:#4ade80;
     --red:#f87171;
-    --shadow-deep:0 20px 40px rgba(0,0,0,0.45);
   }
 
   *{
@@ -68,10 +66,29 @@
     height:100%;
     z-index:0;
     pointer-events:none;
-    opacity:0.55;
+    opacity:0.6;
   }
 
-  /* everything else sits above the canvas */
+  /* ============ PAGE LOGO WATERMARK ============ */
+  .page-watermark{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:min(90vw, 700px);
+    height:auto;
+    opacity:0.035;
+    z-index:0;
+    pointer-events:none;
+    filter:blur(0.5px);
+    animation:watermarkDrift 40s ease-in-out infinite;
+  }
+
+  @keyframes watermarkDrift{
+    0%,100%{ transform:translate(-50%,-50%) rotate(0deg) scale(1); }
+    50%{ transform:translate(-50%,-50%) rotate(3deg) scale(1.04); }
+  }
+
   .topbar,
   .hero,
   .legend,
@@ -165,19 +182,13 @@
     background:rgba(212,180,106,0.20);
   }
 
-  .cart-btn svg{
-    width:19px;
-    height:19px;
-    stroke-width:1.8;
-  }
+  .cart-btn svg{ width:19px; height:19px; stroke-width:1.8; }
 
-  .cart-btn.has-items{
-    animation:cartGlow 2.4s ease-in-out infinite;
-  }
+  .cart-btn.has-items{ animation:cartGlow 2.4s ease-in-out infinite; }
 
   @keyframes cartGlow{
-    0%,100%{box-shadow:0 0 0 rgba(212,180,106,0)}
-    50%{box-shadow:0 0 18px rgba(212,180,106,0.5)}
+    0%,100%{ box-shadow:0 0 0 rgba(212,180,106,0); }
+    50%{ box-shadow:0 0 18px rgba(212,180,106,0.5); }
   }
 
   .cart-count{
@@ -201,15 +212,12 @@
   }
 
   .cart-count.hidden{ transform:scale(0); }
-
-  .cart-count.bounce{
-    animation:cartBounce .5s cubic-bezier(.34,1.56,.64,1);
-  }
+  .cart-count.bounce{ animation:cartBounce .5s cubic-bezier(.34,1.56,.64,1); }
 
   @keyframes cartBounce{
-    0%{transform:scale(1)}
-    40%{transform:scale(1.4)}
-    100%{transform:scale(1)}
+    0%{ transform:scale(1); }
+    40%{ transform:scale(1.4); }
+    100%{ transform:scale(1); }
   }
 
   /* ============ SWITCHER ============ */
@@ -269,8 +277,8 @@
   }
 
   @keyframes heroGlow{
-    0%,100%{opacity:.6; transform:translateX(-50%) scale(1)}
-    50%{opacity:1; transform:translateX(-50%) scale(1.1)}
+    0%,100%{ opacity:.6; transform:translateX(-50%) scale(1); }
+    50%{ opacity:1; transform:translateX(-50%) scale(1.1); }
   }
 
   .hero-eyebrow{
@@ -352,6 +360,7 @@
     border:1.5px solid var(--green);
     background:rgba(74,222,128,0.06);
   }
+
   .legend-mark.veg::before{
     content:'';
     width:5px;
@@ -364,6 +373,7 @@
     border:1.5px solid var(--red);
     background:rgba(248,113,113,0.06);
   }
+
   .legend-mark.nonveg::before{
     content:'';
     width:5px;
@@ -425,8 +435,8 @@
   }
 
   @keyframes chipPulse{
-    0%,100%{box-shadow:0 0 22px rgba(212,180,106,0.25)}
-    50%{box-shadow:0 0 30px rgba(212,180,106,0.45)}
+    0%,100%{ box-shadow:0 0 22px rgba(212,180,106,0.25); }
+    50%{ box-shadow:0 0 30px rgba(212,180,106,0.45); }
   }
 
   /* ============ MENU WRAPPER ============ */
@@ -479,9 +489,30 @@
   }
 
   @keyframes titleShimmer{
-    0%{background-position:200% center}
-    100%{background-position:-200% center}
+    0%{ background-position:200% center; }
+    100%{ background-position:-200% center; }
   }
+
+  /* ============ SUBCATEGORY LABEL ============ */
+  .subcategory-label{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 4px 10px;
+    margin-top:14px;
+    margin-bottom:6px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    border-bottom:1px solid rgba(212,180,106,0.12);
+  }
+
+  .subcategory-label:first-of-type{ margin-top:0; }
+
+  .subcategory-label .veg-mark{ width:13px; height:13px; }
 
   /* ============ DISH CARD ============ */
   .dish{
@@ -514,6 +545,7 @@
     transform:translateX(-100%);
     transition:transform .8s ease;
     pointer-events:none;
+    z-index:1;
   }
 
   .dish:active::before{ transform:translateX(100%); }
@@ -527,8 +559,21 @@
   .dish.ripple{ animation:dishRipple .5s ease; }
 
   @keyframes dishRipple{
-    0%{background:rgba(212,180,106,0.28)}
-    100%{background:linear-gradient(155deg, rgba(212,180,106,0.05) 0%, rgba(212,180,106,0.015) 100%)}
+    0%{ background:rgba(212,180,106,0.28); }
+    100%{ background:linear-gradient(155deg, rgba(212,180,106,0.05) 0%, rgba(212,180,106,0.015) 100%); }
+  }
+
+  .dish-watermark{
+    position:absolute;
+    right:-6px;
+    top:50%;
+    transform:translateY(-50%);
+    width:56px;
+    height:56px;
+    opacity:0.04;
+    pointer-events:none;
+    z-index:0;
+    object-fit:contain;
   }
 
   .veg-mark{
@@ -542,6 +587,7 @@
     justify-content:center;
     position:relative;
     background:rgba(74,222,128,0.05);
+    z-index:2;
   }
 
   .veg-mark::before{
@@ -559,9 +605,34 @@
 
   .veg-mark.nonveg::before{ background:var(--red); }
 
+  .veg-mark.both{
+    border:1.5px solid var(--green);
+    background:rgba(74,222,128,0.05);
+  }
+
+  .veg-mark.both::before{
+    width:6px;
+    height:6px;
+    background:var(--green);
+  }
+
+  .veg-mark.both::after{
+    content:'';
+    position:absolute;
+    top:-1.5px;
+    right:-1.5px;
+    width:7px;
+    height:7px;
+    border:1.5px solid var(--red);
+    border-radius:2px;
+    background:var(--navy);
+  }
+
   .dish-info{
     flex:1;
     min-width:0;
+    position:relative;
+    z-index:2;
   }
 
   .dish-name{
@@ -589,6 +660,8 @@
     flex-direction:column;
     align-items:flex-end;
     gap:4px;
+    position:relative;
+    z-index:2;
   }
 
   .dish-price{
@@ -610,6 +683,89 @@
     text-transform:uppercase;
     font-weight:600;
     opacity:.7;
+  }
+
+  /* ============ DUAL PRICE (Veg/Chicken) ============ */
+  .dual-price-wrap{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    align-items:flex-end;
+  }
+
+  .dual-price-row{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    justify-content:flex-end;
+  }
+
+  .dual-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+
+  .dual-dot.veg{ background:var(--green); }
+  .dual-dot.nonveg{ background:var(--red); }
+
+  .dual-price-value{
+    font-family:'Cormorant Garamond',serif;
+    font-size:17px;
+    font-weight:700;
+    color:var(--gold-bright);
+    letter-spacing:0.2px;
+    line-height:1;
+    font-variant-numeric:tabular-nums lining-nums;
+    min-width:52px;
+    text-align:right;
+  }
+
+  /* ============ HALF/FULL PRICE ============ */
+  .half-full-wrap{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    align-items:flex-end;
+  }
+
+  .hf-label{
+    font-size:8px;
+    letter-spacing:1.5px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    font-weight:700;
+    margin-bottom:1px;
+  }
+
+  .hf-price-row{
+    display:flex;
+    align-items:baseline;
+    gap:5px;
+    justify-content:flex-end;
+  }
+
+  .hf-tag{
+    font-size:9px;
+    color:var(--gold-soft);
+    letter-spacing:0.8px;
+    text-transform:uppercase;
+    font-weight:600;
+    min-width:26px;
+    text-align:left;
+  }
+
+  .hf-value{
+    font-family:'Cormorant Garamond',serif;
+    font-size:16px;
+    font-weight:700;
+    color:var(--gold-bright);
+    letter-spacing:0.2px;
+    line-height:1;
+    font-variant-numeric:tabular-nums lining-nums;
+    min-width:52px;
+    text-align:right;
   }
 
   /* ============ MENU NOTE ============ */
@@ -709,11 +865,7 @@
     box-shadow:0 0 22px rgba(212,180,106,0.22);
   }
 
-  .bottom-action svg{
-    width:15px;
-    height:15px;
-    stroke-width:2;
-  }
+  .bottom-action svg{ width:15px; height:15px; stroke-width:2; }
 
   /* ============ MODAL ============ */
   .modal-backdrop{
@@ -820,31 +972,121 @@
     margin:20px 0;
   }
 
-  .modal-price-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:14px 0;
-    border-bottom:1px solid rgba(212,180,106,0.10);
-  }
+  /* ============ PORTION SELECTOR ============ */
+  .portion-section{ margin-top:20px; }
 
-  .modal-price-label{
-    font-size:12px;
-    letter-spacing:1.5px;
-    color:var(--text-dim);
+  .portion-label{
+    font-size:10px;
+    letter-spacing:2.5px;
+    color:var(--gold-soft);
     text-transform:uppercase;
-    font-weight:500;
+    font-weight:700;
+    margin-bottom:10px;
   }
 
-  .modal-price-value{
+  .portion-options{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .portion-btn{
+    flex:1;
+    min-width:120px;
+    padding:14px 16px;
+    border-radius:12px;
+    background:rgba(212,180,106,0.06);
+    border:1.5px solid rgba(212,180,106,0.22);
+    color:var(--text);
+    cursor:pointer;
+    transition:all .25s;
+    font-family:inherit;
+    text-align:left;
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .portion-btn:active{ transform:scale(0.97); }
+
+  .portion-btn.selected{
+    background:linear-gradient(180deg, rgba(212,180,106,0.28), rgba(212,180,106,0.12));
+    border-color:var(--gold);
+    box-shadow:0 0 20px rgba(212,180,106,0.28);
+  }
+
+  .portion-dot{
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    flex-shrink:0;
+    border:1.5px solid rgba(212,180,106,0.4);
+    position:relative;
+  }
+
+  .portion-btn.selected .portion-dot{
+    border-color:var(--gold-bright);
+    background:var(--gold-bright);
+    box-shadow:inset 0 0 0 3px var(--navy);
+  }
+
+  .portion-dot.veg{
+    border-color:var(--green);
+    background:rgba(74,222,128,0.15);
+  }
+
+  .portion-btn.selected .portion-dot.veg{
+    background:var(--green);
+    border-color:var(--green);
+    box-shadow:inset 0 0 0 3px var(--navy);
+  }
+
+  .portion-dot.nonveg{
+    border-color:var(--red);
+    background:rgba(248,113,113,0.15);
+  }
+
+  .portion-btn.selected .portion-dot.nonveg{
+    background:var(--red);
+    border-color:var(--red);
+    box-shadow:inset 0 0 0 3px var(--navy);
+  }
+
+  .portion-btn-text{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    flex:1;
+    min-width:0;
+  }
+
+  .portion-btn-label{
+    font-size:10px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    font-weight:700;
+  }
+
+  .portion-btn.selected .portion-btn-label{ color:var(--gold-bright); }
+
+  .portion-btn-price{
     font-family:'Cormorant Garamond',serif;
-    font-size:28px;
+    font-size:20px;
     font-weight:700;
     color:var(--gold-bright);
-    font-variant-numeric:tabular-nums lining-nums;
-    font-feature-settings:"tnum" 1, "lnum" 1;
+    line-height:1;
+    font-variant-numeric:tabular-nums;
   }
 
+  .portion-btn.locked{
+    opacity:0.35;
+    cursor:not-allowed;
+    pointer-events:none;
+  }
+
+  /* ============ MODAL ACTIONS ============ */
   .modal-actions{
     display:flex;
     gap:10px;
@@ -909,11 +1151,18 @@
     cursor:pointer;
     transition:all .25s;
     box-shadow:0 0 24px rgba(212,180,106,0.22);
+    font-variant-numeric:tabular-nums;
   }
 
   .add-to-cart-btn:active{
     transform:scale(0.97);
     background:linear-gradient(180deg, rgba(212,180,106,0.50), rgba(212,180,106,0.30));
+  }
+
+  .add-to-cart-btn:disabled{
+    opacity:0.4;
+    cursor:not-allowed;
+    box-shadow:none;
   }
 
   /* ============ CART DRAWER ============ */
@@ -989,8 +1238,8 @@
   .cart-item:last-child{ border-bottom:none; }
 
   @keyframes cartItemIn{
-    from{opacity:0; transform:translateX(-10px)}
-    to{opacity:1; transform:translateX(0)}
+    from{ opacity:0; transform:translateX(-10px); }
+    to{ opacity:1; transform:translateX(0); }
   }
 
   .cart-item-info{ flex:1; min-width:0; }
@@ -1002,6 +1251,15 @@
     color:var(--text);
     margin-bottom:2px;
     line-height:1.2;
+  }
+
+  .cart-item-variant{
+    font-size:10px;
+    letter-spacing:1.2px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    font-weight:700;
+    margin-bottom:2px;
   }
 
   .cart-item-price{
@@ -1138,40 +1396,44 @@
 
   /* ============ ANIMATIONS ============ */
   @keyframes fadeInUp{
-    from{opacity:0; transform:translateY(16px)}
-    to{opacity:1; transform:translateY(0)}
+    from{ opacity:0; transform:translateY(16px); }
+    to{ opacity:1; transform:translateY(0); }
   }
 
   @keyframes fadeInDown{
-    from{opacity:0; transform:translateY(-16px)}
-    to{opacity:1; transform:translateY(0)}
+    from{ opacity:0; transform:translateY(-16px); }
+    to{ opacity:1; transform:translateY(0); }
   }
 
   @keyframes fadeIn{
-    from{opacity:0}
-    to{opacity:1}
+    from{ opacity:0; }
+    to{ opacity:1; }
   }
 
   /* ============ RESPONSIVE ============ */
   @media(max-width:380px){
-    .hero-title{font-size:42px}
-    .category-title{font-size:20px}
-    .dish-name{font-size:16px}
-    .dish-price{font-size:19px}
-    .topbar-title{font-size:15px}
-    .switch-btn{padding:6px 9px; font-size:9px}
-    .topbar-logo{width:34px; height:34px}
-    .modal-title{font-size:28px}
-    .cart-title{font-size:20px}
-    .cart-total-value{font-size:26px}
+    .hero-title{ font-size:42px; }
+    .category-title{ font-size:20px; }
+    .dish-name{ font-size:16px; }
+    .dish-price{ font-size:19px; }
+    .dual-price-value{ font-size:15px; min-width:46px; }
+    .hf-value{ font-size:14px; min-width:46px; }
+    .topbar-title{ font-size:15px; }
+    .switch-btn{ padding:6px 9px; font-size:9px; }
+    .topbar-logo{ width:34px; height:34px; }
+    .modal-title{ font-size:28px; }
+    .cart-title{ font-size:20px; }
+    .cart-total-value{ font-size:26px; }
+    .portion-btn{ min-width:100px; padding:12px 12px; }
+    .portion-btn-price{ font-size:18px; }
   }
 
   @media(min-width:640px){
-    .hero-title{font-size:64px}
-    .category-title{font-size:28px}
-    .dish-name{font-size:19px}
-    .menu-wrap{max-width:720px}
-    .filter-bar{justify-content:center}
+    .hero-title{ font-size:64px; }
+    .category-title{ font-size:28px; }
+    .dish-name{ font-size:19px; }
+    .menu-wrap{ max-width:720px; }
+    .filter-bar{ justify-content:center; }
   }
 
   @media(prefers-reduced-motion:reduce){
@@ -1179,13 +1441,15 @@
       animation-duration:0.01ms !important;
       transition-duration:0.01ms !important;
     }
-    #bg3d{ display:none; }
+    #bg3d, .page-watermark{ display:none; }
   }
 </style>
-</head><body>
+</head>
+<body>  <!-- ============ 3D BACKGROUND CANVAS ============ -->
+  <canvas id="bg3d" aria-hidden="true"></canvas>
 
-  <!-- ============ 3D BACKGROUND CANVAS ============ -->
-  <canvas id="bg3d"></canvas>
+  <!-- ============ PAGE LOGO WATERMARK ============ -->
+  <img src="logo.jpg.jpeg" alt="" class="page-watermark" aria-hidden="true">
 
   <!-- ============ TOPBAR ============ -->
   <div class="topbar">
@@ -1260,6 +1524,7 @@
       <button class="filter-chip" data-filter="continental">Continental</button>
       <button class="filter-chip" data-filter="veg">Veg Main</button>
       <button class="filter-chip" data-filter="nonveg">Non-Veg Main</button>
+      <button class="filter-chip" data-filter="tandoori">Tandoori Khazana</button>
       <button class="filter-chip" data-filter="combomeal">Combomeal</button>
       <button class="filter-chip" data-filter="breads">Breads</button>
       <button class="filter-chip" data-filter="rice">Rice &amp; Biryani</button>
@@ -1281,7 +1546,8 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Milk" data-price="39" data-note="Hot / Cold">
+      <div class="dish" data-name="Milk" data-price="39" data-veg="true" data-note="Hot / Cold">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Milk</div>
@@ -1293,19 +1559,21 @@
         </div>
       </div>
 
-      <div class="dish" data-name="Tea" data-price="39" data-note="Masala / Elaichi">
+      <div class="dish" data-name="Tea" data-price="49" data-veg="true" data-note="Masala / Elaichi">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Tea</div>
           <div class="dish-note">Masala / Elaichi</div>
         </div>
         <div class="dish-price-wrap">
-          <div class="dish-price">₹39</div>
+          <div class="dish-price">₹49</div>
           <div class="dish-add-hint">Add</div>
         </div>
       </div>
 
-      <div class="dish" data-name="Coffee" data-price="49">
+      <div class="dish" data-name="Coffee" data-price="49" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Coffee</div>
@@ -1316,7 +1584,8 @@
         </div>
       </div>
 
-      <div class="dish" data-name="Green Tea" data-price="59">
+      <div class="dish" data-name="Green Tea" data-price="59" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Green Tea</div>
@@ -1327,7 +1596,8 @@
         </div>
       </div>
 
-      <div class="dish" data-name="Plain Curd" data-price="69">
+      <div class="dish" data-name="Plain Curd" data-price="69" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Plain Curd</div>
@@ -1338,7 +1608,8 @@
         </div>
       </div>
 
-      <div class="dish" data-name="Bread Toast" data-price="99" data-note="Butter / Jam">
+      <div class="dish" data-name="Bread Toast" data-price="99" data-veg="true" data-note="Butter / Jam">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Bread Toast</div>
@@ -1350,11 +1621,12 @@
         </div>
       </div>
 
-      <div class="dish" data-name="Boiled Eggs" data-price="59" data-note="2 pieces" data-veg="false">
+      <div class="dish" data-name="Boiled Eggs" data-price="59" data-veg="false" data-note="2 nos">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
         <div class="dish-info">
           <div class="dish-name">Boiled Eggs</div>
-          <div class="dish-note">2 pieces</div>
+          <div class="dish-note">2 nos</div>
         </div>
         <div class="dish-price-wrap">
           <div class="dish-price">₹59</div>
@@ -1363,6 +1635,7 @@
       </div>
 
       <div class="dish" data-name="Bread Omelette" data-price="129" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
         <div class="dish-info">
           <div class="dish-name">Bread Omelette</div>
@@ -1373,7 +1646,8 @@
         </div>
       </div>
 
-      <div class="dish" data-name="Bowl of Cereals" data-price="149" data-note="Cornflakes served with milk">
+      <div class="dish" data-name="Bowl of Cereals" data-price="149" data-veg="true" data-note="Cornflakes served with milk">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Bowl of Cereals</div>
@@ -1386,6 +1660,7 @@
       </div>
 
       <div class="dish" data-name="Club Sandwich" data-price="149" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
         <div class="dish-info">
           <div class="dish-name">Club Sandwich</div>
@@ -1396,7 +1671,8 @@
         </div>
       </div>
 
-      <div class="dish" data-name="Grilled Sandwich" data-price="199">
+      <div class="dish" data-name="Grilled Sandwich" data-price="199" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Grilled Sandwich</div>
@@ -1407,18 +1683,47 @@
         </div>
       </div>
 
-      <div class="dish" data-name="Choice of Prantha" data-price="119" data-note="Aloo Pyaaz / Gobhi / Paneer — served with butter &amp; pickle">
+      <div class="dish" data-name="Aloo Pyaaz Prantha" data-price="119" data-veg="true" data-note="Served with butter &amp; pickle">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
-          <div class="dish-name">Choice of Prantha</div>
-          <div class="dish-note">Aloo Pyaaz / Gobhi / Paneer — served with butter &amp; pickle</div>
+          <div class="dish-name">Aloo Pyaaz Prantha</div>
+          <div class="dish-note">Served with butter &amp; pickle</div>
         </div>
         <div class="dish-price-wrap">
-          <div class="dish-price">₹119+</div>
+          <div class="dish-price">₹119</div>
           <div class="dish-add-hint">Add</div>
         </div>
       </div>
-    </section>    <!-- ============ SOUPS ============ -->
+
+      <div class="dish" data-name="Gobhi Prantha" data-price="119" data-veg="true" data-note="Served with butter &amp; pickle">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info">
+          <div class="dish-name">Gobhi Prantha</div>
+          <div class="dish-note">Served with butter &amp; pickle</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹119</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
+      </div>
+
+      <div class="dish" data-name="Paneer Prantha" data-price="139" data-veg="true" data-note="Served with butter &amp; pickle">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info">
+          <div class="dish-name">Paneer Prantha</div>
+          <div class="dish-note">Served with butter &amp; pickle</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹139</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOUPS ============ -->
     <section class="category" data-category="soups">
       <div class="category-header">
         <div class="category-line"></div>
@@ -1426,31 +1731,46 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Manchow Soup" data-price="119" data-note="Veg ₹119 / Chicken ₹149">
-        <span class="veg-mark"></span>
+      <div class="dish dual-price" data-name="Manchow Soup" data-veg-price="119" data-nonveg-price="149" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
         <div class="dish-info">
           <div class="dish-name">Manchow Soup</div>
-          <div class="dish-note">Veg ₹119 / Chicken ₹149</div>
+          <div class="dish-note">Veg / Chicken</div>
         </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹119+</div>
-          <div class="dish-add-hint">Add</div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row">
+            <span class="dual-dot veg"></span>
+            <span class="dual-price-value">₹119</span>
+          </div>
+          <div class="dual-price-row">
+            <span class="dual-dot nonveg"></span>
+            <span class="dual-price-value">₹149</span>
+          </div>
         </div>
       </div>
 
-      <div class="dish" data-name="Hot &amp; Sour Soup" data-price="119" data-note="Veg ₹119 / Chicken ₹149">
-        <span class="veg-mark"></span>
+      <div class="dish dual-price" data-name="Hot &amp; Sour Soup" data-veg-price="119" data-nonveg-price="149" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
         <div class="dish-info">
           <div class="dish-name">Hot &amp; Sour Soup</div>
-          <div class="dish-note">Veg ₹119 / Chicken ₹149</div>
+          <div class="dish-note">Veg / Chicken</div>
         </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹119+</div>
-          <div class="dish-add-hint">Add</div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row">
+            <span class="dual-dot veg"></span>
+            <span class="dual-price-value">₹119</span>
+          </div>
+          <div class="dual-price-row">
+            <span class="dual-dot nonveg"></span>
+            <span class="dual-price-value">₹149</span>
+          </div>
         </div>
       </div>
 
-      <div class="dish" data-name="Sweet Corn Soup" data-price="119">
+      <div class="dish" data-name="Sweet Corn Soup" data-price="119" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Sweet Corn Soup</div>
@@ -1461,7 +1781,8 @@
         </div>
       </div>
 
-      <div class="dish" data-name="Cream of Tomato Soup" data-price="119">
+      <div class="dish" data-name="Cream of Tomato Soup" data-price="119" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Cream of Tomato Soup</div>
@@ -1472,7 +1793,8 @@
         </div>
       </div>
 
-      <div class="dish" data-name="Cream of Mushroom Soup" data-price="119">
+      <div class="dish" data-name="Cream of Mushroom Soup" data-price="119" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Cream of Mushroom Soup</div>
@@ -1483,7 +1805,8 @@
         </div>
       </div>
 
-      <div class="dish" data-name="Veg Clear Soup" data-price="119">
+      <div class="dish" data-name="Veg Clear Soup" data-price="119" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info">
           <div class="dish-name">Veg Clear Soup</div>
@@ -1503,92 +1826,60 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="French Fries" data-price="189">
+      <div class="dish" data-name="French Fries" data-price="189" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">French Fries</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹189</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">French Fries</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹189</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Veg Pakoda" data-price="189">
+      <div class="dish" data-name="Veg Pakoda" data-price="189" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Veg Pakoda</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹189</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Veg Pakoda</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹189</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Veg Cutlet" data-price="189">
+      <div class="dish" data-name="Veg Cutlet" data-price="189" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Veg Cutlet</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹189</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Veg Cutlet</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹189</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Cheese Pakoda" data-price="249">
+      <div class="dish" data-name="Cheese Pakoda" data-price="249" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Cheese Pakoda</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹249</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Cheese Pakoda</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹249</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Cheese Finger" data-price="249">
+      <div class="dish" data-name="Cheese Finger" data-price="249" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Cheese Finger</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹249</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Cheese Finger</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹249</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Dahi Ke Sholey" data-price="299">
+      <div class="dish" data-name="Dahi Ke Sholey" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Dahi Ke Sholey</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹299</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Dahi Ke Sholey</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Hara Bhara Kabab" data-price="299">
+      <div class="dish" data-name="Hara Bhara Kabab" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Hara Bhara Kabab</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹299</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Hara Bhara Kabab</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
       </div>
 
       <div class="dish" data-name="Fish Finger" data-price="349" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info">
-          <div class="dish-name">Fish Finger</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹349</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Fish Finger</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹349</div><div class="dish-add-hint">Add</div></div>
       </div>
     </section>
 
@@ -1600,167 +1891,121 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Fried Rice" data-price="229" data-note="Veg ₹229 / Chicken ₹329">
-        <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Fried Rice</div>
-          <div class="dish-note">Veg ₹229 / Chicken ₹329</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹229+</div>
-          <div class="dish-add-hint">Add</div>
+      <div class="dish dual-price" data-name="Fried Rice" data-veg-price="229" data-nonveg-price="329" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
+        <div class="dish-info"><div class="dish-name">Fried Rice</div><div class="dish-note">Veg / Chicken</div></div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row"><span class="dual-dot veg"></span><span class="dual-price-value">₹229</span></div>
+          <div class="dual-price-row"><span class="dual-dot nonveg"></span><span class="dual-price-value">₹329</span></div>
         </div>
       </div>
 
-      <div class="dish" data-name="Noodles" data-price="229" data-note="Veg ₹229 / Chicken ₹329">
-        <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Noodles</div>
-          <div class="dish-note">Veg ₹229 / Chicken ₹329</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹229+</div>
-          <div class="dish-add-hint">Add</div>
+      <div class="dish dual-price" data-name="Noodles" data-veg-price="229" data-nonveg-price="329" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
+        <div class="dish-info"><div class="dish-name">Noodles</div><div class="dish-note">Veg / Chicken</div></div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row"><span class="dual-dot veg"></span><span class="dual-price-value">₹229</span></div>
+          <div class="dual-price-row"><span class="dual-dot nonveg"></span><span class="dual-price-value">₹329</span></div>
         </div>
       </div>
 
-      <div class="dish" data-name="Hakka Noodles" data-price="239" data-note="Veg ₹239 / Chicken ₹339">
-        <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Hakka Noodles</div>
-          <div class="dish-note">Veg ₹239 / Chicken ₹339</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹239+</div>
-          <div class="dish-add-hint">Add</div>
+      <div class="dish dual-price" data-name="Hakka Noodles" data-veg-price="239" data-nonveg-price="339" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
+        <div class="dish-info"><div class="dish-name">Hakka Noodles</div><div class="dish-note">Veg / Chicken</div></div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row"><span class="dual-dot veg"></span><span class="dual-price-value">₹239</span></div>
+          <div class="dual-price-row"><span class="dual-dot nonveg"></span><span class="dual-price-value">₹339</span></div>
         </div>
       </div>
 
-      <div class="dish" data-name="Chilli Garlic Noodles" data-price="249" data-note="Veg ₹249 / Chicken ₹349">
-        <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Chilli Garlic Noodles</div>
-          <div class="dish-note">Veg ₹249 / Chicken ₹349</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹249+</div>
-          <div class="dish-add-hint">Add</div>
+      <div class="dish dual-price" data-name="Chilli Garlic Noodles" data-veg-price="249" data-nonveg-price="349" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
+        <div class="dish-info"><div class="dish-name">Chilli Garlic Noodles</div><div class="dish-note">Veg / Chicken</div></div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row"><span class="dual-dot veg"></span><span class="dual-price-value">₹249</span></div>
+          <div class="dual-price-row"><span class="dual-dot nonveg"></span><span class="dual-price-value">₹349</span></div>
         </div>
       </div>
 
-      <div class="dish" data-name="Singapoori Noodles" data-price="249" data-note="Veg ₹249 / Chicken ₹349">
-        <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Singapoori Noodles</div>
-          <div class="dish-note">Veg ₹249 / Chicken ₹349</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹249+</div>
-          <div class="dish-add-hint">Add</div>
+      <div class="dish dual-price" data-name="Singapoori Noodles" data-veg-price="249" data-nonveg-price="349" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
+        <div class="dish-info"><div class="dish-name">Singapoori Noodles</div><div class="dish-note">Veg / Chicken</div></div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row"><span class="dual-dot veg"></span><span class="dual-price-value">₹249</span></div>
+          <div class="dual-price-row"><span class="dual-dot nonveg"></span><span class="dual-price-value">₹349</span></div>
         </div>
       </div>
 
-      <div class="dish" data-name="Spring Roll" data-price="279">
+      <div class="dish" data-name="Spring Roll" data-price="279" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Spring Roll</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹279</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Spring Roll</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹279</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Honey Chilli Potato" data-price="279">
+      <div class="dish" data-name="Honey Chilli Potato" data-price="279" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Honey Chilli Potato</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹279</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Honey Chilli Potato</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹279</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Chilli Mushroom" data-price="279">
+      <div class="dish" data-name="Chilli Mushroom" data-price="279" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Chilli Mushroom</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹279</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Chilli Mushroom</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹279</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Veg Manchurian" data-price="279" data-note="Dry / Gravy">
+      <div class="dish" data-name="Veg Manchurian" data-price="279" data-veg="true" data-note="Dry / Gravy">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Veg Manchurian</div>
-          <div class="dish-note">Dry / Gravy</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹279</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Veg Manchurian</div><div class="dish-note">Dry / Gravy</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹279</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Cheese Chilly" data-price="299" data-note="Dry / Gravy">
+      <div class="dish" data-name="Cheese Chilly" data-price="299" data-veg="true" data-note="Dry / Gravy">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Cheese Chilly</div>
-          <div class="dish-note">Dry / Gravy</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹299</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Cheese Chilly</div><div class="dish-note">Dry / Gravy</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
       </div>
 
       <div class="dish" data-name="Lemon Chicken" data-price="379" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info">
-          <div class="dish-name">Lemon Chicken</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹379</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Lemon Chicken</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹379</div><div class="dish-add-hint">Add</div></div>
       </div>
 
       <div class="dish" data-name="Chicken 65" data-price="379" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info">
-          <div class="dish-name">Chicken 65</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹379</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Chicken 65</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹379</div><div class="dish-add-hint">Add</div></div>
       </div>
 
       <div class="dish" data-name="Chilli Chicken" data-price="379" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info">
-          <div class="dish-name">Chilli Chicken</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹379</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Chilli Chicken</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹379</div><div class="dish-add-hint">Add</div></div>
       </div>
 
       <div class="dish" data-name="Chicken Lollipop" data-price="399" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info">
-          <div class="dish-name">Chicken Lollipop</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹399</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Chicken Lollipop</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹399</div><div class="dish-add-hint">Add</div></div>
       </div>
-    </section>    <!-- ============ CONTINENTAL ============ -->
+    </section>
+
+    <!-- ============ CONTINENTAL ============ -->
     <section class="category" data-category="continental">
       <div class="category-header">
         <div class="category-line"></div>
@@ -1768,156 +2013,114 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Burger" data-price="149" data-note="Veg ₹149 / Chicken ₹199">
-        <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Burger</div>
-          <div class="dish-note">Veg ₹149 / Chicken ₹199</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹149+</div>
-          <div class="dish-add-hint">Add</div>
+      <div class="dish dual-price" data-name="Burger" data-veg-price="149" data-nonveg-price="199" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
+        <div class="dish-info"><div class="dish-name">Burger</div><div class="dish-note">Veg / Chicken</div></div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row"><span class="dual-dot veg"></span><span class="dual-price-value">₹149</span></div>
+          <div class="dual-price-row"><span class="dual-dot nonveg"></span><span class="dual-price-value">₹199</span></div>
         </div>
       </div>
 
-      <div class="dish" data-name="Cheese Burger" data-price="179" data-note="Veg ₹179 / Chicken ₹229">
-        <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Cheese Burger</div>
-          <div class="dish-note">Veg ₹179 / Chicken ₹229</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹179+</div>
-          <div class="dish-add-hint">Add</div>
+      <div class="dish dual-price" data-name="Cheese Burger" data-veg-price="179" data-nonveg-price="229" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
+        <div class="dish-info"><div class="dish-name">Cheese Burger</div><div class="dish-note">Veg / Chicken</div></div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row"><span class="dual-dot veg"></span><span class="dual-price-value">₹179</span></div>
+          <div class="dual-price-row"><span class="dual-dot nonveg"></span><span class="dual-price-value">₹229</span></div>
         </div>
       </div>
 
-      <div class="dish" data-name="Club Sandwich" data-price="159" data-note="Veg ₹159 / Chicken ₹199" data-veg="false">
-        <span class="veg-mark nonveg"></span>
-        <div class="dish-info">
-          <div class="dish-name">Club Sandwich</div>
-          <div class="dish-note">Veg ₹159 / Chicken ₹199</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹159+</div>
-          <div class="dish-add-hint">Add</div>
+      <div class="dish dual-price" data-name="Club Sandwich" data-veg-price="159" data-nonveg-price="199" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
+        <div class="dish-info"><div class="dish-name">Club Sandwich</div><div class="dish-note">Veg / Chicken</div></div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row"><span class="dual-dot veg"></span><span class="dual-price-value">₹159</span></div>
+          <div class="dual-price-row"><span class="dual-dot nonveg"></span><span class="dual-price-value">₹199</span></div>
         </div>
       </div>
 
-      <div class="dish" data-name="Grilled Sandwich" data-price="179" data-note="Veg ₹179 / Chicken ₹229">
-        <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Grilled Sandwich</div>
-          <div class="dish-note">Veg ₹179 / Chicken ₹229</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹179+</div>
-          <div class="dish-add-hint">Add</div>
+      <div class="dish dual-price" data-name="Grilled Sandwich" data-veg-price="179" data-nonveg-price="229" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
+        <div class="dish-info"><div class="dish-name">Grilled Sandwich</div><div class="dish-note">Veg / Chicken</div></div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row"><span class="dual-dot veg"></span><span class="dual-price-value">₹179</span></div>
+          <div class="dual-price-row"><span class="dual-dot nonveg"></span><span class="dual-price-value">₹229</span></div>
         </div>
       </div>
 
-      <div class="dish" data-name="Cheese Grilled Sandwich" data-price="199" data-note="Veg ₹199 / Chicken ₹249">
-        <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Cheese Grilled Sandwich</div>
-          <div class="dish-note">Veg ₹199 / Chicken ₹249</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹199+</div>
-          <div class="dish-add-hint">Add</div>
+      <div class="dish dual-price" data-name="Cheese Grilled Sandwich" data-veg-price="199" data-nonveg-price="249" data-has-nonveg="true" data-note="Veg / Chicken">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
+        <div class="dish-info"><div class="dish-name">Cheese Grilled Sandwich</div><div class="dish-note">Veg / Chicken</div></div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row"><span class="dual-dot veg"></span><span class="dual-price-value">₹199</span></div>
+          <div class="dual-price-row"><span class="dual-dot nonveg"></span><span class="dual-price-value">₹249</span></div>
         </div>
       </div>
 
-      <div class="dish" data-name="Alfredo Pasta" data-price="269">
+      <div class="dish" data-name="Alfredo Pasta" data-price="269" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Alfredo Pasta</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹269</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Alfredo Pasta</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹269</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Arrabiata Pasta" data-price="269">
+      <div class="dish" data-name="Arrabiata Pasta" data-price="269" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Arrabiata Pasta</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹269</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Arrabiata Pasta</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹269</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Pink Sauce Pasta" data-price="299">
+      <div class="dish" data-name="Pink Sauce Pasta" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Pink Sauce Pasta</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹299</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Pink Sauce Pasta</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Margherita Pizza" data-price="279">
+      <div class="dish" data-name="Margherita Pizza" data-price="279" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Margherita Pizza</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹279</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Margherita Pizza</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹279</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Farmhouse Pizza" data-price="299">
+      <div class="dish" data-name="Farmhouse Pizza" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Farmhouse Pizza</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹299</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Farmhouse Pizza</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Paneer Makhani Pizza" data-price="329">
+      <div class="dish" data-name="Paneer Makhani Pizza" data-price="329" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info">
-          <div class="dish-name">Paneer Makhani Pizza</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹329</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Paneer Makhani Pizza</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹329</div><div class="dish-add-hint">Add</div></div>
       </div>
 
       <div class="dish" data-name="Chilli Chicken Pizza" data-price="399" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info">
-          <div class="dish-name">Chilli Chicken Pizza</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹399</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Chilli Chicken Pizza</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹399</div><div class="dish-add-hint">Add</div></div>
       </div>
 
       <div class="dish" data-name="Chicken Makhani Pizza" data-price="399" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info">
-          <div class="dish-name">Chicken Makhani Pizza</div>
-        </div>
-        <div class="dish-price-wrap">
-          <div class="dish-price">₹399</div>
-          <div class="dish-add-hint">Add</div>
-        </div>
+        <div class="dish-info"><div class="dish-name">Chicken Makhani Pizza</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹399</div><div class="dish-add-hint">Add</div></div>
       </div>
     </section>
 
-    <!-- ============ MAIN COURSE VEG ============ -->
+    <!-- ============ MAIN COURSE - VEG ============ -->
     <section class="category" data-category="veg">
       <div class="category-header">
         <div class="category-line"></div>
@@ -1925,138 +2128,162 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Jeera Aloo" data-price="249">
+      <div class="dish" data-name="Jeera Aloo" data-price="249" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Jeera Aloo</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹249</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Pindi Chana" data-price="249">
+      <div class="dish" data-name="Pindi Chana" data-price="249" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Pindi Chana</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹249</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Rajma Masala" data-price="249">
+      <div class="dish" data-name="Rajma Masala" data-price="249" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Rajma Masala</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹249</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Aloo Gobhi Adraki" data-price="249">
+      <div class="dish" data-name="Aloo Gobhi Adraki" data-price="249" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Aloo Gobhi Adraki</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹249</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Mix Vegetable" data-price="279">
+      <div class="dish" data-name="Mix Vegetable" data-price="279" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Mix Vegetable</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹279</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Dal Tadka" data-price="279">
+      <div class="dish" data-name="Dal Tadka" data-price="279" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Dal Tadka</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹279</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Dal Makhni" data-price="299">
+      <div class="dish" data-name="Dal Makhni" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Dal Makhni</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Matar Mushroom" data-price="299">
+      <div class="dish" data-name="Matar Mushroom" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Matar Mushroom</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Mushroom Do Pyaza" data-price="299">
+      <div class="dish" data-name="Mushroom Do Pyaza" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Mushroom Do Pyaza</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Malai Kofta" data-price="299">
+      <div class="dish" data-name="Malai Kofta" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Malai Kofta</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Kadhai Chaap" data-price="319">
+      <div class="dish" data-name="Kadhai Chaap" data-price="319" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Kadhai Chaap</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹319</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Chaap Butter Masala" data-price="319">
+      <div class="dish" data-name="Chaap Butter Masala" data-price="319" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Chaap Butter Masala</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹319</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Shahi Paneer" data-price="339">
+      <div class="dish" data-name="Shahi Paneer" data-price="339" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Shahi Paneer</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹339</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Kadhai Paneer" data-price="339">
+      <div class="dish" data-name="Kadhai Paneer" data-price="339" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Kadhai Paneer</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹339</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Paneer Butter Masala" data-price="339">
+      <div class="dish" data-name="Paneer Butter Masala" data-price="339" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Paneer Butter Masala</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹339</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Paneer Lababdar" data-price="339">
+      <div class="dish" data-name="Paneer Lababdar" data-price="339" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Paneer Lababdar</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹339</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Paneer Do Pyaza" data-price="339">
+      <div class="dish" data-name="Paneer Do Pyaza" data-price="339" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Paneer Do Pyaza</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹339</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Paneer Khurchan" data-price="339">
+      <div class="dish" data-name="Paneer Khurchan" data-price="339" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Paneer Khurchan</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹339</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Matar Paneer" data-price="339">
+      <div class="dish" data-name="Matar Paneer" data-price="339" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Matar Paneer</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹339</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Palak Paneer" data-price="339">
+      <div class="dish" data-name="Palak Paneer" data-price="339" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Palak Paneer</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹339</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Paneer Bhurji" data-price="339">
+      <div class="dish" data-name="Paneer Bhurji" data-price="339" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Paneer Bhurji</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹339</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Paneer Tikka Masala" data-price="379">
+      <div class="dish" data-name="Paneer Tikka Masala" data-price="379" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Paneer Tikka Masala</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹379</div><div class="dish-add-hint">Add</div></div>
       </div>
-    </section>    <!-- ============ MAIN COURSE NON-VEG ============ -->
+    </section>
+
+    <!-- ============ MAIN COURSE - NON-VEG ============ -->
     <section class="category" data-category="nonveg">
       <div class="category-header">
         <div class="category-line"></div>
@@ -2064,82 +2291,274 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Butter Chicken" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Butter Chicken" data-half-price="379" data-full-price="649" data-has-half="true" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Butter Chicken</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Butter Chicken</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Half · Full</div>
+          <div class="hf-price-row"><span class="hf-tag">Half</span><span class="hf-value">₹379</span></div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹649</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Kadhai Chicken" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Kadhai Chicken" data-half-price="379" data-full-price="649" data-has-half="true" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Kadhai Chicken</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Kadhai Chicken</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Half · Full</div>
+          <div class="hf-price-row"><span class="hf-tag">Half</span><span class="hf-value">₹379</span></div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹649</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Chicken Lababdar" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Chicken Lababdar" data-half-price="379" data-full-price="649" data-has-half="true" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Chicken Lababdar</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Chicken Lababdar</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Half · Full</div>
+          <div class="hf-price-row"><span class="hf-tag">Half</span><span class="hf-value">₹379</span></div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹649</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Homestyle Chicken" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Homestyle Chicken" data-half-price="379" data-full-price="649" data-has-half="true" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Homestyle Chicken</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Homestyle Chicken</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Half · Full</div>
+          <div class="hf-price-row"><span class="hf-tag">Half</span><span class="hf-value">₹379</span></div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹649</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Lemon Chicken" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Lemon Chicken" data-half-price="379" data-full-price="649" data-has-half="true" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Lemon Chicken</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Lemon Chicken</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Half · Full</div>
+          <div class="hf-price-row"><span class="hf-tag">Half</span><span class="hf-value">₹379</span></div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹649</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Chicken Do Pyaza" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Chicken Do Pyaza" data-half-price="379" data-full-price="649" data-has-half="true" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Chicken Do Pyaza</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Chicken Do Pyaza</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Half · Full</div>
+          <div class="hf-price-row"><span class="hf-tag">Half</span><span class="hf-value">₹379</span></div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹649</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Chicken Tikka Masala" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Chicken Tikka Masala" data-half-price="399" data-full-price="799" data-has-half="true" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Chicken Tikka Masala</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Chicken Tikka Masala</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Half · Full</div>
+          <div class="hf-price-row"><span class="hf-tag">Half</span><span class="hf-value">₹399</span></div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹799</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Chicken Kali Mirch" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Chicken Kali Mirch" data-half-price="399" data-full-price="799" data-has-half="true" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Chicken Kali Mirch</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Chicken Kali Mirch</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Half · Full</div>
+          <div class="hf-price-row"><span class="hf-tag">Half</span><span class="hf-value">₹399</span></div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹799</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Chicken Rara" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Chicken Rara" data-half-price="399" data-full-price="799" data-has-half="true" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Chicken Rara</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Chicken Rara</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Half · Full</div>
+          <div class="hf-price-row"><span class="hf-tag">Half</span><span class="hf-value">₹399</span></div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹799</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Mutton Rogan Josh" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Mutton Rogan Josh" data-full-price="699" data-has-half="false" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Mutton Rogan Josh</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Mutton Rogan Josh</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Full only</div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹699</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Mutton Rara" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Mutton Rara" data-full-price="699" data-has-half="false" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Mutton Rara</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Mutton Rara</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Full only</div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹699</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Mutton Ghee Roast (Bhunna)" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Mutton Ghee Roast (Bhunna)" data-full-price="699" data-has-half="false" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Mutton Ghee Roast (Bhunna)</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Mutton Ghee Roast (Bhunna)</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Full only</div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹699</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Fish Curry" data-price="0" data-veg="false" data-note="Rate on enquiry">
+      <div class="dish half-full" data-name="Fish Curry" data-full-price="649" data-has-half="false" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Fish Curry</div><div class="dish-note">Rate on enquiry</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">Ask</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info"><div class="dish-name">Fish Curry</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Full only</div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹649</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TANDOORI KHAZANA ============ -->
+    <section class="category" data-category="tandoori">
+      <div class="category-header">
+        <div class="category-line"></div>
+        <div class="category-title">Tandoori Khazana</div>
+        <div class="category-line right"></div>
+      </div>
+
+      <div class="subcategory-label">
+        <span class="veg-mark"></span>
+        <span>Tandoori Veg</span>
+      </div>
+
+      <div class="dish" data-name="Tandoori Pineapple" data-price="269" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info"><div class="dish-name">Tandoori Pineapple</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹269</div><div class="dish-add-hint">Add</div></div>
+      </div>
+
+      <div class="dish" data-name="Afghani Broccoli" data-price="269" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info"><div class="dish-name">Afghani Broccoli</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹269</div><div class="dish-add-hint">Add</div></div>
+      </div>
+
+      <div class="dish" data-name="Paneer Tikka" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info"><div class="dish-name">Paneer Tikka</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
+      </div>
+
+      <div class="dish" data-name="Paneer Malai Tikka" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info"><div class="dish-name">Paneer Malai Tikka</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
+      </div>
+
+      <div class="dish" data-name="Paneer Achari Tikka" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info"><div class="dish-name">Paneer Achari Tikka</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
+      </div>
+
+      <div class="dish" data-name="Hariyali Paneer Tikka" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info"><div class="dish-name">Hariyali Paneer Tikka</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
+      </div>
+
+      <div class="dish" data-name="Malai Chaap Tikka" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info"><div class="dish-name">Malai Chaap Tikka</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
+      </div>
+
+      <div class="dish" data-name="Achari Chaap Tikka" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info"><div class="dish-name">Achari Chaap Tikka</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
+      </div>
+
+      <div class="dish" data-name="Mushroom Tikka" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info"><div class="dish-name">Mushroom Tikka</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
+      </div>
+
+      <div class="dish" data-name="Olive Spl. Tandoori Platter" data-price="599" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark"></span>
+        <div class="dish-info"><div class="dish-name">Olive Spl. Tandoori Platter</div></div>
+        <div class="dish-price-wrap"><div class="dish-price">₹599</div><div class="dish-add-hint">Add</div></div>
+      </div>
+
+      <div class="subcategory-label">
+        <span class="veg-mark nonveg"></span>
+        <span>Tandoori Non-Veg</span>
+      </div>
+
+      <div class="dish half-full" data-name="Chicken Tikka" data-full-price="449" data-has-half="false" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark nonveg"></span>
+        <div class="dish-info"><div class="dish-name">Chicken Tikka</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Full only</div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹449</span></div>
+        </div>
+      </div>
+
+      <div class="dish half-full" data-name="Chicken Malai Tikka" data-full-price="479" data-has-half="false" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark nonveg"></span>
+        <div class="dish-info"><div class="dish-name">Chicken Malai Tikka</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Full only</div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹479</span></div>
+        </div>
+      </div>
+
+      <div class="dish half-full" data-name="Tandoori Chicken" data-half-price="349" data-full-price="599" data-has-half="true" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark nonveg"></span>
+        <div class="dish-info"><div class="dish-name">Tandoori Chicken</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Half · Full</div>
+          <div class="hf-price-row"><span class="hf-tag">Half</span><span class="hf-value">₹349</span></div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹599</span></div>
+        </div>
+      </div>
+
+      <div class="dish half-full" data-name="Afghani Chicken" data-half-price="349" data-full-price="599" data-has-half="true" data-has-full="true" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark nonveg"></span>
+        <div class="dish-info"><div class="dish-name">Afghani Chicken</div></div>
+        <div class="dish-price-wrap half-full-wrap">
+          <div class="hf-label">Half · Full</div>
+          <div class="hf-price-row"><span class="hf-tag">Half</span><span class="hf-value">₹349</span></div>
+          <div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹599</span></div>
+        </div>
       </div>
     </section>
 
@@ -2151,37 +2570,43 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Roti with Gravy" data-price="99">
+      <div class="dish" data-name="Roti with Gravy" data-price="99" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Roti with Gravy</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹99</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Stuff / Cheese Naan with Gravy" data-price="179">
+      <div class="dish" data-name="Stuff / Cheese Naan with Gravy" data-price="179" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Stuff / Cheese Naan with Gravy</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹179</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Dal Makhani with Rice" data-price="199">
+      <div class="dish" data-name="Dal Makhani with Rice" data-price="199" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Dal Makhani with Rice</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹199</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Kadhi Pakoda with Rice" data-price="199">
+      <div class="dish" data-name="Kadhi Pakoda with Rice" data-price="199" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Kadhi Pakoda with Rice</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹199</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Rajma Masala with Rice" data-price="199">
+      <div class="dish" data-name="Rajma Masala with Rice" data-price="199" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Rajma Masala with Rice</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹199</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Veg Manchurian with Fried Rice" data-price="249">
+      <div class="dish" data-name="Veg Manchurian with Fried Rice" data-price="249" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Veg Manchurian with Fried Rice</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹249</div><div class="dish-add-hint">Add</div></div>
@@ -2196,80 +2621,92 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Roti" data-price="29" data-note="Tava / Tandoor">
+      <div class="dish" data-name="Roti" data-price="29" data-veg="true" data-note="Tava / Tandoor">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Roti</div><div class="dish-note">Tava / Tandoor</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹29</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Butter Roti" data-price="39" data-note="Tava / Tandoor">
+      <div class="dish" data-name="Butter Roti" data-price="39" data-veg="true" data-note="Tava / Tandoor">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Butter Roti</div><div class="dish-note">Tava / Tandoor</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹39</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Missi Roti" data-price="49">
+      <div class="dish" data-name="Missi Roti" data-price="49" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Missi Roti</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹49</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Onion Mirchi Roti" data-price="59">
+      <div class="dish" data-name="Onion Mirchi Roti" data-price="59" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Onion Mirchi Roti</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹59</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Plain Naan" data-price="69">
+      <div class="dish" data-name="Plain Naan" data-price="69" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Plain Naan</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹69</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Butter Naan" data-price="79">
+      <div class="dish" data-name="Butter Naan" data-price="79" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Butter Naan</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹79</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Garlic Naan" data-price="79">
+      <div class="dish" data-name="Garlic Naan" data-price="79" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Garlic Naan</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹79</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Laccha Paratha" data-price="79">
+      <div class="dish" data-name="Laccha Paratha" data-price="79" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Laccha Paratha</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹79</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Mirchi Paratha" data-price="79">
+      <div class="dish" data-name="Mirchi Paratha" data-price="79" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Mirchi Paratha</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹79</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Stuff Paratha" data-price="119">
+      <div class="dish" data-name="Stuff Paratha" data-price="119" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Stuff Paratha</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹119</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Stuff Naan" data-price="119">
+      <div class="dish" data-name="Stuff Naan" data-price="119" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Stuff Naan</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹119</div><div class="dish-add-hint">Add</div></div>
       </div>
 
       <div class="dish" data-name="Chicken Keema Naan" data-price="149" data-veg="false">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
         <div class="dish-info"><div class="dish-name">Chicken Keema Naan</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹149</div><div class="dish-add-hint">Add</div></div>
       </div>
     </section>
 
-    <!-- ============ KHAZANA-E-BASMATI ============ -->
+    <!-- ============ RICE & BIRYANI ============ -->
     <section class="category" data-category="rice">
       <div class="category-header">
         <div class="category-line"></div>
@@ -2277,48 +2714,57 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Steam Rice" data-price="169">
+      <div class="dish" data-name="Steam Rice" data-price="169" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Steam Rice</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹169</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Jeera Rice" data-price="189">
+      <div class="dish" data-name="Jeera Rice" data-price="189" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Jeera Rice</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹189</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Peas Pulao" data-price="199">
+      <div class="dish" data-name="Peas Pulao" data-price="199" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Peas Pulao</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹199</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Veg Pulao" data-price="239">
+      <div class="dish" data-name="Veg Pulao" data-price="239" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Veg Pulao</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹239</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Veg Biryani" data-price="329" data-note="Served with Raita">
+      <div class="dish" data-name="Veg Biryani" data-price="329" data-veg="true" data-note="Served with Raita">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Veg Biryani</div><div class="dish-note">Served with Raita</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹329</div><div class="dish-add-hint">Add</div></div>
       </div>
 
       <div class="dish" data-name="Chicken Biryani" data-price="399" data-veg="false" data-note="Served with Raita">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
         <div class="dish-info"><div class="dish-name">Chicken Biryani</div><div class="dish-note">Served with Raita</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹399</div><div class="dish-add-hint">Add</div></div>
       </div>
 
       <div class="dish" data-name="Mutton Biryani" data-price="479" data-veg="false" data-note="Served with Raita">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark nonveg"></span>
         <div class="dish-info"><div class="dish-name">Mutton Biryani</div><div class="dish-note">Served with Raita</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹479</div><div class="dish-add-hint">Add</div></div>
       </div>
-    </section>    <!-- ============ RAITA ============ -->
+    </section>
+
+    <!-- ============ RAITA ============ -->
     <section class="category" data-category="raita">
       <div class="category-header">
         <div class="category-line"></div>
@@ -2326,25 +2772,29 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Plain Curd" data-price="69">
+      <div class="dish" data-name="Plain Curd" data-price="69" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Plain Curd</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹69</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Mix Raita" data-price="149">
+      <div class="dish" data-name="Mix Raita" data-price="149" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Mix Raita</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹149</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Boondi Raita" data-price="149">
+      <div class="dish" data-name="Boondi Raita" data-price="149" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Boondi Raita</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹149</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Cucumber Raita" data-price="149">
+      <div class="dish" data-name="Cucumber Raita" data-price="149" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Cucumber Raita</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹149</div><div class="dish-add-hint">Add</div></div>
@@ -2359,61 +2809,71 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Roasted Papad" data-price="49">
+      <div class="dish" data-name="Roasted Papad" data-price="49" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Roasted Papad</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹49</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Rice Papad" data-price="89">
+      <div class="dish" data-name="Rice Papad" data-price="89" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Rice Papad</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹89</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Masala Papad" data-price="119">
+      <div class="dish" data-name="Masala Papad" data-price="119" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Masala Papad</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹119</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Green Salad" data-price="99">
+      <div class="dish" data-name="Green Salad" data-price="99" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Green Salad</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹99</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Cucumber Salad" data-price="99">
+      <div class="dish" data-name="Cucumber Salad" data-price="99" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Cucumber Salad</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹99</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Corn Chaat" data-price="149">
+      <div class="dish" data-name="Corn Chaat" data-price="149" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Corn Chaat</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹149</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Chana Chaat" data-price="149">
+      <div class="dish" data-name="Chana Chaat" data-price="149" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Chana Chaat</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹149</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Peanut Masala" data-price="149">
+      <div class="dish" data-name="Peanut Masala" data-price="149" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Peanut Masala</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹149</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Crispy Corn" data-price="249">
+      <div class="dish" data-name="Crispy Corn" data-price="249" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Crispy Corn</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹249</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Bar Salad" data-price="299">
+      <div class="dish" data-name="Bar Salad" data-price="299" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Bar Salad</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
@@ -2428,15 +2888,17 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Gulab Jamun" data-price="79" data-note="2 pieces">
+      <div class="dish" data-name="Gulab Jamun" data-price="79" data-veg="true" data-note="2 nos">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Gulab Jamun</div><div class="dish-note">2 pieces</div></div>
+        <div class="dish-info"><div class="dish-name">Gulab Jamun</div><div class="dish-note">2 nos</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹79</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Ice Cream" data-price="79" data-note="1 scoop">
+      <div class="dish" data-name="Ice Cream" data-price="79" data-veg="true" data-note="1 Scoop">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Ice Cream</div><div class="dish-note">1 scoop</div></div>
+        <div class="dish-info"><div class="dish-name">Ice Cream</div><div class="dish-note">1 Scoop</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹79</div><div class="dish-add-hint">Add</div></div>
       </div>
     </section>
@@ -2449,85 +2911,102 @@
         <div class="category-line right"></div>
       </div>
 
-      <div class="dish" data-name="Milk" data-price="39">
+      <div class="dish" data-name="Milk" data-price="39" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Milk</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹39</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Tea" data-price="39" data-note="Masala / Elaichi">
+      <div class="dish" data-name="Tea" data-price="39" data-veg="true" data-note="Masala / Elaichi">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Tea</div><div class="dish-note">Masala / Elaichi</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹39</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Coffee" data-price="49">
+      <div class="dish" data-name="Coffee" data-price="49" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Coffee</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹49</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Green Tea" data-price="49">
+      <div class="dish" data-name="Green Tea" data-price="49" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Green Tea</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹49</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Fresh Lime Water" data-price="69" data-note="Sweet / Salted">
+      <div class="dish" data-name="Fresh Lime Water" data-price="69" data-veg="true" data-note="Sweet / Salted">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Fresh Lime Water</div><div class="dish-note">Sweet / Salted</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹69</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Fresh Lime Soda" data-price="89" data-note="Sweet / Salted">
+      <div class="dish" data-name="Fresh Lime Soda" data-price="89" data-veg="true" data-note="Sweet / Salted">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Fresh Lime Soda</div><div class="dish-note">Sweet / Salted</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹89</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Lassi" data-price="99" data-note="Sweet / Salted">
+      <div class="dish" data-name="Lassi" data-price="99" data-veg="true" data-note="Sweet / Salted">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Lassi</div><div class="dish-note">Sweet / Salted</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹99</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Fresh Juice" data-price="119">
+      <div class="dish" data-name="Fresh Juice" data-price="119" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Fresh Juice</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹119</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Cold Coffee" data-price="129" data-note="Without ice-cream ₹129 / With ice-cream ₹179">
-        <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Cold Coffee</div><div class="dish-note">Without ice-cream ₹129 / With ice-cream ₹179</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹129+</div><div class="dish-add-hint">Add</div></div>
+      <div class="dish dual-price" data-name="Cold Coffee" data-veg-price="129" data-nonveg-price="179" data-has-nonveg="true" data-note="Without Ice-cream / With Ice-cream">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
+        <span class="veg-mark both"></span>
+        <div class="dish-info"><div class="dish-name">Cold Coffee</div><div class="dish-note">Without Ice-cream / With Ice-cream</div></div>
+        <div class="dish-price-wrap dual-price-wrap">
+          <div class="dual-price-row"><span class="dual-dot veg"></span><span class="dual-price-value">₹129</span></div>
+          <div class="dual-price-row"><span class="dual-dot nonveg"></span><span class="dual-price-value">₹179</span></div>
+        </div>
       </div>
 
-      <div class="dish" data-name="Milk Shake" data-price="169" data-note="Vanilla / Strawberry / Chocolate">
+      <div class="dish" data-name="Milk Shake" data-price="169" data-veg="true" data-note="Vanilla / Strawberry / Chocolate">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Milk Shake</div><div class="dish-note">Vanilla / Strawberry / Chocolate</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹169</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Red Bull" data-price="159">
+      <div class="dish" data-name="Red Bull" data-price="159" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Red Bull</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹159</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Soft Drink" data-price="79">
+      <div class="dish" data-name="Soft Drink" data-price="79" data-veg="true">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Soft Drink</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹79</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Plain Soda" data-price="0" data-note="MRP">
+      <div class="dish" data-name="Plain Soda" data-price="0" data-veg="true" data-note="MRP">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Plain Soda</div><div class="dish-note">MRP</div></div>
         <div class="dish-price-wrap"><div class="dish-price">MRP</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-      <div class="dish" data-name="Water Bottle" data-price="0" data-note="MRP">
+      <div class="dish" data-name="Water Bottle" data-price="0" data-veg="true" data-note="MRP">
+        <img src="logo.jpg.jpeg" class="dish-watermark" alt="" aria-hidden="true">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Water Bottle</div><div class="dish-note">MRP</div></div>
         <div class="dish-price-wrap"><div class="dish-price">MRP</div><div class="dish-add-hint">Add</div></div>
@@ -2553,7 +3032,7 @@
     </div>
   </footer>  <!-- ============ STICKY BOTTOM BAR ============ -->
   <div class="bottombar" id="bottombar">
-    <button class="bottom-action primary" id="viewCartBtn">
+    <button class="bottom-action primary" id="viewCartBtn" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="9" cy="21" r="1"/>
         <circle cx="20" cy="21" r="1"/>
@@ -2575,7 +3054,7 @@
   <!-- ============ DISH DETAIL MODAL ============ -->
   <div class="modal" id="dishModal">
     <div class="modal-handle"></div>
-    <button class="modal-close" id="modalClose">
+    <button class="modal-close" id="modalClose" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="6" x2="6" y2="18"/>
         <line x1="6" y1="6" x2="18" y2="18"/>
@@ -2586,10 +3065,13 @@
       <h2 class="modal-title" id="modalTitle">Dish Name</h2>
       <div class="modal-desc" id="modalDesc"></div>
       <div class="modal-divider"></div>
-      <div class="modal-price-row">
-        <div class="modal-price-label">Price</div>
-        <div class="modal-price-value" id="modalPrice">₹0</div>
+
+      <!-- Portion selector — only shown for dual-price / half-full items -->
+      <div class="portion-section" id="portionSection" style="display:none;">
+        <div class="portion-label" id="portionLabel">Choose your portion</div>
+        <div class="portion-options" id="portionOptions"></div>
       </div>
+
       <div class="modal-actions">
         <div class="qty-control">
           <button class="qty-btn" id="qtyMinus" type="button">−</button>
@@ -2634,7 +3116,9 @@
   </div>
 
   <!-- ============ TOAST ============ -->
-  <div class="toast" id="toast">Added</div>  <!-- ============ THREE.JS ============ -->
+  <div class="toast" id="toast">Added</div>
+
+  <!-- ============ THREE.JS ============ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <!-- ============ MAIN SCRIPT ============ -->
@@ -2646,12 +3130,13 @@
     // ============ STATE ============
     let cart = [];
     try {
-      const saved = localStorage.getItem('olive_cart');
+      const saved = localStorage.getItem('olive_cart_v2');
       if (saved) cart = JSON.parse(saved);
     } catch(e){ cart = []; }
 
     let currentDish = null;
     let currentQty = 1;
+    let selectedPortion = null; // { label, price } or null for single-price dishes
 
     // ============ DOM ============
     const cartCountEl = document.getElementById('cartCount');
@@ -2671,11 +3156,14 @@
     const modalTitle = document.getElementById('modalTitle');
     const modalEyebrow = document.getElementById('modalEyebrow');
     const modalDesc = document.getElementById('modalDesc');
-    const modalPrice = document.getElementById('modalPrice');
     const qtyValue = document.getElementById('qtyValue');
     const qtyMinus = document.getElementById('qtyMinus');
     const qtyPlus = document.getElementById('qtyPlus');
     const addToCartBtn = document.getElementById('addToCartBtn');
+
+    const portionSection = document.getElementById('portionSection');
+    const portionLabel = document.getElementById('portionLabel');
+    const portionOptions = document.getElementById('portionOptions');
 
     const toast = document.getElementById('toast');
     const filterBar = document.getElementById('filterBar');
@@ -2692,35 +3180,44 @@
 
     // ============ CART PERSISTENCE ============
     function saveCart(){
-      try { localStorage.setItem('olive_cart', JSON.stringify(cart)); } catch(e){}
+      try { localStorage.setItem('olive_cart_v2', JSON.stringify(cart)); } catch(e){}
+    }
+
+    // Unique key for cart line items: name + variant label
+    function lineKey(name, variant){
+      return name + '::' + (variant || '');
     }
 
     // ============ CART LOGIC ============
-    function addToCart(name, price, qty){
+    function addToCart(name, price, qty, variant){
       qty = qty || 1;
-      const existing = cart.find(item => item.name === name);
+      variant = variant || '';
+      const key = lineKey(name, variant);
+      const existing = cart.find(item => lineKey(item.name, item.variant) === key);
       if (existing){
         existing.qty += qty;
       } else {
-        cart.push({ name: name, price: price, qty: qty });
+        cart.push({ name: name, price: price, qty: qty, variant: variant });
       }
       saveCart();
       updateCartUI();
       bounceCart();
     }
 
-    function removeFromCart(name){
-      cart = cart.filter(item => item.name !== name);
+    function removeFromCart(name, variant){
+      const key = lineKey(name, variant);
+      cart = cart.filter(item => lineKey(item.name, item.variant) !== key);
       saveCart();
       updateCartUI();
     }
 
-    function changeQty(name, delta){
-      const item = cart.find(i => i.name === name);
+    function changeQty(name, variant, delta){
+      const key = lineKey(name, variant);
+      const item = cart.find(i => lineKey(i.name, i.variant) === key);
       if (!item) return;
       item.qty += delta;
       if (item.qty <= 0){
-        removeFromCart(name);
+        removeFromCart(name, variant);
       } else {
         saveCart();
         updateCartUI();
@@ -2751,7 +3248,6 @@
         cartCountEl.textContent = count;
       }
 
-      // remove old rows (keep empty state)
       cartItemsEl.querySelectorAll('.cart-item').forEach(el => el.remove());
 
       if (cart.length === 0){
@@ -2764,15 +3260,17 @@
         cart.forEach(item => {
           const row = document.createElement('div');
           row.className = 'cart-item';
+          const variantHtml = item.variant ? `<div class="cart-item-variant">${escapeHtml(item.variant)}</div>` : '';
           row.innerHTML = `
             <div class="cart-item-info">
               <div class="cart-item-name">${escapeHtml(item.name)}</div>
+              ${variantHtml}
               <div class="cart-item-price">₹${item.price} × ${item.qty} = ₹${item.price * item.qty}</div>
             </div>
             <div class="cart-item-qty">
-              <button class="cart-qty-btn" data-action="minus" data-name="${escapeAttr(item.name)}" type="button">−</button>
+              <button class="cart-qty-btn" data-action="minus" data-name="${escapeAttr(item.name)}" data-variant="${escapeAttr(item.variant || '')}" type="button">−</button>
               <div class="cart-qty-value">${item.qty}</div>
-              <button class="cart-qty-btn" data-action="plus" data-name="${escapeAttr(item.name)}" type="button">+</button>
+              <button class="cart-qty-btn" data-action="plus" data-name="${escapeAttr(item.name)}" data-variant="${escapeAttr(item.variant || '')}" type="button">+</button>
             </div>
           `;
           cartItemsEl.appendChild(row);
@@ -2802,35 +3300,164 @@
     document.querySelectorAll('.dish').forEach(dish => {
       dish.addEventListener('click', () => {
         const name = dish.getAttribute('data-name');
-        const price = parseInt(dish.getAttribute('data-price')) || 0;
         const note = dish.getAttribute('data-note') || '';
         const isVeg = dish.getAttribute('data-veg') !== 'false';
 
-        // ripple animation
+        // ripple
         dish.classList.remove('ripple');
         void dish.offsetWidth;
         dish.classList.add('ripple');
 
-        openDishModal(name, price, note, isVeg);
+        openDishModal(dish, name, note, isVeg);
       });
     });
 
     // ============ MODAL ============
-    function openDishModal(name, price, note, isVeg){
-      currentDish = { name, price, note, isVeg };
+    function openDishModal(dishEl, name, note, isVeg){
       currentQty = 1;
-
-      modalEyebrow.textContent = isVeg ? 'Vegetarian' : 'Non-Vegetarian';
-      modalEyebrow.style.color = isVeg ? 'var(--green)' : 'var(--red)';
+      qtyValue.textContent = currentQty;
       modalTitle.textContent = name;
       modalDesc.textContent = note || '';
       modalDesc.style.display = note ? 'block' : 'none';
-      modalPrice.textContent = price > 0 ? '₹' + price : 'Rate on enquiry';
-      qtyValue.textContent = currentQty;
+
+      // Eyebrow
+      modalEyebrow.textContent = isVeg ? 'Vegetarian' : 'Non-Vegetarian';
+      modalEyebrow.style.color = isVeg ? 'var(--green)' : 'var(--red)';
+
+      // Determine pricing type
+      const isDual = dishEl.classList.contains('dual-price');
+      const isHalfFull = dishEl.classList.contains('half-full');
+      const singlePrice = parseInt(dishEl.getAttribute('data-price')) || 0;
+
+      portionOptions.innerHTML = '';
+      selectedPortion = null;
+
+      if (isDual){
+        // Veg / Non-veg choice
+        portionSection.style.display = 'block';
+        portionLabel.textContent = 'Choose your type';
+
+        const vegPrice = parseInt(dishEl.getAttribute('data-veg-price')) || 0;
+        const nonvegPrice = parseInt(dishEl.getAttribute('data-nonveg-price')) || 0;
+        const hasNonveg = dishEl.getAttribute('data-has-nonveg') === 'true';
+
+        // Veg option (always present for dual-price items)
+        portionOptions.appendChild(buildPortionBtn(
+          'veg',
+          'Veg',
+          vegPrice,
+          false,
+          () => {
+            selectedPortion = { label: 'Veg', price: vegPrice };
+            addToCartBtn.disabled = false;
+            addToCartBtn.textContent = `Add ₹${vegPrice * currentQty}`;
+          }
+        ));
+
+        // Non-veg option (only if exists)
+        if (hasNonveg){
+          portionOptions.appendChild(buildPortionBtn(
+            'nonveg',
+            'Chicken',
+            nonvegPrice,
+            false,
+            () => {
+              selectedPortion = { label: 'Chicken', price: nonvegPrice };
+              addToCartBtn.disabled = false;
+              addToCartBtn.textContent = `Add ₹${nonvegPrice * currentQty}`;
+            }
+          ));
+        }
+
+        addToCartBtn.disabled = true;
+        addToCartBtn.textContent = 'Select portion';
+
+      } else if (isHalfFull){
+        portionSection.style.display = 'block';
+        portionLabel.textContent = 'Choose your portion';
+
+        const halfPrice = parseInt(dishEl.getAttribute('data-half-price')) || 0;
+        const fullPrice = parseInt(dishEl.getAttribute('data-full-price')) || 0;
+        const hasHalf = dishEl.getAttribute('data-has-half') === 'true';
+        const hasFull = dishEl.getAttribute('data-has-full') === 'true';
+
+        if (hasHalf){
+          portionOptions.appendChild(buildPortionBtn(
+            'half',
+            'Half',
+            halfPrice,
+            false,
+            () => {
+              selectedPortion = { label: 'Half', price: halfPrice };
+              addToCartBtn.disabled = false;
+              addToCartBtn.textContent = `Add ₹${halfPrice * currentQty}`;
+            }
+          ));
+        }
+
+        if (hasFull){
+          portionOptions.appendChild(buildPortionBtn(
+            'full',
+            'Full',
+            fullPrice,
+            false,
+            () => {
+              selectedPortion = { label: 'Full', price: fullPrice };
+              addToCartBtn.disabled = false;
+              addToCartBtn.textContent = `Add ₹${fullPrice * currentQty}`;
+            }
+          ));
+        }
+
+        // If only one portion available, auto-select it
+        if (hasHalf && !hasFull){
+          portionOptions.firstChild.click();
+        } else if (!hasHalf && hasFull){
+          portionOptions.firstChild.click();
+        } else {
+          addToCartBtn.disabled = true;
+          addToCartBtn.textContent = 'Select portion';
+        }
+
+      } else {
+        // Single price — hide portion selector
+        portionSection.style.display = 'none';
+        if (singlePrice > 0){
+          selectedPortion = { label: '', price: singlePrice };
+          addToCartBtn.disabled = false;
+          addToCartBtn.textContent = `Add ₹${singlePrice}`;
+        } else {
+          // MRP items
+          selectedPortion = { label: '', price: 0 };
+          addToCartBtn.disabled = false;
+          addToCartBtn.textContent = 'Enquire on WhatsApp';
+        }
+      }
 
       modal.classList.add('show');
       modalBackdrop.classList.add('show');
       document.body.classList.add('no-scroll');
+    }
+
+    function buildPortionBtn(type, label, price, locked, onClick){
+      const btn = document.createElement('button');
+      btn.className = 'portion-btn' + (locked ? ' locked' : '');
+      btn.type = 'button';
+      btn.innerHTML = `
+        <span class="portion-dot ${type}"></span>
+        <span class="portion-btn-text">
+          <span class="portion-btn-label">${label}</span>
+          <span class="portion-btn-price">₹${price}</span>
+        </span>
+      `;
+      if (!locked){
+        btn.addEventListener('click', () => {
+          portionOptions.querySelectorAll('.portion-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          onClick();
+        });
+      }
+      return btn;
     }
 
     function closeDishModal(){
@@ -2851,25 +3478,40 @@
       if (currentQty > 1){
         currentQty--;
         qtyValue.textContent = currentQty;
+        if (selectedPortion && selectedPortion.price > 0){
+          addToCartBtn.textContent = `Add ₹${selectedPortion.price * currentQty}`;
+        }
       }
     });
 
     qtyPlus.addEventListener('click', () => {
       currentQty++;
       qtyValue.textContent = currentQty;
+      if (selectedPortion && selectedPortion.price > 0){
+        addToCartBtn.textContent = `Add ₹${selectedPortion.price * currentQty}`;
+      }
     });
 
     addToCartBtn.addEventListener('click', () => {
-      if (currentDish && currentDish.price > 0){
-        addToCart(currentDish.name, currentDish.price, currentQty);
-        showToast(currentDish.name + ' added');
-        closeDishModal();
-      } else {
-        // For "Ask" price items — direct WhatsApp enquiry
-        const msg = encodeURIComponent('Hi, I want to enquire about ' + currentDish.name + ' from ' + HOTEL_NAME);
+      if (!currentDish && modalTitle.textContent){
+        // currentDish not stored — use modal state directly
+      }
+      if (!selectedPortion) return;
+
+      const dishName = modalTitle.textContent;
+      const variant = selectedPortion.label || '';
+
+      if (selectedPortion.price === 0){
+        // MRP / no-price item — send to WhatsApp for enquiry
+        const msg = encodeURIComponent('Hi, I want to enquire about ' + dishName + ' from ' + HOTEL_NAME);
         window.open('https://wa.me/' + HOTEL_WHATSAPP + '?text=' + msg, '_blank');
         closeDishModal();
+        return;
       }
+
+      addToCart(dishName, selectedPortion.price, currentQty, variant);
+      showToast(dishName + (variant ? ' (' + variant + ')' : '') + ' added');
+      closeDishModal();
     });
 
     // ============ CART DRAWER ============
@@ -2892,14 +3534,14 @@
     viewCartBtn.addEventListener('click', openCart);
     cartClose.addEventListener('click', closeCart);
 
-    // Qty buttons inside cart (event delegation)
     cartItemsEl.addEventListener('click', (e) => {
       const btn = e.target.closest('.cart-qty-btn');
       if (!btn) return;
       const action = btn.getAttribute('data-action');
       const name = btn.getAttribute('data-name');
-      if (action === 'plus') changeQty(name, 1);
-      else if (action === 'minus') changeQty(name, -1);
+      const variant = btn.getAttribute('data-variant') || '';
+      if (action === 'plus') changeQty(name, variant, 1);
+      else if (action === 'minus') changeQty(name, variant, -1);
     });
 
     // ============ CHECKOUT ============
@@ -2907,7 +3549,8 @@
       if (cart.length === 0) return;
       let msg = 'Hi, I would like to place an order from ' + HOTEL_NAME + ':%0A%0A';
       cart.forEach((item, i) => {
-        msg += (i + 1) + '. ' + item.name + ' × ' + item.qty + ' — ₹' + (item.price * item.qty) + '%0A';
+        const variantLabel = item.variant ? ' (' + item.variant + ')' : '';
+        msg += (i + 1) + '. ' + item.name + variantLabel + ' × ' + item.qty + ' — ₹' + (item.price * item.qty) + '%0A';
       });
       msg += '%0A*Total: ₹' + cartTotal() + '*%0A%0AThanks!';
       window.open('https://wa.me/' + HOTEL_WHATSAPP + '?text=' + msg, '_blank');
@@ -2921,7 +3564,6 @@
 
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
-
       chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 
       document.querySelectorAll('.category').forEach(cat => {
@@ -2961,7 +3603,6 @@
 
     document.querySelectorAll('.dish').forEach(dish => revealObserver.observe(dish));
 
-    // Safety net — force reveal after 5 seconds
     setTimeout(() => {
       document.querySelectorAll('.dish:not(.revealed)').forEach(d => d.classList.add('revealed'));
     }, 5000);
@@ -2981,7 +3622,6 @@
     // ============ INIT ============
     updateCartUI();
 
-    // Prevent body scroll leak on modal open
     document.addEventListener('touchmove', (e) => {
       if (document.body.classList.contains('no-scroll') && !e.target.closest('.modal, .cart-drawer')){
         e.preventDefault();
@@ -2992,8 +3632,6 @@
     (function init3D(){
       const canvas = document.getElementById('bg3d');
       if (!canvas || typeof THREE === 'undefined') return;
-
-      // Respect reduced motion
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const scene = new THREE.Scene();
@@ -3008,118 +3646,133 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      // Gold palette
       const goldColor = 0xd4b46a;
       const goldBright = 0xe5c67f;
 
-      // ============ 1. Floating gold particles ============
+      // ---- Floating gold particles ----
       const particleCount = window.innerWidth < 640 ? 60 : 120;
       const positions = new Float32Array(particleCount * 3);
-      const sizes = new Float32Array(particleCount);
-
       for (let i = 0; i < particleCount; i++){
-        positions[i * 3]     = (Math.random() - 0.5) * 80;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 80;
+        positions[i * 3]     = (Math.random() - 0.5) * 90;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 90;
         positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
-        sizes[i] = Math.random() * 0.6 + 0.2;
       }
-
       const particleGeo = new THREE.BufferGeometry();
       particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      particleGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
       const particleMat = new THREE.PointsMaterial({
         color: goldBright,
-        size: 0.35,
+        size: 0.4,
         transparent: true,
-        opacity: 0.7,
+        opacity: 0.55,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
         sizeAttenuation: true
       });
-
       const particles = new THREE.Points(particleGeo, particleMat);
       scene.add(particles);
 
-      // ============ 2. Slow-rotating wireframe icosahedron (center) ============
-      const icoGeo = new THREE.IcosahedronGeometry(9, 1);
-      const icoMat = new THREE.MeshBasicMaterial({
-        color: goldColor,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.08
-      });
-      const ico = new THREE.Mesh(icoGeo, icoMat);
-      ico.position.set(0, 0, -10);
-      scene.add(ico);
+      // ---- Rotating text ring (sprites with canvas text) ----
+      function makeTextSprite(text, fontsize){
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 512;
+        canvas.height = 128;
+        ctx.font = `600 ${fontsize}px 'Cormorant Garamond', serif`;
+        ctx.fillStyle = 'rgba(229,198,127,0.55)';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, 256, 64);
+        const texture = new THREE.CanvasTexture(canvas);
+        const material = new THREE.SpriteMaterial({
+          map: texture,
+          transparent: true,
+          depthWrite: false,
+          opacity: 0.6
+        });
+        const sprite = new THREE.Sprite(material);
+        sprite.scale.set(14, 3.5, 1);
+        return sprite;
+      }
 
-      // ============ 3. Two orbiting torus knots ============
-      const torusGeo1 = new THREE.TorusKnotGeometry(3, 0.08, 100, 12);
-      const torusMat1 = new THREE.MeshBasicMaterial({
-        color: goldBright,
-        transparent: true,
-        opacity: 0.15,
-        wireframe: true
+      const servicesOuter = [
+        'Breakfast','Soups','Appetizers','China Town','Continental',
+        'Main Course','Tandoori','Combomeal','Breads','Biryani',
+        'Raita','Salad','Dessert','Beverages'
+      ];
+      const ringRadius = 24;
+      const outerGroup = new THREE.Group();
+      servicesOuter.forEach((label, i) => {
+        const angle = (i / servicesOuter.length) * Math.PI * 2;
+        const sprite = makeTextSprite(label, 42);
+        sprite.position.set(
+          Math.cos(angle) * ringRadius,
+          Math.sin(angle) * ringRadius * 0.55,
+          -8
+        );
+        outerGroup.add(sprite);
       });
-      const torus1 = new THREE.Mesh(torusGeo1, torusMat1);
-      torus1.position.set(-14, 8, -8);
-      scene.add(torus1);
+      scene.add(outerGroup);
 
-      const torusGeo2 = new THREE.TorusKnotGeometry(2.5, 0.06, 80, 10);
-      const torusMat2 = new THREE.MeshBasicMaterial({
-        color: goldColor,
-        transparent: true,
-        opacity: 0.12,
-        wireframe: true
-      });
-      const torus2 = new THREE.Mesh(torusGeo2, torusMat2);
-      torus2.position.set(15, -10, -12);
-      scene.add(torus2);
+      // ---- Floating "dish icons" as simple geometric shapes ----
+      const iconGroup = new THREE.Group();
+      const iconShapes = [];
+      for (let i = 0; i < 6; i++){
+        const geo = (i % 3 === 0)
+          ? new THREE.TorusGeometry(0.7, 0.2, 8, 20)
+          : (i % 3 === 1)
+            ? new THREE.OctahedronGeometry(0.9, 0)
+            : new THREE.IcosahedronGeometry(0.8, 0);
+        const mat = new THREE.MeshBasicMaterial({
+          color: goldColor,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.14
+        });
+        const mesh = new THREE.Mesh(geo, mat);
+        const angle = (i / 6) * Math.PI * 2;
+        mesh.position.set(
+          Math.cos(angle) * 20,
+          Math.sin(angle) * 12,
+          -14 + Math.random() * 4
+        );
+        mesh.userData.angle = angle;
+        mesh.userData.baseX = mesh.position.x;
+        mesh.userData.baseY = mesh.position.y;
+        mesh.userData.speed = 0.15 + Math.random() * 0.2;
+        iconGroup.add(mesh);
+        iconShapes.push(mesh);
+      }
+      scene.add(iconGroup);
 
-      // ============ 4. Faint large ring in background ============
-      const ringGeo = new THREE.RingGeometry(20, 20.3, 80);
-      const ringMat = new THREE.MeshBasicMaterial({
-        color: goldColor,
-        transparent: true,
-        opacity: 0.06,
-        side: THREE.DoubleSide
-      });
-      const ring = new THREE.Mesh(ringGeo, ringMat);
-      ring.position.set(0, 0, -20);
-      scene.add(ring);
-
-      // ============ Mouse parallax (light) ============
+      // ---- Gentle mouse parallax ----
       let mouseX = 0, mouseY = 0;
       window.addEventListener('mousemove', (e) => {
         mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
         mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
       }, { passive: true });
 
-      // ============ Animation loop ============
+      // ---- Animation loop ----
       const clock = new THREE.Clock();
       let animationId = null;
 
       function animate(){
         const t = clock.getElapsedTime();
 
-        // Rotate particles slowly
         particles.rotation.y = t * 0.02;
         particles.rotation.x = t * 0.01;
-
-        // Rotate icosahedron
-        ico.rotation.x = t * 0.08;
-        ico.rotation.y = t * 0.12;
-
-        // Rotate torus knots opposite directions
-        torus1.rotation.x = t * 0.15;
-        torus1.rotation.y = t * 0.10;
-        torus2.rotation.x = -t * 0.12;
-        torus2.rotation.y = t * 0.14;
-
-        // Gentle bob for particles
         particles.position.y = Math.sin(t * 0.4) * 0.8;
 
-        // Camera parallax
+        outerGroup.rotation.z = t * 0.04;
+
+        iconShapes.forEach((mesh, i) => {
+          const a = mesh.userData.angle + t * mesh.userData.speed;
+          mesh.position.x = Math.cos(a) * 20;
+          mesh.position.y = Math.sin(a) * 12 + Math.sin(t * 0.6 + i) * 0.6;
+          mesh.rotation.x = t * 0.3 + i;
+          mesh.rotation.y = t * 0.4 + i;
+        });
+
         camera.position.x += (mouseX * 2 - camera.position.x) * 0.03;
         camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.03;
         camera.lookAt(scene.position);
@@ -3128,7 +3781,6 @@
         animationId = requestAnimationFrame(animate);
       }
 
-      // ============ Pause when tab hidden (save battery) ============
       document.addEventListener('visibilitychange', () => {
         if (document.hidden){
           if (animationId) cancelAnimationFrame(animationId);
@@ -3138,7 +3790,6 @@
         }
       });
 
-      // ============ Resize handler ============
       let resizeTimer;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
