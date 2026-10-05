@@ -290,7 +290,128 @@
     margin:18px auto 0;
     animation:fadeIn .8s ease .4s both;
   }
+    /* ============ VEG/NON-VEG LEGEND ============ */
+  .legend{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:22px;
+    padding:6px 20px 22px;
+    animation:fadeIn .8s ease .45s both;
+  }
 
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:10px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    font-weight:600;
+  }
+
+  .legend-mark{
+    width:13px;
+    height:13px;
+    border-radius:3px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    flex-shrink:0;
+  }
+
+  .legend-mark.veg{
+    border:1.5px solid var(--green);
+    background:rgba(74,222,128,0.06);
+  }
+  .legend-mark.veg::before{
+    content:'';
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--green);
+  }
+
+  .legend-mark.nonveg{
+    border:1.5px solid var(--red);
+    background:rgba(248,113,113,0.06);
+  }
+  .legend-mark.nonveg::before{
+    content:'';
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--red);
+  }
+
+  /* ============ SCROLL REVEAL ============ */
+  .dish{
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity .5s ease, transform .5s cubic-bezier(.2,.8,.3,1), background .3s, border-color .3s;
+  }
+
+  .dish.revealed{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* category header shimmer */
+  .category-title{
+    position:relative;
+    background:linear-gradient(90deg, var(--gold-bright) 0%, var(--gold-bright) 40%, #fff8e0 50%, var(--gold-bright) 60%, var(--gold-bright) 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:titleShimmer 5s linear infinite;
+  }
+
+  @keyframes titleShimmer{
+    0%{background-position:200% center}
+    100%{background-position:-200% center}
+  }
+
+  /* filter chip pulse on active */
+  .filter-chip.active{
+    animation:chipPulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes chipPulse{
+    0%,100%{box-shadow:0 0 20px rgba(212,180,106,0.2)}
+    50%{box-shadow:0 0 28px rgba(212,180,106,0.4)}
+  }
+
+  /* cart icon glow when has items */
+  .cart-btn.has-items{
+    animation:cartGlow 2.4s ease-in-out infinite;
+  }
+
+  @keyframes cartGlow{
+    0%,100%{box-shadow:0 0 0 rgba(212,180,106,0)}
+    50%{box-shadow:0 0 18px rgba(212,180,106,0.5)}
+  }
+
+  /* bottom bar reveal on scroll */
+  .bottombar{
+    transition:transform .4s cubic-bezier(.2,.8,.3,1);
+  }
+  .bottombar.hide-on-top{
+    transform:translateY(100%);
+  }
+    <!-- ============ VEG/NON-VEG LEGEND ============ -->
+  <div class="legend">
+    <div class="legend-item">
+      <span class="legend-mark veg"></span>
+      Veg
+    </div>
+    <div class="legend-item">
+      <span class="legend-mark nonveg"></span>
+      Non-Veg
+    </div>
+  </div>
   /* ============ CATEGORY FILTER ============ */
   .filter-wrap{
     position:sticky;
@@ -2799,9 +2920,50 @@
       }
     });
 
+       // ============ SCROLL REVEAL ============
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting){
+          setTimeout(() => {
+            entry.target.classList.add('revealed');
+          }, i * 40);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.dish').forEach(dish => revealObserver.observe(dish));
+
+    // ============ CART GLOW WHEN HAS ITEMS ============
+    function updateCartGlow(){
+      if (cartCount() > 0){
+        cartBtn.classList.add('has-items');
+      } else {
+        cartBtn.classList.remove('has-items');
+      }
+    }
+
+    // ============ BOTTOM BAR HIDE/SHOW ON SCROLL ============
+    let lastScroll = 0;
+    const bottombar = document.getElementById('bottombar');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < 60){
+        bottombar.classList.remove('hide-on-top');
+      } else {
+        bottombar.classList.add('hide-on-top');
+      }
+      lastScroll = y;
+    }, { passive: true });
+
     // ============ INIT ============
     updateCartUI();
+    updateCartGlow();
 
+    // Hook cart glow into cart UI updates
+        // Glow check runs on every cart update via MutationObserver
+    const cartObserver = new MutationObserver(updateCartGlow);
+    cartObserver.observe(cartCountEl, { attributes: true, childList: true, characterData: true });
     // Prevent body scroll leak on modal open
     document.addEventListener('touchmove', (e) => {
       if (document.body.classList.contains('no-scroll') && !e.target.closest('.modal, .cart-drawer')){
