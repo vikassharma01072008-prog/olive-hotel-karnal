@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1b3e">
+<meta name="description" content="The Olive Hotel by Bhardwaj Group — Karnal. Menu, WiFi, nearby places, and contact info.">
+<title>The Olive Hotel — Welcome</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="icon" href="logo.jpg">
+
+<style>
+  :root{
+    --navy:#0d1b3e;
+    --navy-deep:#081229;
+    --navy-light:#152758;
+    --gold:#d4b46a;
+    --gold-bright:#e5c67f;
+    --gold-soft:#b8944d;
+    --cream:#f5efe2;
+    --text:#f5efe2;
+    --text-dim:#a89f8a;
+  }
+
+  *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  html{
+    background:var(--navy-deep);
+    scroll-behavior:smooth;
+  }
+
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:
+      radial-gradient(ellipse at top, #152758 0%, #0d1b3e 45%, #081229 100%);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+    line-height:1.5;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:36px 22px;
+    position:relative;
+  }
+
+  /* Ambient gold glow behind content */
+  body::before{
+    content:'';
+    position:fixed;
+    top:-30%;
+    left:50%;
+    transform:translateX(-50%);
+    width:520px;
+    height:520px;
+    background:radial-gradient(circle, rgba(212,180,106,0.10) 0%, transparent 65%);
+    pointer-events:none;
+    z-index:0;
+    filter:blur(20px);
+    animation:pulseGlow 6s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow{
+    0%,100%{opacity:0.6; transform:translateX(-50%) scale(1)}
+    50%{opacity:1; transform:translateX(-50%) scale(1.08)}
+  }
+
+  /* ============ LOGO ============ */
+  .logo-wrap{
+    position:relative;
+    z-index:2;
+    width:200px;
+    max-width:55vw;
+    margin-bottom:26px;
+    animation:fadeInDown 1s ease .1s both;
+  }
+
+  .logo-wrap img{
+    width:100%;
+    height:auto;
+    display:block;
+    filter:drop-shadow(0 6px 22px rgba(212,180,106,0.22));
+    border-radius:6px;
+  }
+
+  /* ============ WELCOME TEXT ============ */
+  .welcome-line{
+    position:relative;
+    z-index:2;
+    font-family:'Cormorant Garamond',serif;
+    font-size:22px;
+    font-weight:500;
+    color:var(--gold-bright);
+    letter-spacing:0.8px;
+    text-align:center;
+    margin-bottom:6px;
+    animation:fadeInUp 1s ease .35s both;
+  }
+
+  .sub-line{
+    position:relative;
+    z-index:2;
+    font-size:11px;
+    letter-spacing:3px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    text-align:center;
+    margin-bottom:38px;
+    font-weight:500;
+    animation:fadeInUp 1s ease .5s both;
+  }
+
+  .divider-gold{
+    position:relative;
+    z-index:2;
+    width:60px;
+    height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    margin:0 auto 34px;
+    animation:fadeIn 1s ease .6s both;
+  }
+
+  /* ============ CHOICE CARDS ============ */
+  .choices{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:420px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+
+  .choice-card{
+    display:block;
+    text-decoration:none;
+    background:linear-gradient(155deg, rgba(212,180,106,0.10) 0%, rgba(212,180,106,0.02) 100%);
+    border:1px solid rgba(212,180,106,0.28);
+    border-radius:16px;
+    padding:22px 24px;
+    position:relative;
+    overflow:hidden;
+    transition:all .35s cubic-bezier(.2,.8,.3,1);
+    animation:fadeInUp 1s ease backwards;
+    cursor:pointer;
+  }
+
+  .choice-card:nth-child(1){animation-delay:.7s}
+  .choice-card:nth-child(2){animation-delay:.85s}
+
+  .choice-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg, transparent 30%, rgba(229,198,127,0.18) 50%, transparent 70%);
+    transform:translateX(-100%);
+    transition:transform .8s ease;
+    pointer-events:none;
+  }
+
+  .choice-card:hover::before{
+    transform:translateX(100%);
+  }
+
+  .choice-card:active{
+    transform:scale(.98);
+    border-color:var(--gold);
+  }
+
+  .choice-inner{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    position:relative;
+    z-index:1;
+  }
+
+  .choice-icon{
+    flex-shrink:0;
+    width:52px;
+    height:52px;
+    border-radius:14px;
+    background:rgba(212,180,106,0.14);
+    border:1px solid rgba(212,180,106,0.22);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold-bright);
+    transition:all .35s ease;
+  }
+
+  .choice-card:hover .choice-icon{
+    background:rgba(212,180,106,0.22);
+    box-shadow:0 0 24px rgba(212,180,106,0.25);
+  }
+
+  .choice-icon svg{
+    width:26px;
+    height:26px;
+    stroke-width:1.6;
+  }
+
+  .choice-text{
+    flex:1;
+    min-width:0;
+  }
+
+  .choice-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:24px;
+    font-weight:600;
+    color:var(--gold-bright);
+    letter-spacing:1px;
+    line-height:1.1;
+    margin-bottom:4px;
+  }
+
+  .choice-desc{
+    font-size:12px;
+    color:var(--text-dim);
+    letter-spacing:0.3px;
+    line-height:1.4;
+  }
+
+  .choice-arrow{
+    flex-shrink:0;
+    color:var(--gold-soft);
+    font-size:22px;
+    opacity:.55;
+    transition:all .3s ease;
+    font-family:'Cormorant Garamond',serif;
+  }
+
+  .choice-card:hover .choice-arrow{
+    opacity:1;
+    transform:translateX(4px);
+    color:var(--gold-bright);
+  }
+
+  /* ============ FOOTER ============ */
+  .footer{
+    position:relative;
+    z-index:2;
+    margin-top:42px;
+    text-align:center;
+    animation:fadeIn 1s ease 1s both;
+  }
+
+  .footer-location{
+    font-size:10px;
+    letter-spacing:2.4px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:500;
+  }
+
+  .footer-address{
+    font-size:10px;
+    color:var(--text-dim);
+    letter-spacing:0.4px;
+    opacity:.7;
+    max-width:320px;
+    margin:0 auto;
+    line-height:1.5;
+  }
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes fadeInUp{
+    from{opacity:0; transform:translateY(18px)}
+    to{opacity:1; transform:translateY(0)}
+  }
+
+  @keyframes fadeInDown{
+    from{opacity:0; transform:translateY(-22px)}
+    to{opacity:1; transform:translateY(0)}
+  }
+
+  @keyframes fadeIn{
+    from{opacity:0}
+    to{opacity:1}
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media(max-width:380px){
+    .welcome-line{font-size:19px}
+    .choice-title{font-size:21px}
+    .choice-icon{width:46px; height:46px}
+    .choice-icon svg{width:23px; height:23px}
+    .logo-wrap{width:170px}
+  }
+
+  @media(min-width:640px){
+    body{padding:48px 28px}
+    .logo-wrap{width:230px}
+    .welcome-line{font-size:24px}
+    .choice-card{padding:26px 28px}
+    .choice-title{font-size:26px}
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:0.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ LOGO ============ -->
+  <div class="logo-wrap">
+    <img src="logo.jpg" alt="The Olive Hotel by Bhardwaj Group">
+  </div>
+
+  <!-- ============ WELCOME ============ -->
+  <h1 class="welcome-line">Welcome to The Olive Hotel</h1>
+  <div class="sub-line">Bhardwaj Group · Karnal</div>
+
+  <div class="divider-gold"></div>
+
+  <!-- ============ CHOICE CARDS ============ -->
+  <div class="choices">
+
+    <a href="menu.html" class="choice-card">
+      <div class="choice-inner">
+        <div class="choice-icon">
+          <!-- Menu icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 3v7a4 4 0 0 0 4 4v7"/>
+            <path d="M8 3v11"/>
+            <path d="M12 3v18"/>
+            <path d="M18 3c-1.5 0-3 2-3 4.5S16.5 12 18 12v9"/>
+          </svg>
+        </div>
+        <div class="choice-text">
+          <div class="choice-title">Menu</div>
+          <div class="choice-desc">View our full restaurant menu & order on WhatsApp</div>
+        </div>
+        <div class="choice-arrow">→</div>
+      </div>
+    </a>
+
+    <a href="info.html" class="choice-card">
+      <div class="choice-inner">
+        <div class="choice-icon">
+          <!-- Hotel/Building icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21h18"/>
+            <path d="M5 21V7l8-4v18"/>
+            <path d="M19 21V11l-6-4"/>
+            <path d="M9 9v.01"/>
+            <path d="M9 12v.01"/>
+            <path d="M9 15v.01"/>
+            <path d="M9 18v.01"/>
+          </svg>
+        </div>
+        <div class="choice-text">
+          <div class="choice-title">Hotel Info</div>
+          <div class="choice-desc">WiFi, timings, nearby places, contact & reviews</div>
+        </div>
+        <div class="choice-arrow">→</div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-location">Karnal · Haryana</div>
+    <div class="footer-address">
+      Ground Floor, Infront Of Railway Station,<br>
+      Railway Road, Karnal, 132001
+    </div>
+  </footer>
+
+</body>
+</html>
