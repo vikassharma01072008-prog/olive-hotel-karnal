@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d1b3e">
+<meta name="description" content="The Olive Hotel Karnal — WiFi, timings, nearby places & contact.">
+<title>Hotel Info — The Olive Hotel</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="icon" href="logo.jpg.jpeg">
+
+<style>
+  :root{
+    --navy:#0d1b3e;
+    --navy-deep:#081229;
+    --navy-light:#152758;
+    --gold:#d4b46a;
+    --gold-bright:#e5c67f;
+    --gold-soft:#b8944d;
+    --cream:#f5efe2;
+    --text:#f5efe2;
+    --text-dim:#a89f8a;
+  }
+
+  *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  html{
+    background:var(--navy-deep);
+    scroll-behavior:smooth;
+  }
+
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:radial-gradient(ellipse at top, #152758 0%, #0d1b3e 45%, #081229 100%);
+    background-attachment:fixed;
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+    line-height:1.5;
+    padding-bottom:40px;
+  }
+
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(8,18,41,0.92);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(212,180,106,0.15);
+    padding:10px 14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  .topbar-logo{
+    width:36px;
+    height:36px;
+    flex-shrink:0;
+    border-radius:8px;
+    overflow:hidden;
+    background:var(--navy-light);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .topbar-logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  .topbar-title{
+    flex:1;
+    font-family:'Cormorant Garamond',serif;
+    font-size:16px;
+    font-weight:600;
+    color:var(--gold-bright);
+    letter-spacing:0.8px;
+    line-height:1.1;
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .topbar-title small{
+    display:block;
+    font-family:'Inter',sans-serif;
+    font-size:9px;
+    letter-spacing:1.6px;
+    color:var(--gold-soft);
+    font-weight:500;
+    text-transform:uppercase;
+    margin-top:1px;
+  }
+
+  .switcher{
+    display:flex;
+    background:rgba(212,180,106,0.08);
+    border:1px solid rgba(212,180,106,0.22);
+    border-radius:20px;
+    padding:3px;
+    flex-shrink:0;
+  }
+
+  .switch-btn{
+    padding:7px 12px;
+    border-radius:16px;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    text-decoration:none;
+    transition:all .3s;
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+
+  .switch-btn.active{
+    background:linear-gradient(180deg, rgba(212,180,106,0.28), rgba(212,180,106,0.12));
+    color:var(--gold-bright);
+    box-shadow:0 2px 8px rgba(212,180,106,0.15);
+  }
+
+  .switch-btn:active{
+    transform:scale(0.96);
+  }
+
+  .switch-btn svg{
+    width:11px;
+    height:11px;
+  }
+
+  .page-header{
+    padding:26px 20px 18px;
+    text-align:center;
+    animation:fadeInDown .7s ease .1s both;
+  }
+
+  .page-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:38px;
+    font-weight:600;
+    color:var(--gold-bright);
+    letter-spacing:2px;
+    line-height:1;
+    margin-bottom:6px;
+  }
+
+  .page-subtitle{
+    font-size:10px;
+    letter-spacing:3px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    font-weight:500;
+  }
+
+  .page-divider{
+    width:50px;
+    height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    margin:16px auto 0;
+  }
+
+  .info-content{
+    max-width:640px;
+    margin:0 auto;
+    padding:0 16px;
+  }
+
+  .info-section{
+    margin-bottom:22px;
+    animation:fadeInUp .6s ease backwards;
+  }
+
+  .info-section:nth-child(1){animation-delay:.15s}
+  .info-section:nth-child(2){animation-delay:.25s}
+  .info-section:nth-child(3){animation-delay:.35s}
+  .info-section:nth-child(4){animation-delay:.45s}
+  .info-section:nth-child(5){animation-delay:.55s}
+  .info-section:nth-child(6){animation-delay:.65s}
+  .info-section:nth-child(7){animation-delay:.75s}
+
+  .section-label{
+    font-size:10px;
+    letter-spacing:2.4px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    font-weight:600;
+    margin-bottom:10px;
+    padding-left:2px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .section-label::before{
+    content:'';
+    width:14px;
+    height:1px;
+    background:var(--gold-soft);
+  }
+
+  .info-card{
+    background:linear-gradient(155deg, rgba(212,180,106,0.08) 0%, rgba(212,180,106,0.02) 100%);
+    border:1px solid rgba(212,180,106,0.18);
+    border-radius:14px;
+    padding:18px 20px;
+    transition:border-color .3s;
+  }
+
+  .info-card:hover{
+    border-color:rgba(212,180,106,0.35);
+  }
+
+  .time-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+  }
+
+  .time-row + .time-row{
+    border-top:1px solid rgba(212,180,106,0.1);
+  }
+
+  .time-label{
+    font-size:13px;
+    color:var(--text-dim);
+    font-weight:400;
+  }
+
+  .time-value{
+    font-family:'Cormorant Garamond',serif;
+    font-size:20px;
+    font-weight:600;
+    color:var(--gold-bright);
+    letter-spacing:0.5px;
+    text-decoration:none;
+    transition:color .2s;
+  }
+
+  a.time-value:active{
+    color:var(--gold);
+  }
+
+  .intercom-card{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 18px;
+    background:linear-gradient(155deg, rgba(212,180,106,0.08) 0%, rgba(212,180,106,0.02) 100%);
+    border:1px solid rgba(212,180,106,0.18);
+    border-radius:14px;
+  }
+
+  .intercom-icon{
+    flex-shrink:0;
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    background:rgba(212,180,106,0.14);
+    border:1px solid rgba(212,180,106,0.22);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold-bright);
+  }
+
+  .intercom-icon svg{
+    width:22px;
+    height:22px;
+    stroke-width:1.6;
+  }
+
+  .intercom-info{
+    flex:1;
+  }
+
+  .intercom-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:18px;
+    font-weight:600;
+    color:var(--gold-bright);
+    letter-spacing:0.5px;
+    margin-bottom:2px;
+  }
+
+  .intercom-desc{
+    font-size:12px;
+    color:var(--text-dim);
+    line-height:1.4;
+  }
+
+  .intercom-code{
+    flex-shrink:0;
+    font-family:'Cormorant Garamond',serif;
+    font-size:32px;
+    font-weight:700;
+    color:var(--gold-bright);
+    letter-spacing:2px;
+    line-height:1;
+    padding:6px 14px;
+    background:rgba(212,180,106,0.10);
+    border:1px solid rgba(212,180,106,0.28);
+    border-radius:10px;
+  }
+
+  .wifi-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .wifi-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 16px;
+    background:rgba(212,180,106,0.04);
+    border:1px solid rgba(212,180,106,0.14);
+    border-radius:12px;
+    transition:all .25s;
+  }
+
+  .wifi-item:active{
+    background:rgba(212,180,106,0.10);
+    transform:scale(0.995);
+  }
+
+  .wifi-icon{
+    flex-shrink:0;
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:rgba(212,180,106,0.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold-bright);
+  }
+
+  .wifi-icon svg{
+    width:18px;
+    height:18px;
+    stroke-width:1.7;
+  }
+
+  .wifi-info{
+    flex:1;
+    min-width:0;
+  }
+
+  .wifi-name{
+    font-size:13px;
+    color:var(--text);
+    font-weight:500;
+    margin-bottom:3px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .wifi-pass{
+    font-family:'Courier New',monospace;
+    font-size:12px;
+    color:var(--gold-soft);
+    letter-spacing:0.5px;
+  }
+
+  .copy-btn{
+    flex-shrink:0;
+    background:rgba(212,180,106,0.12);
+    border:1px solid rgba(212,180,106,0.28);
+    color:var(--gold-bright);
+    font-family:inherit;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    padding:7px 12px;
+    border-radius:16px;
+    cursor:pointer;
+    transition:all .2s;
+    white-space:nowrap;
+  }
+
+  .copy-btn:active{
+    transform:scale(0.94);
+    background:rgba(212,180,106,0.24);
+  }
+
+  .copy-btn.copied{
+    background:var(--gold-bright);
+    color:var(--navy-deep);
+    border-color:var(--gold-bright);
+  }
+
+  .nearby-list{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .nearby-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 4px;
+    border-bottom:1px solid rgba(212,180,106,0.08);
+  }
+
+  .nearby-item:last-child{
+    border-bottom:none;
+  }
+
+  .nearby-name{
+    font-size:13px;
+    color:var(--text);
+    font-weight:400;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .nearby-name::before{
+    content:'';
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--gold-soft);
+    flex-shrink:0;
+  }
+
+  .nearby-dist{
+    font-family:'Cormorant Garamond',serif;
+    font-size:16px;
+    font-weight:600;
+    color:var(--gold-bright);
+    letter-spacing:0.5px;
+  }
+
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .contact-btn{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:15px 18px;
+    background:linear-gradient(155deg, rgba(212,180,106,0.08) 0%, rgba(212,180,106,0.02) 100%);
+    border:1px solid rgba(212,180,106,0.18);
+    border-radius:12px;
+    text-decoration:none;
+    color:var(--text);
+    transition:all .25s;
+  }
+
+  .contact-btn:active{
+    transform:scale(0.98);
+    border-color:var(--gold);
+  }
+
+  .contact-icon{
+    flex-shrink:0;
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    background:rgba(212,180,106,0.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold-bright);
+  }
+
+  .contact-icon svg{
+    width:19px;
+    height:19px;
+    stroke-width:1.7;
+  }
+
+  .contact-text{
+    flex:1;
+  }
+
+  .contact-label{
+    font-size:10px;
+    letter-spacing:1.8px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    font-weight:600;
+    margin-bottom:2px;
+  }
+
+  .contact-value{
+    font-size:14px;
+    color:var(--gold-bright);
+    font-weight:500;
+    letter-spacing:0.3px;
+  }
+
+  .contact-arrow{
+    flex-shrink:0;
+    color:var(--gold-soft);
+    font-size:18px;
+    opacity:.55;
+    transition:all .25s;
+  }
+
+  .contact-btn:active .contact-arrow{
+    opacity:1;
+    transform:translateX(3px);
+  }
+
+  .review-card{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:20px;
+    background:linear-gradient(135deg, rgba(212,180,106,0.15) 0%, rgba(212,180,106,0.04) 100%);
+    border:1px solid rgba(212,180,106,0.32);
+    border-radius:14px;
+    text-decoration:none;
+    color:var(--text);
+    transition:all .25s;
+  }
+
+  .review-card:active{
+    transform:scale(0.98);
+    border-color:var(--gold-bright);
+  }
+
+  .review-stars{
+    display:flex;
+    gap:2px;
+    margin-top:4px;
+  }
+
+  .review-stars svg{
+    width:12px;
+    height:12px;
+    fill:var(--gold-bright);
+  }
+
+  .footer{
+    text-align:center;
+    padding:32px 20px 20px;
+    margin-top:32px;
+    border-top:1px solid rgba(212,180,106,0.10);
+  }
+
+  .footer-location{
+    font-size:10px;
+    letter-spacing:2.4px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:500;
+  }
+
+  .footer-address{
+    font-size:10px;
+    color:var(--text-dim);
+    opacity:.6;
+    line-height:1.6;
+  }
+
+  .toast{
+    position:fixed;
+    bottom:22px;
+    left:50%;
+    transform:translateX(-50%) translateY(80px);
+    background:var(--gold-bright);
+    color:var(--navy-deep);
+    padding:11px 20px;
+    border-radius:22px;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    z-index:999;
+    transition:transform .35s cubic-bezier(.2,.8,.3,1);
+    box-shadow:0 10px 28px rgba(0,0,0,0.45);
+    pointer-events:none;
+  }
+
+  .toast.show{
+    transform:translateX(-50%) translateY(0);
+  }
+
+  @keyframes fadeInUp{
+    from{opacity:0; transform:translateY(16px)}
+    to{opacity:1; transform:translateY(0)}
+  }
+
+  @keyframes fadeInDown{
+    from{opacity:0; transform:translateY(-16px)}
+    to{opacity:1; transform:translateY(0)}
+  }
+
+  @media(max-width:380px){
+    .page-title{font-size:32px}
+    .topbar-title{font-size:14px}
+    .switch-btn{padding:6px 10px; font-size:9px}
+    .topbar-logo{width:32px; height:32px}
+    .intercom-code{font-size:26px; padding:5px 11px}
+    .time-value{font-size:18px}
+  }
+
+  @media(min-width:640px){
+    .page-header{padding:36px 24px 24px}
+    .page-title{font-size:46px}
+    .info-card{padding:22px 24px}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:0.01ms !important;
+      transition-duration:0.01ms !important;
+    }
+  }
+</style>
+</head><body>
+
+  <div class="topbar">
+    <div class="topbar-logo">
+      <img src="logo.jpg.jpeg" alt="The Olive Hotel">
+    </div>
+    <div class="topbar-title">
+      The Olive Hotel
+      <small>Bhardwaj Group</small>
+    </div>
+    <div class="switcher">
+      <a href="menu.html" class="switch-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 3v7a4 4 0 0 0 4 4v7"/>
+          <path d="M8 3v11"/>
+          <path d="M12 3v18"/>
+          <path d="M18 3c-1.5 0-3 2-3 4.5S16.5 12 18 12v9"/>
+        </svg>
+        Menu
+      </a>
+      <a href="info.html" class="switch-btn active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 21h18"/>
+          <path d="M5 21V7l8-4v18"/>
+          <path d="M19 21V11l-6-4"/>
+          <path d="M9 9v.01"/>
+          <path d="M9 12v.01"/>
+          <path d="M9 15v.01"/>
+          <path d="M9 18v.01"/>
+        </svg>
+        Info
+      </a>
+    </div>
+  </div>
+
+  <div class="page-header">
+    <h1 class="page-title">Hotel Info</h1>
+    <div class="page-subtitle">Timings &amp; Details</div>
+    <div class="page-divider"></div>
+  </div>
+
+  <main class="info-content">
+
+    <section class="info-section">
+      <div class="section-label">Stay Timings</div>
+      <div class="info-card">
+        <div class="time-row">
+          <div class="time-label">Check-in</div>
+          <div class="time-value">12:00 Noon</div>
+        </div>
+        <div class="time-row">
+          <div class="time-label">Check-out</div>
+          <div class="time-value">11:00 AM</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="section-label">Room Intercom</div>
+      <div class="intercom-card">
+        <div class="intercom-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="intercom-info">
+          <div class="intercom-title">Call Reception</div>
+          <div class="intercom-desc">Dial this number from your room phone</div>
+        </div>
+        <div class="intercom-code">99</div>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="section-label">WiFi Networks</div>
+      <div class="wifi-list">
+
+        <div class="wifi-item">
+          <div class="wifi-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+              <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+              <line x1="12" y1="20" x2="12.01" y2="20"/>
+            </svg>
+          </div>
+          <div class="wifi-info">
+            <div class="wifi-name">The Olive Hotel Lobby</div>
+            <div class="wifi-pass">Theolive@123</div>
+          </div>
+          <button class="copy-btn" data-copy="Theolive@123" type="button">Copy</button>
+        </div>
+
+        <div class="wifi-item">
+          <div class="wifi-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+              <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+              <line x1="12" y1="20" x2="12.01" y2="20"/>
+            </svg>
+          </div>
+          <div class="wifi-info">
+            <div class="wifi-name">Ground Floor Lobby</div>
+            <div class="wifi-pass">12341234</div>
+          </div>
+          <button class="copy-btn" data-copy="12341234" type="button">Copy</button>
+        </div>
+
+        <div class="wifi-item">
+          <div class="wifi-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+              <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+              <line x1="12" y1="20" x2="12.01" y2="20"/>
+            </svg>
+          </div>
+          <div class="wifi-info">
+            <div class="wifi-name">First Floor Lobby</div>
+            <div class="wifi-pass">12341234</div>
+          </div>
+          <button class="copy-btn" data-copy="12341234" type="button">Copy</button>
+        </div>
+
+        <div class="wifi-item">
+          <div class="wifi-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+              <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+              <line x1="12" y1="20" x2="12.01" y2="20"/>
+            </svg>
+          </div>
+          <div class="wifi-info">
+            <div class="wifi-name">Second Floor Lobby</div>
+            <div class="wifi-pass">12341234</div>
+          </div>
+          <button class="copy-btn" data-copy="12341234" type="button">Copy</button>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="section-label">Nearby Places</div>
+      <div class="info-card">
+        <div class="nearby-list">
+
+          <div class="nearby-item">
+            <div class="nearby-name">Karnal Railway Station</div>
+            <div class="nearby-dist">In front</div>
+          </div>
+
+          <div class="nearby-item">
+            <div class="nearby-name">Karan Stadium</div>
+            <div class="nearby-dist">1.5 km</div>
+          </div>
+
+          <div class="nearby-item">
+            <div class="nearby-name">Kalpana Chawla Hospital</div>
+            <div class="nearby-dist">2 km</div>
+          </div>
+
+          <div class="nearby-item">
+            <div class="nearby-name">Super Mall</div>
+            <div class="nearby-dist">2 km</div>
+          </div>
+
+          <div class="nearby-item">
+            <div class="nearby-name">Sector 12 Market</div>
+            <div class="nearby-dist">2.6 km</div>
+          </div>
+
+          <div class="nearby-item">
+            <div class="nearby-name">Karnal Bus Stand</div>
+            <div class="nearby-dist">3 km</div>
+          </div>
+
+          <div class="nearby-item">
+            <div class="nearby-name">Kalander Shah Tomb</div>
+            <div class="nearby-dist">3 km</div>
+          </div>
+
+          <div class="nearby-item">
+            <div class="nearby-name">Karna Lake</div>
+            <div class="nearby-dist">10.7 km</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="section-label">Your Feedback Matters</div>
+      <a href="https://search.google.com/local/writereview?placeid=PLACEHOLDER" target="_blank" rel="noopener" class="review-card">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <div class="contact-text">
+          <div class="contact-label">Google Review</div>
+          <div class="contact-value">Rate your stay with us</div>
+          <div class="review-stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+        </div>
+        <div class="contact-arrow">→</div>
+      </a>
+    </section>    <section class="info-section">
+      <div class="section-label">Get in Touch</div>
+      <div class="contact-grid">
+
+        <a href="tel:+917400780030" class="contact-btn">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div class="contact-text">
+            <div class="contact-label">Call Restaurant</div>
+            <div class="contact-value">7400780030</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="https://wa.me/917400780030" target="_blank" rel="noopener" class="contact-btn">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+          </div>
+          <div class="contact-text">
+            <div class="contact-label">WhatsApp</div>
+            <div class="contact-value">Chat with us</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="https://www.instagram.com/theolive_karnal" target="_blank" rel="noopener" class="contact-btn">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </div>
+          <div class="contact-text">
+            <div class="contact-label">Instagram</div>
+            <div class="contact-value">@theolive_karnal</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="http://theolivehotel.in/" target="_blank" rel="noopener" class="contact-btn">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div class="contact-text">
+            <div class="contact-label">Website</div>
+            <div class="contact-value">theolivehotel.in</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="https://maps.google.com/?q=The+Olive+Hotel+Karnal" target="_blank" rel="noopener" class="contact-btn">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="contact-text">
+            <div class="contact-label">Get Directions</div>
+            <div class="contact-value">Open in Google Maps</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="section-label">Feedback &amp; Complaints</div>
+      <div class="info-card">
+        <div class="time-row">
+          <div class="time-label">Direct to Owner</div>
+          <a href="tel:+918708710667" class="time-value">8708710667</a>
+        </div>
+        <div style="font-size:11px; color:var(--text-dim); font-style:italic; line-height:1.5; padding-top:8px;">
+          For any feedback or concern during your stay, please reach out to us directly.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast">Copied!</div>
+
+  <footer class="footer">
+    <div class="footer-location">The Olive Hotel · Karnal</div>
+    <div class="footer-address">
+      Ground Floor, Infront Of Railway Station,<br>
+      Railway Road, Karnal, 132001
+    </div>
+  </footer>
+
+  <script>
+    const toast = document.getElementById('toast');
+    let toastTimer = null;
+
+    document.querySelectorAll('.copy-btn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        const text = btn.getAttribute('data-copy');
+        if(!text) return;
+
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(function(){
+            showCopied(btn);
+          }).catch(function(){
+            fallbackCopy(text, btn);
+          });
+        } else {
+          fallbackCopy(text, btn);
+        }
+      });
+    });
+
+    function fallbackCopy(text, btn){
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try{
+        document.execCommand('copy');
+        showCopied(btn);
+      }catch(err){
+        showToast('Copy failed — please note manually');
+      }
+      document.body.removeChild(ta);
+    }
+
+    function showCopied(btn){
+      const original = btn.textContent;
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      showToast('Password copied!');
+      setTimeout(function(){
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1600);
+    }
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){
+        toast.classList.remove('show');
+      }, 1800);
+    }
+  </script>
+
+</body>
+</html>
