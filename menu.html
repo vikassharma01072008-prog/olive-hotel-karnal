@@ -2294,7 +2294,8 @@
       lastScroll = y;
     }, { passive: true });
 
-    updateCartUI();
+        updateCartUI();
+    toast.classList.remove('show');
 
     document.addEventListener('touchmove', (e) => {
       if (document.body.classList.contains('no-scroll') && !e.target.closest('.modal, .cart-drawer')){
