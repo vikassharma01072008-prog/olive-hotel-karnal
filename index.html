@@ -9,7 +9,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="icon" href="logo.jpg.jpeg">
 
@@ -17,6 +17,7 @@
   :root{
     --navy:#0d1b3e;
     --navy-deep:#081229;
+    --navy-mid:#0f2049;
     --navy-light:#152758;
     --gold:#d4b46a;
     --gold-bright:#e5c67f;
@@ -36,12 +37,14 @@
   html{
     background:var(--navy-deep);
     scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;
   }
 
   body{
     font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
     background:
       radial-gradient(ellipse at top, #152758 0%, #0d1b3e 45%, #081229 100%);
+    background-attachment:fixed;
     color:var(--text);
     min-height:100vh;
     overflow-x:hidden;
@@ -52,6 +55,20 @@
     justify-content:center;
     padding:36px 22px;
     position:relative;
+    font-weight:400;
+    letter-spacing:0.1px;
+    font-feature-settings:"kern" 1, "liga" 1;
+  }
+
+  /* ============ 3D BACKGROUND CANVAS ============ */
+  #bg3d{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.65;
   }
 
   /* ============ FLOATING PARTICLES ============ */
@@ -74,18 +91,18 @@
     animation:floatUp linear infinite;
   }
 
-  .particle:nth-child(1){left:8%;  animation-duration:14s; animation-delay:0s}
-  .particle:nth-child(2){left:18%; animation-duration:18s; animation-delay:2s}
-  .particle:nth-child(3){left:28%; animation-duration:16s; animation-delay:4s}
-  .particle:nth-child(4){left:38%; animation-duration:20s; animation-delay:1s}
-  .particle:nth-child(5){left:48%; animation-duration:15s; animation-delay:5s}
-  .particle:nth-child(6){left:58%; animation-duration:17s; animation-delay:3s}
-  .particle:nth-child(7){left:68%; animation-duration:19s; animation-delay:6s}
-  .particle:nth-child(8){left:78%; animation-duration:16s; animation-delay:2.5s}
-  .particle:nth-child(9){left:88%; animation-duration:18s; animation-delay:4.5s}
-  .particle:nth-child(10){left:14%; animation-duration:22s; animation-delay:7s}
-  .particle:nth-child(11){left:44%; animation-duration:21s; animation-delay:8s}
-  .particle:nth-child(12){left:74%; animation-duration:20s; animation-delay:9s}
+  .particle:nth-child(1){left:8%;  animation-duration:16s; animation-delay:0s}
+  .particle:nth-child(2){left:18%; animation-duration:20s; animation-delay:2s}
+  .particle:nth-child(3){left:28%; animation-duration:18s; animation-delay:4s}
+  .particle:nth-child(4){left:38%; animation-duration:22s; animation-delay:1s}
+  .particle:nth-child(5){left:48%; animation-duration:17s; animation-delay:5s}
+  .particle:nth-child(6){left:58%; animation-duration:19s; animation-delay:3s}
+  .particle:nth-child(7){left:68%; animation-duration:21s; animation-delay:6s}
+  .particle:nth-child(8){left:78%; animation-duration:18s; animation-delay:2.5s}
+  .particle:nth-child(9){left:88%; animation-duration:20s; animation-delay:4.5s}
+  .particle:nth-child(10){left:14%; animation-duration:24s; animation-delay:7s}
+  .particle:nth-child(11){left:44%; animation-duration:23s; animation-delay:8s}
+  .particle:nth-child(12){left:74%; animation-duration:22s; animation-delay:9s}
 
   @keyframes floatUp{
     0%{
@@ -125,22 +142,15 @@
   .logo-wrap{
     position:relative;
     z-index:2;
-    width:210px;
-    max-width:58vw;
-    margin-bottom:26px;
+    width:220px;
+    max-width:60vw;
+    margin-bottom:28px;
     animation:fadeInDown 1s ease .1s both;
     overflow:hidden;
     border-radius:8px;
+    padding:4px;
   }
 
-  .logo-wrap img{
-    width:100%;
-    height:auto;
-    display:block;
-    filter:drop-shadow(0 6px 22px rgba(212,180,106,0.22));
-  }
-
-  /* Gold shimmer sweep across logo */
   .logo-wrap::after{
     content:'';
     position:absolute;
@@ -168,41 +178,84 @@
     100%{left:150%}
   }
 
+  .logo-wrap img{
+    width:100%;
+    height:auto;
+    display:block;
+    filter:drop-shadow(0 6px 24px rgba(212,180,106,0.25));
+    animation:logoFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes logoFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-6px)}
+  }
+
   /* ============ WELCOME TEXT ============ */
   .welcome-line{
     position:relative;
     z-index:2;
     font-family:'Cormorant Garamond',serif;
-    font-size:22px;
+    font-size:26px;
     font-weight:500;
     color:var(--gold-bright);
     letter-spacing:0.8px;
     text-align:center;
-    margin-bottom:6px;
+    margin-bottom:8px;
     animation:fadeInUp 1s ease .35s both;
+    line-height:1.2;
+  }
+
+  .welcome-line .accent{
+    font-style:italic;
+    color:var(--gold);
+    font-weight:600;
+  }
+
+  /* ============ HIGHLIGHT LINE ============ */
+  .highlight-line{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    margin:12px auto 10px;
+    animation:fadeIn 1s ease .55s both;
+    max-width:320px;
+  }
+
+  .highlight-line .line{
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+  }
+
+  .highlight-line .dot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--gold-bright);
+    box-shadow:0 0 10px rgba(212,180,106,0.6);
+    animation:dotPulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes dotPulse{
+    0%,100%{transform:scale(1); opacity:0.8;}
+    50%{transform:scale(1.5); opacity:1;}
   }
 
   .sub-line{
     position:relative;
     z-index:2;
     font-size:11px;
-    letter-spacing:3px;
+    letter-spacing:3.5px;
     color:var(--gold-soft);
     text-transform:uppercase;
     text-align:center;
-    margin-bottom:38px;
+    margin-bottom:44px;
     font-weight:500;
     animation:fadeInUp 1s ease .5s both;
-  }
-
-  .divider-gold{
-    position:relative;
-    z-index:2;
-    width:60px;
-    height:1px;
-    background:linear-gradient(90deg,transparent,var(--gold),transparent);
-    margin:0 auto 34px;
-    animation:fadeIn 1s ease .6s both;
   }
 
   /* ============ CHOICE CARDS ============ */
@@ -210,10 +263,10 @@
     position:relative;
     z-index:2;
     width:100%;
-    max-width:420px;
+    max-width:430px;
     display:flex;
     flex-direction:column;
-    gap:16px;
+    gap:18px;
   }
 
   .choice-card{
@@ -221,11 +274,11 @@
     text-decoration:none;
     background:linear-gradient(155deg, rgba(212,180,106,0.10) 0%, rgba(212,180,106,0.02) 100%);
     border:1px solid rgba(212,180,106,0.28);
-    border-radius:16px;
-    padding:22px 24px;
+    border-radius:18px;
+    padding:24px 26px;
     position:relative;
     overflow:hidden;
-    transition:all .35s cubic-bezier(.2,.8,.3,1);
+    transition:all .4s cubic-bezier(.2,.8,.3,1);
     animation:fadeInUp 1s ease backwards;
     cursor:pointer;
   }
@@ -239,7 +292,7 @@
     inset:0;
     background:linear-gradient(120deg, transparent 30%, rgba(229,198,127,0.18) 50%, transparent 70%);
     transform:translateX(-100%);
-    transition:transform .8s ease;
+    transition:transform .9s ease;
     pointer-events:none;
   }
 
@@ -249,46 +302,46 @@
 
   .choice-card:hover{
     border-color:var(--gold);
-    transform:translateY(-2px);
-    box-shadow:0 10px 30px rgba(212,180,106,0.12);
+    transform:translateY(-3px);
+    box-shadow:0 14px 40px rgba(212,180,106,0.15);
   }
 
   .choice-card:active{
-    transform:scale(.98);
+    transform:scale(0.98);
     border-color:var(--gold);
   }
 
   .choice-inner{
     display:flex;
     align-items:center;
-    gap:18px;
+    gap:20px;
     position:relative;
     z-index:1;
   }
 
   .choice-icon{
     flex-shrink:0;
-    width:52px;
-    height:52px;
-    border-radius:14px;
+    width:56px;
+    height:56px;
+    border-radius:16px;
     background:rgba(212,180,106,0.14);
-    border:1px solid rgba(212,180,106,0.22);
+    border:1px solid rgba(212,180,106,0.24);
     display:flex;
     align-items:center;
     justify-content:center;
     color:var(--gold-bright);
-    transition:all .35s ease;
+    transition:all .4s ease;
   }
 
   .choice-card:hover .choice-icon{
-    background:rgba(212,180,106,0.22);
-    box-shadow:0 0 24px rgba(212,180,106,0.25);
-    transform:rotate(-4deg) scale(1.05);
+    background:rgba(212,180,106,0.24);
+    box-shadow:0 0 28px rgba(212,180,106,0.3);
+    transform:rotate(-6deg) scale(1.06);
   }
 
   .choice-icon svg{
-    width:26px;
-    height:26px;
+    width:28px;
+    height:28px;
     stroke-width:1.6;
   }
 
@@ -299,19 +352,19 @@
 
   .choice-title{
     font-family:'Cormorant Garamond',serif;
-    font-size:24px;
+    font-size:26px;
     font-weight:600;
     color:var(--gold-bright);
     letter-spacing:1px;
     line-height:1.1;
-    margin-bottom:4px;
+    margin-bottom:5px;
   }
 
   .choice-desc{
     font-size:12px;
     color:var(--text-dim);
     letter-spacing:0.3px;
-    line-height:1.4;
+    line-height:1.5;
   }
 
   .choice-arrow{
@@ -319,13 +372,13 @@
     color:var(--gold-soft);
     font-size:22px;
     opacity:.55;
-    transition:all .3s ease;
+    transition:all .35s ease;
     font-family:'Cormorant Garamond',serif;
   }
 
   .choice-card:hover .choice-arrow{
     opacity:1;
-    transform:translateX(4px);
+    transform:translateX(5px);
     color:var(--gold-bright);
   }
 
@@ -333,17 +386,17 @@
   .footer{
     position:relative;
     z-index:2;
-    margin-top:42px;
+    margin-top:46px;
     text-align:center;
     animation:fadeIn 1s ease 1s both;
   }
 
   .footer-location{
     font-size:10px;
-    letter-spacing:2.4px;
+    letter-spacing:2.6px;
     color:var(--gold-soft);
     text-transform:uppercase;
-    margin-bottom:4px;
+    margin-bottom:5px;
     font-weight:500;
   }
 
@@ -354,17 +407,44 @@
     opacity:.7;
     max-width:320px;
     margin:0 auto;
-    line-height:1.5;
+    line-height:1.6;
+  }
+
+  .footer-vaan{
+    display:inline-block;
+    margin-top:22px;
+    font-size:9px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    text-decoration:none;
+    opacity:0.55;
+    transition:opacity .3s ease;
+    font-weight:500;
+  }
+
+  .footer-vaan span{
+    font-family:'Cormorant Garamond',serif;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:3px;
+    color:var(--gold-bright);
+    font-style:italic;
+  }
+
+  .footer-vaan:active,
+  .footer-vaan:hover{
+    opacity:1;
   }
 
   /* ============ ANIMATIONS ============ */
   @keyframes fadeInUp{
-    from{opacity:0; transform:translateY(18px)}
+    from{opacity:0; transform:translateY(20px)}
     to{opacity:1; transform:translateY(0)}
   }
 
   @keyframes fadeInDown{
-    from{opacity:0; transform:translateY(-22px)}
+    from{opacity:0; transform:translateY(-24px)}
     to{opacity:1; transform:translateY(0)}
   }
 
@@ -375,33 +455,36 @@
 
   /* ============ RESPONSIVE ============ */
   @media(max-width:380px){
-    .welcome-line{font-size:19px}
-    .choice-title{font-size:21px}
-    .choice-icon{width:46px; height:46px}
-    .choice-icon svg{width:23px; height:23px}
+    .welcome-line{font-size:22px}
+    .choice-title{font-size:22px}
+    .choice-icon{width:48px; height:48px}
+    .choice-icon svg{width:24px; height:24px}
     .logo-wrap{width:180px}
+    .sub-line{letter-spacing:2.5px}
   }
 
   @media(min-width:640px){
     body{padding:48px 28px}
-    .logo-wrap{width:240px}
-    .welcome-line{font-size:24px}
-    .choice-card{padding:26px 28px}
-    .choice-title{font-size:26px}
+    .logo-wrap{width:250px}
+    .welcome-line{font-size:30px}
+    .choice-card{padding:28px 30px}
+    .choice-title{font-size:28px}
   }
 
-  /* Respect reduced motion */
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{
       animation-duration:0.01ms !important;
       animation-iteration-count:1 !important;
       transition-duration:0.01ms !important;
     }
-    .particle{display:none}
+    .particle, #bg3d{display:none}
   }
 </style>
 </head>
 <body>
+
+  <!-- ============ 3D BACKGROUND ============ -->
+  <canvas id="bg3d" aria-hidden="true"></canvas>
 
   <!-- ============ FLOATING PARTICLES ============ -->
   <div class="particles" aria-hidden="true">
@@ -425,10 +508,17 @@
   </div>
 
   <!-- ============ WELCOME ============ -->
-  <h1 class="welcome-line">Welcome to The Olive Hotel</h1>
-  <div class="sub-line">Bhardwaj Group · Karnal</div>
+  <h1 class="welcome-line">
+    Welcome to <span class="accent">The Olive Hotel</span>
+  </h1>
 
-  <div class="divider-gold"></div>
+  <div class="highlight-line">
+    <span class="line"></span>
+    <span class="dot"></span>
+    <span class="line"></span>
+  </div>
+
+  <div class="sub-line">Bhardwaj Group · Karnal</div>
 
   <!-- ============ CHOICE CARDS ============ -->
   <div class="choices">
@@ -445,7 +535,7 @@
         </div>
         <div class="choice-text">
           <div class="choice-title">Menu</div>
-          <div class="choice-desc">View our full restaurant menu & order on WhatsApp</div>
+          <div class="choice-desc">View our full restaurant menu &amp; order on WhatsApp</div>
         </div>
         <div class="choice-arrow">→</div>
       </div>
@@ -466,7 +556,7 @@
         </div>
         <div class="choice-text">
           <div class="choice-title">Hotel Info</div>
-          <div class="choice-desc">WiFi, timings, nearby places, contact & reviews</div>
+          <div class="choice-desc">WiFi, timings, nearby places, contact &amp; reviews</div>
         </div>
         <div class="choice-arrow">→</div>
       </div>
@@ -481,7 +571,121 @@
       Ground Floor, Infront Of Railway Station,<br>
       Railway Road, Karnal, 132001
     </div>
+    <a href="https://vaan-consultancy.pages.dev" target="_blank" rel="noopener" class="footer-vaan">
+      Powered by <span>VAAN</span>
+    </a>
   </footer>
+
+  <!-- ============ THREE.JS ============ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // ============ 3D BACKGROUND ============
+    (function init3D(){
+      const canvas = document.getElementById('bg3d');
+      if (!canvas || typeof THREE === 'undefined') return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 24;
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true,
+        antialias: window.devicePixelRatio < 2
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const gold = 0xd4b46a;
+      const goldBright = 0xe5c67f;
+
+      // Slow rotating wireframe icosahedron
+      const icoGeo = new THREE.IcosahedronGeometry(8, 1);
+      const icoMat = new THREE.MeshBasicMaterial({
+        color: gold,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.08
+      });
+      const ico = new THREE.Mesh(icoGeo, icoMat);
+      ico.position.set(0, 0, -10);
+      scene.add(ico);
+
+      // Two floating torus knots
+      const torus1 = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(2.8, 0.06, 100, 12),
+        new THREE.MeshBasicMaterial({ color: goldBright, wireframe: true, transparent: true, opacity: 0.13 })
+      );
+      torus1.position.set(-13, 8, -8);
+      scene.add(torus1);
+
+      const torus2 = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(2.2, 0.05, 80, 10),
+        new THREE.MeshBasicMaterial({ color: gold, wireframe: true, transparent: true, opacity: 0.11 })
+      );
+      torus2.position.set(14, -10, -12);
+      scene.add(torus2);
+
+      // Faint big ring
+      const ring = new THREE.Mesh(
+        new THREE.RingGeometry(18, 18.3, 80),
+        new THREE.MeshBasicMaterial({ color: gold, transparent: true, opacity: 0.06, side: THREE.DoubleSide })
+      );
+      ring.position.set(0, 0, -18);
+      scene.add(ring);
+
+      // Mouse parallax
+      let mouseX = 0, mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      }, { passive: true });
+
+      const clock = new THREE.Clock();
+      let animationId = null;
+
+      function animate(){
+        const t = clock.getElapsedTime();
+
+        ico.rotation.x = t * 0.08;
+        ico.rotation.y = t * 0.12;
+
+        torus1.rotation.x = t * 0.15;
+        torus1.rotation.y = t * 0.10;
+        torus2.rotation.x = -t * 0.12;
+        torus2.rotation.y = t * 0.14;
+
+        camera.position.x += (mouseX * 2 - camera.position.x) * 0.03;
+        camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.03;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, camera);
+        animationId = requestAnimationFrame(animate);
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden){
+          if (animationId) cancelAnimationFrame(animationId);
+          animationId = null;
+        } else if (!animationId){
+          animate();
+        }
+      });
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        }, 200);
+      });
+
+      animate();
+    })();
+  </script>
 
 </body>
 </html>
