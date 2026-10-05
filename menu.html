@@ -9,7 +9,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="icon" href="logo.jpg.jpeg">
 
@@ -22,14 +22,13 @@
     --gold:#d4b46a;
     --gold-bright:#e5c67f;
     --gold-soft:#b8944d;
-    --gold-dim:rgba(212,180,106,0.15);
+    --gold-glow:rgba(212,180,106,0.35);
     --cream:#f5efe2;
     --text:#f5efe2;
     --text-dim:#a89f8a;
     --green:#4ade80;
     --red:#f87171;
-    --shadow-gold:0 10px 30px rgba(212,180,106,0.15);
-    --shadow-deep:0 20px 40px rgba(0,0,0,0.4);
+    --shadow-deep:0 20px 40px rgba(0,0,0,0.45);
   }
 
   *{
@@ -47,20 +46,42 @@
 
   body{
     font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-    background:
-      radial-gradient(ellipse at top, #152758 0%, #0d1b3e 40%, #081229 100%);
+    background:radial-gradient(ellipse at top, #152758 0%, #0d1b3e 45%, #081229 100%);
     background-attachment:fixed;
     color:var(--text);
     min-height:100vh;
     overflow-x:hidden;
     line-height:1.5;
-    padding-bottom:110px;
+    padding-bottom:120px;
     font-weight:400;
     letter-spacing:0.1px;
+    font-feature-settings:"kern" 1, "liga" 1;
   }
 
-  body.no-scroll{
-    overflow:hidden;
+  body.no-scroll{ overflow:hidden; }
+
+  /* ============ 3D BACKGROUND CANVAS ============ */
+  #bg3d{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.55;
+  }
+
+  /* everything else sits above the canvas */
+  .topbar,
+  .hero,
+  .legend,
+  .filter-wrap,
+  .menu-wrap,
+  .menu-note,
+  .footer,
+  .bottombar{
+    position:relative;
+    z-index:1;
   }
 
   /* ============ TOP BAR ============ */
@@ -68,10 +89,10 @@
     position:sticky;
     top:0;
     z-index:100;
-    background:rgba(8,18,41,0.94);
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-    border-bottom:1px solid rgba(212,180,106,0.15);
+    background:rgba(8,18,41,0.92);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(212,180,106,0.14);
     padding:10px 14px;
     display:flex;
     align-items:center;
@@ -150,6 +171,15 @@
     stroke-width:1.8;
   }
 
+  .cart-btn.has-items{
+    animation:cartGlow 2.4s ease-in-out infinite;
+  }
+
+  @keyframes cartGlow{
+    0%,100%{box-shadow:0 0 0 rgba(212,180,106,0)}
+    50%{box-shadow:0 0 18px rgba(212,180,106,0.5)}
+  }
+
   .cart-count{
     position:absolute;
     top:-5px;
@@ -165,14 +195,12 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    letter-spacing:0;
+    font-variant-numeric:tabular-nums;
     transition:transform .3s cubic-bezier(.34,1.56,.64,1);
     box-shadow:0 2px 8px rgba(212,180,106,0.4);
   }
 
-  .cart-count.hidden{
-    transform:scale(0);
-  }
+  .cart-count.hidden{ transform:scale(0); }
 
   .cart-count.bounce{
     animation:cartBounce .5s cubic-bezier(.34,1.56,.64,1);
@@ -184,7 +212,7 @@
     100%{transform:scale(1)}
   }
 
-  /* ============ SWITCHER (Menu / Info) ============ */
+  /* ============ SWITCHER ============ */
   .switcher{
     display:flex;
     background:rgba(212,180,106,0.08);
@@ -216,14 +244,11 @@
     box-shadow:0 2px 8px rgba(212,180,106,0.15);
   }
 
-  .switch-btn svg{
-    width:11px;
-    height:11px;
-  }
+  .switch-btn svg{ width:11px; height:11px; }
 
   /* ============ HERO ============ */
   .hero{
-    padding:32px 20px 24px;
+    padding:36px 20px 22px;
     text-align:center;
     position:relative;
     overflow:hidden;
@@ -235,9 +260,9 @@
     top:-40%;
     left:50%;
     transform:translateX(-50%);
-    width:400px;
-    height:400px;
-    background:radial-gradient(circle, rgba(212,180,106,0.10) 0%, transparent 65%);
+    width:420px;
+    height:420px;
+    background:radial-gradient(circle, rgba(212,180,106,0.12) 0%, transparent 65%);
     pointer-events:none;
     filter:blur(30px);
     animation:heroGlow 7s ease-in-out infinite;
@@ -290,7 +315,8 @@
     margin:18px auto 0;
     animation:fadeIn .8s ease .4s both;
   }
-    /* ============ VEG/NON-VEG LEGEND ============ */
+
+  /* ============ LEGEND ============ */
   .legend{
     display:flex;
     justify-content:center;
@@ -346,80 +372,14 @@
     background:var(--red);
   }
 
-  /* ============ SCROLL REVEAL ============ */
-  .dish{
-    opacity:0;
-    transform:translateY(14px);
-    transition:opacity .5s ease, transform .5s cubic-bezier(.2,.8,.3,1), background .3s, border-color .3s;
-  }
-
-  .dish.revealed{
-    opacity:1;
-    transform:translateY(0);
-  }
-
-  /* category header shimmer */
-  .category-title{
-    position:relative;
-    background:linear-gradient(90deg, var(--gold-bright) 0%, var(--gold-bright) 40%, #fff8e0 50%, var(--gold-bright) 60%, var(--gold-bright) 100%);
-    background-size:200% auto;
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    animation:titleShimmer 5s linear infinite;
-  }
-
-  @keyframes titleShimmer{
-    0%{background-position:200% center}
-    100%{background-position:-200% center}
-  }
-
-  /* filter chip pulse on active */
-  .filter-chip.active{
-    animation:chipPulse 2.5s ease-in-out infinite;
-  }
-
-  @keyframes chipPulse{
-    0%,100%{box-shadow:0 0 20px rgba(212,180,106,0.2)}
-    50%{box-shadow:0 0 28px rgba(212,180,106,0.4)}
-  }
-
-  /* cart icon glow when has items */
-  .cart-btn.has-items{
-    animation:cartGlow 2.4s ease-in-out infinite;
-  }
-
-  @keyframes cartGlow{
-    0%,100%{box-shadow:0 0 0 rgba(212,180,106,0)}
-    50%{box-shadow:0 0 18px rgba(212,180,106,0.5)}
-  }
-
-  /* bottom bar reveal on scroll */
-  .bottombar{
-    transition:transform .4s cubic-bezier(.2,.8,.3,1);
-  }
-  .bottombar.hide-on-top{
-    transform:translateY(100%);
-  }
-    <!-- ============ VEG/NON-VEG LEGEND ============ -->
-  <div class="legend">
-    <div class="legend-item">
-      <span class="legend-mark veg"></span>
-      Veg
-    </div>
-    <div class="legend-item">
-      <span class="legend-mark nonveg"></span>
-      Non-Veg
-    </div>
-  </div>
   /* ============ CATEGORY FILTER ============ */
   .filter-wrap{
     position:sticky;
     top:59px;
     z-index:90;
-    background:rgba(8,18,41,0.96);
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
+    background:rgba(8,18,41,0.94);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
     border-bottom:1px solid rgba(212,180,106,0.12);
     padding:10px 0;
   }
@@ -434,9 +394,7 @@
     scroll-behavior:smooth;
   }
 
-  .filter-bar::-webkit-scrollbar{
-    display:none;
-  }
+  .filter-bar::-webkit-scrollbar{ display:none; }
 
   .filter-chip{
     flex-shrink:0;
@@ -451,22 +409,27 @@
     letter-spacing:1.2px;
     text-transform:uppercase;
     cursor:pointer;
-    transition:all .3s cubic-bezier(.2,.8,.3,1);
+    transition:all .35s cubic-bezier(.2,.8,.3,1);
     white-space:nowrap;
+    font-variant-numeric:tabular-nums;
   }
 
-  .filter-chip:active{
-    transform:scale(0.95);
-  }
+  .filter-chip:active{ transform:scale(0.95); }
 
   .filter-chip.active{
     background:linear-gradient(180deg, rgba(212,180,106,0.32), rgba(212,180,106,0.14));
     color:var(--gold-bright);
     border-color:var(--gold);
-    box-shadow:0 0 20px rgba(212,180,106,0.2);
+    box-shadow:0 0 22px rgba(212,180,106,0.25);
+    animation:chipPulse 2.5s ease-in-out infinite;
   }
 
-  /* ============ MENU GRID ============ */
+  @keyframes chipPulse{
+    0%,100%{box-shadow:0 0 22px rgba(212,180,106,0.25)}
+    50%{box-shadow:0 0 30px rgba(212,180,106,0.45)}
+  }
+
+  /* ============ MENU WRAPPER ============ */
   .menu-wrap{
     max-width:680px;
     margin:0 auto;
@@ -478,9 +441,7 @@
     animation:fadeInUp .6s ease backwards;
   }
 
-  .category.hidden{
-    display:none;
-  }
+  .category.hidden{ display:none; }
 
   .category-header{
     display:flex;
@@ -504,13 +465,22 @@
   .category-title{
     font-family:'Cormorant Garamond',serif;
     font-size:24px;
-    font-weight:600;
-    color:var(--gold-bright);
+    font-weight:500;
+    font-style:italic;
     letter-spacing:3px;
     text-transform:uppercase;
     white-space:nowrap;
-    font-style:italic;
-    font-weight:500;
+    background:linear-gradient(90deg, var(--gold-bright) 0%, var(--gold-bright) 40%, #fff8e0 50%, var(--gold-bright) 60%, var(--gold-bright) 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:titleShimmer 6s linear infinite;
+  }
+
+  @keyframes titleShimmer{
+    0%{background-position:200% center}
+    100%{background-position:-200% center}
   }
 
   /* ============ DISH CARD ============ */
@@ -525,33 +495,36 @@
     border:1px solid rgba(212,180,106,0.13);
     position:relative;
     overflow:hidden;
-    transition:all .3s cubic-bezier(.2,.8,.3,1);
+    transition:all .35s cubic-bezier(.2,.8,.3,1);
     cursor:pointer;
+    opacity:0;
+    transform:translateY(14px);
+  }
+
+  .dish.revealed{
+    opacity:1;
+    transform:translateY(0);
   }
 
   .dish::before{
     content:'';
     position:absolute;
     inset:0;
-    background:linear-gradient(120deg, transparent 40%, rgba(229,198,127,0.10) 50%, transparent 60%);
+    background:linear-gradient(120deg, transparent 40%, rgba(229,198,127,0.12) 50%, transparent 60%);
     transform:translateX(-100%);
-    transition:transform .7s ease;
+    transition:transform .8s ease;
     pointer-events:none;
   }
 
-  .dish:active::before{
-    transform:translateX(100%);
-  }
+  .dish:active::before{ transform:translateX(100%); }
 
   .dish:active{
     transform:scale(0.985);
-    border-color:rgba(212,180,106,0.30);
+    border-color:rgba(212,180,106,0.32);
     background:rgba(212,180,106,0.09);
   }
 
-  .dish.ripple{
-    animation:dishRipple .5s ease;
-  }
+  .dish.ripple{ animation:dishRipple .5s ease; }
 
   @keyframes dishRipple{
     0%{background:rgba(212,180,106,0.28)}
@@ -584,9 +557,7 @@
     background:rgba(248,113,113,0.05);
   }
 
-  .veg-mark.nonveg::before{
-    background:var(--red);
-  }
+  .veg-mark.nonveg::before{ background:var(--red); }
 
   .dish-info{
     flex:1;
@@ -622,12 +593,14 @@
 
   .dish-price{
     font-family:'Cormorant Garamond',serif;
-    font-size:20px;
-    font-weight:600;
+    font-size:22px;
+    font-weight:700;
     color:var(--gold-bright);
-    letter-spacing:0.3px;
+    letter-spacing:0.2px;
     line-height:1;
     white-space:nowrap;
+    font-variant-numeric:tabular-nums lining-nums;
+    font-feature-settings:"tnum" 1, "lnum" 1, "kern" 1;
   }
 
   .dish-add-hint{
@@ -654,13 +627,8 @@
     letter-spacing:0.2px;
   }
 
-  .menu-note p{
-    margin-bottom:5px;
-  }
-
-  .menu-note p:last-child{
-    margin-bottom:0;
-  }
+  .menu-note p{ margin-bottom:5px; }
+  .menu-note p:last-child{ margin-bottom:0; }
 
   /* ============ FOOTER ============ */
   .footer{
@@ -695,20 +663,18 @@
     right:0;
     z-index:90;
     background:rgba(8,18,41,0.97);
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
     border-top:1px solid rgba(212,180,106,0.18);
     padding:12px 14px;
     display:flex;
     gap:10px;
     align-items:center;
     transform:translateY(0);
-    transition:transform .3s ease;
+    transition:transform .4s cubic-bezier(.2,.8,.3,1);
   }
 
-  .bottombar.hidden{
-    transform:translateY(100%);
-  }
+  .bottombar.hide-on-top{ transform:translateY(100%); }
 
   .bottom-action{
     flex:1;
@@ -740,7 +706,7 @@
     background:linear-gradient(180deg, rgba(212,180,106,0.35), rgba(212,180,106,0.18));
     border-color:var(--gold);
     color:var(--gold-bright);
-    box-shadow:0 0 20px rgba(212,180,106,0.20);
+    box-shadow:0 0 22px rgba(212,180,106,0.22);
   }
 
   .bottom-action svg{
@@ -749,13 +715,13 @@
     stroke-width:2;
   }
 
-  /* ============ MODAL (DISH DETAIL) ============ */
+  /* ============ MODAL ============ */
   .modal-backdrop{
     position:fixed;
     inset:0;
     background:rgba(8,18,41,0.75);
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
     z-index:200;
     opacity:0;
     pointer-events:none;
@@ -780,14 +746,12 @@
     box-shadow:0 -20px 60px rgba(0,0,0,0.6);
     z-index:210;
     transform:translateY(100%);
-    transition:transform .4s cubic-bezier(.2,.9,.3,1);
+    transition:transform .45s cubic-bezier(.2,.9,.3,1);
     overflow-y:auto;
     -webkit-overflow-scrolling:touch;
   }
 
-  .modal.show{
-    transform:translateY(0);
-  }
+  .modal.show{ transform:translateY(0); }
 
   .modal-handle{
     width:42px;
@@ -815,24 +779,14 @@
     z-index:2;
   }
 
-  .modal-close:active{
-    transform:scale(0.9);
-  }
+  .modal-close:active{ transform:scale(0.9); }
+  .modal-close svg{ width:16px; height:16px; stroke-width:2; }
 
-  .modal-close svg{
-    width:16px;
-    height:16px;
-    stroke-width:2;
-  }
-
-  .modal-content{
-    padding:16px 22px 32px;
-  }
+  .modal-content{ padding:16px 22px 32px; }
 
   .modal-eyebrow{
     font-size:10px;
     letter-spacing:3px;
-    color:var(--gold-soft);
     text-transform:uppercase;
     font-weight:600;
     margin-bottom:8px;
@@ -884,10 +838,11 @@
 
   .modal-price-value{
     font-family:'Cormorant Garamond',serif;
-    font-size:26px;
+    font-size:28px;
     font-weight:700;
     color:var(--gold-bright);
-    letter-spacing:0.3px;
+    font-variant-numeric:tabular-nums lining-nums;
+    font-feature-settings:"tnum" 1, "lnum" 1;
   }
 
   .modal-actions{
@@ -900,7 +855,6 @@
   .qty-control{
     display:flex;
     align-items:center;
-    gap:0;
     background:rgba(212,180,106,0.08);
     border:1px solid rgba(212,180,106,0.24);
     border-radius:12px;
@@ -923,9 +877,7 @@
     justify-content:center;
   }
 
-  .qty-btn:active{
-    background:rgba(212,180,106,0.18);
-  }
+  .qty-btn:active{ background:rgba(212,180,106,0.18); }
 
   .qty-value{
     width:38px;
@@ -939,6 +891,7 @@
     color:var(--gold-bright);
     border-left:1px solid rgba(212,180,106,0.14);
     border-right:1px solid rgba(212,180,106,0.14);
+    font-variant-numeric:tabular-nums;
   }
 
   .add-to-cart-btn{
@@ -977,14 +930,12 @@
     box-shadow:0 -20px 60px rgba(0,0,0,0.6);
     z-index:220;
     transform:translateY(100%);
-    transition:transform .4s cubic-bezier(.2,.9,.3,1);
+    transition:transform .45s cubic-bezier(.2,.9,.3,1);
     display:flex;
     flex-direction:column;
   }
 
-  .cart-drawer.show{
-    transform:translateY(0);
-  }
+  .cart-drawer.show{ transform:translateY(0); }
 
   .cart-header{
     padding:16px 22px 14px;
@@ -1003,10 +954,7 @@
     letter-spacing:0.8px;
   }
 
-  .cart-empty{
-    padding:48px 22px;
-    text-align:center;
-  }
+  .cart-empty{ padding:48px 22px; text-align:center; }
 
   .cart-empty-title{
     font-family:'Cormorant Garamond',serif;
@@ -1038,19 +986,14 @@
     animation:cartItemIn .35s ease;
   }
 
-  .cart-item:last-child{
-    border-bottom:none;
-  }
+  .cart-item:last-child{ border-bottom:none; }
 
   @keyframes cartItemIn{
     from{opacity:0; transform:translateX(-10px)}
     to{opacity:1; transform:translateX(0)}
   }
 
-  .cart-item-info{
-    flex:1;
-    min-width:0;
-  }
+  .cart-item-info{ flex:1; min-width:0; }
 
   .cart-item-name{
     font-family:'Cormorant Garamond',serif;
@@ -1066,12 +1009,12 @@
     color:var(--gold-soft);
     letter-spacing:0.5px;
     font-weight:500;
+    font-variant-numeric:tabular-nums lining-nums;
   }
 
   .cart-item-qty{
     display:flex;
     align-items:center;
-    gap:0;
     background:rgba(212,180,106,0.06);
     border:1px solid rgba(212,180,106,0.18);
     border-radius:9px;
@@ -1095,9 +1038,7 @@
     justify-content:center;
   }
 
-  .cart-qty-btn:active{
-    background:rgba(212,180,106,0.16);
-  }
+  .cart-qty-btn:active{ background:rgba(212,180,106,0.16); }
 
   .cart-qty-value{
     width:26px;
@@ -1111,6 +1052,7 @@
     color:var(--gold-bright);
     border-left:1px solid rgba(212,180,106,0.14);
     border-right:1px solid rgba(212,180,106,0.14);
+    font-variant-numeric:tabular-nums;
   }
 
   .cart-footer{
@@ -1136,10 +1078,11 @@
 
   .cart-total-value{
     font-family:'Cormorant Garamond',serif;
-    font-size:30px;
+    font-size:32px;
     font-weight:700;
     color:var(--gold-bright);
-    letter-spacing:0.3px;
+    font-variant-numeric:tabular-nums lining-nums;
+    font-feature-settings:"tnum" 1, "lnum" 1;
   }
 
   .cart-checkout{
@@ -1168,16 +1111,12 @@
     background:linear-gradient(180deg, rgba(212,180,106,0.55), rgba(212,180,106,0.32));
   }
 
-  .cart-checkout svg{
-    width:16px;
-    height:16px;
-    stroke-width:2;
-  }
+  .cart-checkout svg{ width:16px; height:16px; stroke-width:2; }
 
   /* ============ TOAST ============ */
   .toast{
     position:fixed;
-    bottom:110px;
+    bottom:120px;
     left:50%;
     transform:translateX(-50%) translateY(100px);
     background:var(--gold-bright);
@@ -1188,16 +1127,14 @@
     font-weight:700;
     letter-spacing:0.8px;
     z-index:999;
-    transition:transform .35s cubic-bezier(.2,.8,.3,1);
+    transition:transform .4s cubic-bezier(.2,.8,.3,1);
     box-shadow:0 12px 32px rgba(0,0,0,0.5);
     pointer-events:none;
     max-width:88%;
     text-align:center;
   }
 
-  .toast.show{
-    transform:translateX(-50%) translateY(0);
-  }
+  .toast.show{ transform:translateX(-50%) translateY(0); }
 
   /* ============ ANIMATIONS ============ */
   @keyframes fadeInUp{
@@ -1220,7 +1157,7 @@
     .hero-title{font-size:42px}
     .category-title{font-size:20px}
     .dish-name{font-size:16px}
-    .dish-price{font-size:18px}
+    .dish-price{font-size:19px}
     .topbar-title{font-size:15px}
     .switch-btn{padding:6px 9px; font-size:9px}
     .topbar-logo{width:34px; height:34px}
@@ -1242,9 +1179,13 @@
       animation-duration:0.01ms !important;
       transition-duration:0.01ms !important;
     }
+    #bg3d{ display:none; }
   }
 </style>
 </head><body>
+
+  <!-- ============ 3D BACKGROUND CANVAS ============ -->
+  <canvas id="bg3d"></canvas>
 
   <!-- ============ TOPBAR ============ -->
   <div class="topbar">
@@ -1295,6 +1236,18 @@
     <div class="hero-sub">Tap any dish to add to your order</div>
     <div class="hero-divider"></div>
   </section>
+
+  <!-- ============ LEGEND ============ -->
+  <div class="legend">
+    <div class="legend-item">
+      <span class="legend-mark veg"></span>
+      Veg
+    </div>
+    <div class="legend-item">
+      <span class="legend-mark nonveg"></span>
+      Non-Veg
+    </div>
+  </div>
 
   <!-- ============ CATEGORY FILTER ============ -->
   <div class="filter-wrap">
@@ -1817,80 +1770,150 @@
 
       <div class="dish" data-name="Burger" data-price="149" data-note="Veg ₹149 / Chicken ₹199">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Burger</div><div class="dish-note">Veg ₹149 / Chicken ₹199</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹149+</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Burger</div>
+          <div class="dish-note">Veg ₹149 / Chicken ₹199</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹149+</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Cheese Burger" data-price="179" data-note="Veg ₹179 / Chicken ₹229">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Cheese Burger</div><div class="dish-note">Veg ₹179 / Chicken ₹229</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹179+</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Cheese Burger</div>
+          <div class="dish-note">Veg ₹179 / Chicken ₹229</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹179+</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Club Sandwich" data-price="159" data-note="Veg ₹159 / Chicken ₹199" data-veg="false">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Club Sandwich</div><div class="dish-note">Veg ₹159 / Chicken ₹199</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹159+</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Club Sandwich</div>
+          <div class="dish-note">Veg ₹159 / Chicken ₹199</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹159+</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Grilled Sandwich" data-price="179" data-note="Veg ₹179 / Chicken ₹229">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Grilled Sandwich</div><div class="dish-note">Veg ₹179 / Chicken ₹229</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹179+</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Grilled Sandwich</div>
+          <div class="dish-note">Veg ₹179 / Chicken ₹229</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹179+</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Cheese Grilled Sandwich" data-price="199" data-note="Veg ₹199 / Chicken ₹249">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Cheese Grilled Sandwich</div><div class="dish-note">Veg ₹199 / Chicken ₹249</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹199+</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Cheese Grilled Sandwich</div>
+          <div class="dish-note">Veg ₹199 / Chicken ₹249</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹199+</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Alfredo Pasta" data-price="269">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Alfredo Pasta</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹269</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Alfredo Pasta</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹269</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Arrabiata Pasta" data-price="269">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Arrabiata Pasta</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹269</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Arrabiata Pasta</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹269</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Pink Sauce Pasta" data-price="299">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Pink Sauce Pasta</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Pink Sauce Pasta</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹299</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Margherita Pizza" data-price="279">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Margherita Pizza</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹279</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Margherita Pizza</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹279</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Farmhouse Pizza" data-price="299">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Farmhouse Pizza</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹299</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Farmhouse Pizza</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹299</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Paneer Makhani Pizza" data-price="329">
         <span class="veg-mark"></span>
-        <div class="dish-info"><div class="dish-name">Paneer Makhani Pizza</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹329</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Paneer Makhani Pizza</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹329</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Chilli Chicken Pizza" data-price="399" data-veg="false">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Chilli Chicken Pizza</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹399</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Chilli Chicken Pizza</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹399</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
 
       <div class="dish" data-name="Chicken Makhani Pizza" data-price="399" data-veg="false">
         <span class="veg-mark nonveg"></span>
-        <div class="dish-info"><div class="dish-name">Chicken Makhani Pizza</div></div>
-        <div class="dish-price-wrap"><div class="dish-price">₹399</div><div class="dish-add-hint">Add</div></div>
+        <div class="dish-info">
+          <div class="dish-name">Chicken Makhani Pizza</div>
+        </div>
+        <div class="dish-price-wrap">
+          <div class="dish-price">₹399</div>
+          <div class="dish-add-hint">Add</div>
+        </div>
       </div>
     </section>
 
@@ -2033,9 +2056,7 @@
         <div class="dish-info"><div class="dish-name">Paneer Tikka Masala</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹379</div><div class="dish-add-hint">Add</div></div>
       </div>
-    </section>
-
-    <!-- ============ MAIN COURSE NON-VEG ============ -->
+    </section>    <!-- ============ MAIN COURSE NON-VEG ============ -->
     <section class="category" data-category="nonveg">
       <div class="category-header">
         <div class="category-line"></div>
@@ -2297,9 +2318,7 @@
         <div class="dish-info"><div class="dish-name">Mutton Biryani</div><div class="dish-note">Served with Raita</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹479</div><div class="dish-add-hint">Add</div></div>
       </div>
-    </section>
-
-    <!-- ============ RAITA ============ -->
+    </section>    <!-- ============ RAITA ============ -->
     <section class="category" data-category="raita">
       <div class="category-header">
         <div class="category-line"></div>
@@ -2313,7 +2332,7 @@
         <div class="dish-price-wrap"><div class="dish-price">₹69</div><div class="dish-add-hint">Add</div></div>
       </div>
 
-           <div class="dish" data-name="Mix Raita" data-price="149">
+      <div class="dish" data-name="Mix Raita" data-price="149">
         <span class="veg-mark"></span>
         <div class="dish-info"><div class="dish-name">Mix Raita</div></div>
         <div class="dish-price-wrap"><div class="dish-price">₹149</div><div class="dish-add-hint">Add</div></div>
@@ -2563,7 +2582,7 @@
       </svg>
     </button>
     <div class="modal-content">
-      <div class="modal-eyebrow" id="modalEyebrow">Veg</div>
+      <div class="modal-eyebrow" id="modalEyebrow">Vegetarian</div>
       <h2 class="modal-title" id="modalTitle">Dish Name</h2>
       <div class="modal-desc" id="modalDesc"></div>
       <div class="modal-divider"></div>
@@ -2573,11 +2592,11 @@
       </div>
       <div class="modal-actions">
         <div class="qty-control">
-          <button class="qty-btn" id="qtyMinus">−</button>
+          <button class="qty-btn" id="qtyMinus" type="button">−</button>
           <div class="qty-value" id="qtyValue">1</div>
-          <button class="qty-btn" id="qtyPlus">+</button>
+          <button class="qty-btn" id="qtyPlus" type="button">+</button>
         </div>
-        <button class="add-to-cart-btn" id="addToCartBtn">Add to Order</button>
+        <button class="add-to-cart-btn" id="addToCartBtn" type="button">Add to Order</button>
       </div>
     </div>
   </div>
@@ -2587,7 +2606,7 @@
     <div class="modal-handle"></div>
     <div class="cart-header">
       <div class="cart-title">Your Order</div>
-      <button class="modal-close" id="cartClose" style="position:relative; top:0; right:0;">
+      <button class="modal-close" id="cartClose" type="button" style="position:relative; top:0; right:0;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"/>
           <line x1="6" y1="6" x2="18" y2="18"/>
@@ -2605,7 +2624,7 @@
         <div class="cart-total-label">Total</div>
         <div class="cart-total-value" id="cartTotal">₹0</div>
       </div>
-      <button class="cart-checkout" id="checkoutBtn">
+      <button class="cart-checkout" id="checkoutBtn" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
         </svg>
@@ -2615,9 +2634,10 @@
   </div>
 
   <!-- ============ TOAST ============ -->
-  <div class="toast" id="toast">Added</div>
+  <div class="toast" id="toast">Added</div>  <!-- ============ THREE.JS ============ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- ============ SCRIPT ============ -->
+  <!-- ============ MAIN SCRIPT ============ -->
   <script>
     // ============ CONFIG ============
     const HOTEL_WHATSAPP = '917400780030';
@@ -2659,6 +2679,7 @@
 
     const toast = document.getElementById('toast');
     const filterBar = document.getElementById('filterBar');
+    const bottombar = document.getElementById('bottombar');
 
     // ============ TOAST ============
     let toastTimer = null;
@@ -2720,7 +2741,7 @@
       cartCountEl.classList.add('bounce');
     }
 
-    // ============ UPDATE UI ============
+    // ============ UPDATE CART UI ============
     function updateCartUI(){
       const count = cartCount();
       if (count === 0){
@@ -2730,9 +2751,8 @@
         cartCountEl.textContent = count;
       }
 
-      // Cart items list
-      const existingItems = cartItemsEl.querySelectorAll('.cart-item');
-      existingItems.forEach(el => el.remove());
+      // remove old rows (keep empty state)
+      cartItemsEl.querySelectorAll('.cart-item').forEach(el => el.remove());
 
       if (cart.length === 0){
         cartEmpty.style.display = 'block';
@@ -2750,9 +2770,9 @@
               <div class="cart-item-price">₹${item.price} × ${item.qty} = ₹${item.price * item.qty}</div>
             </div>
             <div class="cart-item-qty">
-              <button class="cart-qty-btn" data-action="minus" data-name="${escapeAttr(item.name)}">−</button>
+              <button class="cart-qty-btn" data-action="minus" data-name="${escapeAttr(item.name)}" type="button">−</button>
               <div class="cart-qty-value">${item.qty}</div>
-              <button class="cart-qty-btn" data-action="plus" data-name="${escapeAttr(item.name)}">+</button>
+              <button class="cart-qty-btn" data-action="plus" data-name="${escapeAttr(item.name)}" type="button">+</button>
             </div>
           `;
           cartItemsEl.appendChild(row);
@@ -2760,12 +2780,23 @@
 
         cartTotalEl.textContent = '₹' + cartTotal();
       }
+
+      updateCartGlow();
     }
 
     function escapeHtml(s){
       return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
     function escapeAttr(s){ return escapeHtml(s); }
+
+    // ============ CART GLOW ============
+    function updateCartGlow(){
+      if (cartCount() > 0){
+        cartBtn.classList.add('has-items');
+      } else {
+        cartBtn.classList.remove('has-items');
+      }
+    }
 
     // ============ DISH CLICK ============
     document.querySelectorAll('.dish').forEach(dish => {
@@ -2834,7 +2865,7 @@
         showToast(currentDish.name + ' added');
         closeDishModal();
       } else {
-        // For "Ask" price items — just send direct WhatsApp enquiry
+        // For "Ask" price items — direct WhatsApp enquiry
         const msg = encodeURIComponent('Hi, I want to enquire about ' + currentDish.name + ' from ' + HOTEL_NAME);
         window.open('https://wa.me/' + HOTEL_WHATSAPP + '?text=' + msg, '_blank');
         closeDishModal();
@@ -2888,14 +2919,11 @@
       if (!chip) return;
       const filter = chip.getAttribute('data-filter');
 
-      // active state
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
 
-      // scroll chip into view
       chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 
-      // filter categories
       document.querySelectorAll('.category').forEach(cat => {
         if (filter === 'all'){
           cat.classList.remove('hidden');
@@ -2908,19 +2936,18 @@
         }
       });
 
-      // scroll to top of menu
       if (filter !== 'all'){
         setTimeout(() => {
           const firstVisible = document.querySelector('.category:not(.hidden)');
           if (firstVisible){
-            const top = firstVisible.getBoundingClientRect().top + window.scrollY - 130;
+            const top = firstVisible.getBoundingClientRect().top + window.scrollY - 140;
             window.scrollTo({ top, behavior: 'smooth' });
           }
-        }, 100);
+        }, 120);
       }
     });
 
-       // ============ SCROLL REVEAL ============
+    // ============ SCROLL REVEAL ============
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting){
@@ -2934,42 +2961,196 @@
 
     document.querySelectorAll('.dish').forEach(dish => revealObserver.observe(dish));
 
-    // ============ CART GLOW WHEN HAS ITEMS ============
-    function updateCartGlow(){
-      if (cartCount() > 0){
-        cartBtn.classList.add('has-items');
-      } else {
-        cartBtn.classList.remove('has-items');
-      }
-    }
+    // Safety net — force reveal after 5 seconds
+    setTimeout(() => {
+      document.querySelectorAll('.dish:not(.revealed)').forEach(d => d.classList.add('revealed'));
+    }, 5000);
 
-    // ============ BOTTOM BAR HIDE/SHOW ON SCROLL ============
+    // ============ BOTTOM BAR SCROLL ============
     let lastScroll = 0;
-    const bottombar = document.getElementById('bottombar');
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
-      if (y < 60){
-        bottombar.classList.remove('hide-on-top');
-      } else {
+      if (y > lastScroll && y > 220){
         bottombar.classList.add('hide-on-top');
+      } else {
+        bottombar.classList.remove('hide-on-top');
       }
       lastScroll = y;
     }, { passive: true });
 
     // ============ INIT ============
     updateCartUI();
-    updateCartGlow();
 
-    // Hook cart glow into cart UI updates
-        // Glow check runs on every cart update via MutationObserver
-    const cartObserver = new MutationObserver(updateCartGlow);
-    cartObserver.observe(cartCountEl, { attributes: true, childList: true, characterData: true });
     // Prevent body scroll leak on modal open
     document.addEventListener('touchmove', (e) => {
       if (document.body.classList.contains('no-scroll') && !e.target.closest('.modal, .cart-drawer')){
         e.preventDefault();
       }
     }, { passive: false });
+
+    // ============ 3D BACKGROUND (THREE.JS) ============
+    (function init3D(){
+      const canvas = document.getElementById('bg3d');
+      if (!canvas || typeof THREE === 'undefined') return;
+
+      // Respect reduced motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 30;
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true,
+        antialias: window.devicePixelRatio < 2
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Gold palette
+      const goldColor = 0xd4b46a;
+      const goldBright = 0xe5c67f;
+
+      // ============ 1. Floating gold particles ============
+      const particleCount = window.innerWidth < 640 ? 60 : 120;
+      const positions = new Float32Array(particleCount * 3);
+      const sizes = new Float32Array(particleCount);
+
+      for (let i = 0; i < particleCount; i++){
+        positions[i * 3]     = (Math.random() - 0.5) * 80;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 80;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+        sizes[i] = Math.random() * 0.6 + 0.2;
+      }
+
+      const particleGeo = new THREE.BufferGeometry();
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      particleGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+      const particleMat = new THREE.PointsMaterial({
+        color: goldBright,
+        size: 0.35,
+        transparent: true,
+        opacity: 0.7,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        sizeAttenuation: true
+      });
+
+      const particles = new THREE.Points(particleGeo, particleMat);
+      scene.add(particles);
+
+      // ============ 2. Slow-rotating wireframe icosahedron (center) ============
+      const icoGeo = new THREE.IcosahedronGeometry(9, 1);
+      const icoMat = new THREE.MeshBasicMaterial({
+        color: goldColor,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.08
+      });
+      const ico = new THREE.Mesh(icoGeo, icoMat);
+      ico.position.set(0, 0, -10);
+      scene.add(ico);
+
+      // ============ 3. Two orbiting torus knots ============
+      const torusGeo1 = new THREE.TorusKnotGeometry(3, 0.08, 100, 12);
+      const torusMat1 = new THREE.MeshBasicMaterial({
+        color: goldBright,
+        transparent: true,
+        opacity: 0.15,
+        wireframe: true
+      });
+      const torus1 = new THREE.Mesh(torusGeo1, torusMat1);
+      torus1.position.set(-14, 8, -8);
+      scene.add(torus1);
+
+      const torusGeo2 = new THREE.TorusKnotGeometry(2.5, 0.06, 80, 10);
+      const torusMat2 = new THREE.MeshBasicMaterial({
+        color: goldColor,
+        transparent: true,
+        opacity: 0.12,
+        wireframe: true
+      });
+      const torus2 = new THREE.Mesh(torusGeo2, torusMat2);
+      torus2.position.set(15, -10, -12);
+      scene.add(torus2);
+
+      // ============ 4. Faint large ring in background ============
+      const ringGeo = new THREE.RingGeometry(20, 20.3, 80);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: goldColor,
+        transparent: true,
+        opacity: 0.06,
+        side: THREE.DoubleSide
+      });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.position.set(0, 0, -20);
+      scene.add(ring);
+
+      // ============ Mouse parallax (light) ============
+      let mouseX = 0, mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      }, { passive: true });
+
+      // ============ Animation loop ============
+      const clock = new THREE.Clock();
+      let animationId = null;
+
+      function animate(){
+        const t = clock.getElapsedTime();
+
+        // Rotate particles slowly
+        particles.rotation.y = t * 0.02;
+        particles.rotation.x = t * 0.01;
+
+        // Rotate icosahedron
+        ico.rotation.x = t * 0.08;
+        ico.rotation.y = t * 0.12;
+
+        // Rotate torus knots opposite directions
+        torus1.rotation.x = t * 0.15;
+        torus1.rotation.y = t * 0.10;
+        torus2.rotation.x = -t * 0.12;
+        torus2.rotation.y = t * 0.14;
+
+        // Gentle bob for particles
+        particles.position.y = Math.sin(t * 0.4) * 0.8;
+
+        // Camera parallax
+        camera.position.x += (mouseX * 2 - camera.position.x) * 0.03;
+        camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.03;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, camera);
+        animationId = requestAnimationFrame(animate);
+      }
+
+      // ============ Pause when tab hidden (save battery) ============
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden){
+          if (animationId) cancelAnimationFrame(animationId);
+          animationId = null;
+        } else if (!animationId){
+          animate();
+        }
+      });
+
+      // ============ Resize handler ============
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        }, 200);
+      });
+
+      animate();
+    })();
   </script>
 
 </body>
