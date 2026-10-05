@@ -1368,12 +1368,12 @@
 
   .cart-checkout svg{ width:16px; height:16px; stroke-width:2; }
 
-  /* ============ TOAST ============ */
+   /* ============ TOAST ============ */
   .toast{
     position:fixed;
-    bottom:200px;
+    bottom:120px;
     left:50%;
-    transform:translateX(-50%) translateY(100px);
+    transform:translateX(-50%) translateY(200px);
     background:var(--gold-bright);
     color:var(--navy-deep);
     padding:12px 22px;
@@ -1382,15 +1382,20 @@
     font-weight:700;
     letter-spacing:0.8px;
     z-index:999;
-    transition:transform .4s cubic-bezier(.2,.8,.3,1);
+    transition:transform .4s cubic-bezier(.2,.8,.3,1), opacity .3s ease;
     box-shadow:0 12px 32px rgba(0,0,0,0.5);
     pointer-events:none;
     max-width:88%;
     text-align:center;
+    opacity:0;
+    visibility:hidden;
   }
 
-  .toast.show{ transform:translateX(-50%) translateY(0); }
-
+  .toast.show{
+    transform:translateX(-50%) translateY(0);
+    opacity:1;
+    visibility:visible;
+  }
   /* ============ ANIMATIONS ============ */
   @keyframes fadeInUp{
     from{ opacity:0; transform:translateY(16px); }
