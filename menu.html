@@ -58,7 +58,6 @@
 
   body.no-scroll{ overflow:hidden; }
 
-  /* ============ 3D BACKGROUND CANVAS ============ */
   #bg3d{
     position:fixed;
     inset:0;
@@ -69,7 +68,6 @@
     opacity:0.6;
   }
 
-  /* ============ PAGE LOGO WATERMARK ============ */
   .page-watermark{
     position:fixed;
     top:50%;
@@ -102,7 +100,6 @@
     z-index:1;
   }
 
-  /* ============ TOP BAR ============ */
   .topbar{
     position:sticky;
     top:0;
@@ -220,7 +217,6 @@
     100%{ transform:scale(1); }
   }
 
-  /* ============ HERO ============ */
   .hero{
     padding:36px 20px 22px;
     text-align:center;
@@ -258,7 +254,6 @@
     animation:fadeInDown .8s ease .1s both;
   }
 
-  /* ============ SWITCHER ============ */
   .hero-switcher{
     display:flex;
     background:rgba(212,180,106,0.08);
@@ -330,7 +325,6 @@
     opacity:0.75;
   }
 
-  /* ============ LEGEND ============ */
   .legend{
     display:flex;
     justify-content:center;
@@ -388,7 +382,6 @@
     background:var(--red);
   }
 
-  /* ============ CATEGORY FILTER ============ */
   .filter-wrap{
     position:sticky;
     top:66px;
@@ -445,7 +438,6 @@
     50%{ box-shadow:0 0 30px rgba(212,180,106,0.45); }
   }
 
-  /* ============ MENU WRAPPER ============ */
   .menu-wrap{
     max-width:680px;
     margin:0 auto;
@@ -499,7 +491,6 @@
     100%{ background-position:-200% center; }
   }
 
-  /* ============ SUBCATEGORY LABEL ============ */
   .subcategory-label{
     display:flex;
     align-items:center;
@@ -519,7 +510,6 @@
   .subcategory-label:first-of-type{ margin-top:0; }
   .subcategory-label .veg-mark{ width:13px; height:13px; }
 
-  /* ============ DISH CARD ============ */
   .dish{
     display:flex;
     align-items:center;
@@ -682,7 +672,6 @@
     font-feature-settings:"tnum" 1, "lnum" 1, "kern" 1;
   }
 
-  /* ============ DUAL PRICE ============ */
   .dual-price-wrap{
     display:flex;
     flex-direction:column;
@@ -719,7 +708,6 @@
     text-align:right;
   }
 
-  /* ============ HALF/FULL ============ */
   .half-full-wrap{
     display:flex;
     flex-direction:column;
@@ -765,7 +753,6 @@
     text-align:right;
   }
 
-  /* ============ MENU NOTE ============ */
   .menu-note{
     max-width:680px;
     margin:36px auto 0;
@@ -783,7 +770,6 @@
   .menu-note p{ margin-bottom:5px; }
   .menu-note p:last-child{ margin-bottom:0; }
 
-  /* ============ FOOTER ============ */
   .footer{
     text-align:center;
     padding:34px 20px 24px;
@@ -808,7 +794,6 @@
     letter-spacing:0.3px;
   }
 
-  /* ============ STICKY BOTTOM BAR ============ */
   .bottombar{
     position:fixed;
     bottom:0;
@@ -864,7 +849,6 @@
 
   .bottom-action svg{ width:15px; height:15px; stroke-width:2; }
 
-  /* ============ MODAL ============ */
   .modal-backdrop{
     position:fixed;
     inset:0;
@@ -969,7 +953,6 @@
     margin:20px 0;
   }
 
-  /* ============ PORTION SELECTOR ============ */
   .portion-section{ margin-top:20px; }
 
   .portion-label{
@@ -1083,7 +1066,6 @@
     pointer-events:none;
   }
 
-  /* ============ MODAL ACTIONS ============ */
   .modal-actions{
     display:flex;
     gap:10px;
@@ -1162,7 +1144,6 @@
     box-shadow:none;
   }
 
-  /* ============ CART DRAWER ============ */
   .cart-drawer{
     position:fixed;
     bottom:0;
@@ -1316,6 +1297,30 @@
     background:rgba(8,18,41,0.4);
   }
 
+  .cart-breakdown{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    padding-bottom:12px;
+    margin-bottom:12px;
+    border-bottom:1px dashed rgba(212,180,106,0.18);
+  }
+
+  .cart-breakdown-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:12px;
+    color:var(--text-dim);
+    letter-spacing:0.5px;
+    font-variant-numeric:tabular-nums lining-nums;
+  }
+
+  .cart-breakdown-row span:last-child{
+    color:var(--gold-soft);
+    font-weight:600;
+  }
+
   .cart-total-row{
     display:flex;
     justify-content:space-between;
@@ -1368,7 +1373,6 @@
 
   .cart-checkout svg{ width:16px; height:16px; stroke-width:2; }
 
-   /* ============ TOAST ============ */
   .toast{
     position:fixed;
     bottom:120px;
@@ -1396,7 +1400,7 @@
     opacity:1;
     visibility:visible;
   }
-  /* ============ ANIMATIONS ============ */
+
   @keyframes fadeInUp{
     from{ opacity:0; transform:translateY(16px); }
     to{ opacity:1; transform:translateY(0); }
@@ -1412,7 +1416,6 @@
     to{ opacity:1; }
   }
 
-  /* ============ RESPONSIVE ============ */
   @media(max-width:380px){
     .hero-title{ font-size:42px; }
     .category-title{ font-size:20px; }
@@ -1447,7 +1450,8 @@
     #bg3d, .page-watermark{ display:none; }
   }
 </style>
-</head><body>
+</head>
+<body>
 
   <canvas id="bg3d" aria-hidden="true"></canvas>
   <img src="logo.png.jpeg" alt="" class="page-watermark" aria-hidden="true">
@@ -1535,7 +1539,6 @@
 
   <main class="menu-wrap">
 
-    <!-- BREAKFAST -->
     <section class="category" data-category="breakfast">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Breakfast</div><div class="category-line right"></div></div>
 
@@ -1555,7 +1558,6 @@
       <div class="dish" data-name="Paneer Prantha" data-price="139" data-veg="true" data-note="Served with butter &amp; pickle"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark"></span><div class="dish-info"><div class="dish-name">Paneer Prantha</div><div class="dish-note">Served with butter &amp; pickle</div></div><div class="dish-price-wrap"><div class="dish-price">₹139</div></div></div>
     </section>
 
-    <!-- SOUPS -->
     <section class="category" data-category="soups">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Soups</div><div class="category-line right"></div></div>
 
@@ -1567,7 +1569,6 @@
       <div class="dish" data-name="Veg Clear Soup" data-price="119" data-veg="true"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark"></span><div class="dish-info"><div class="dish-name">Veg Clear Soup</div></div><div class="dish-price-wrap"><div class="dish-price">₹119</div></div></div>
     </section>
 
-    <!-- APPETIZERS -->
     <section class="category" data-category="appetizers">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Appetizers</div><div class="category-line right"></div></div>
 
@@ -1581,7 +1582,6 @@
       <div class="dish" data-name="Fish Finger" data-price="349" data-veg="false"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark nonveg"></span><div class="dish-info"><div class="dish-name">Fish Finger</div></div><div class="dish-price-wrap"><div class="dish-price">₹349</div></div></div>
     </section>
 
-    <!-- CHINA TOWN -->
     <section class="category" data-category="chinatown">
       <div class="category-header"><div class="category-line"></div><div class="category-title">China Town</div><div class="category-line right"></div></div>
 
@@ -1601,7 +1601,6 @@
       <div class="dish" data-name="Chicken Lollipop" data-price="399" data-veg="false"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark nonveg"></span><div class="dish-info"><div class="dish-name">Chicken Lollipop</div></div><div class="dish-price-wrap"><div class="dish-price">₹399</div></div></div>
     </section>
 
-    <!-- CONTINENTAL -->
     <section class="category" data-category="continental">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Continental</div><div class="category-line right"></div></div>
 
@@ -1620,7 +1619,6 @@
       <div class="dish" data-name="Chicken Makhani Pizza" data-price="399" data-veg="false"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark nonveg"></span><div class="dish-info"><div class="dish-name">Chicken Makhani Pizza</div></div><div class="dish-price-wrap"><div class="dish-price">₹399</div></div></div>
     </section>
 
-    <!-- VEG MAIN -->
     <section class="category" data-category="veg">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Main Course · Veg</div><div class="category-line right"></div></div>
 
@@ -1648,7 +1646,6 @@
       <div class="dish" data-name="Paneer Tikka Masala" data-price="379" data-veg="true"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark"></span><div class="dish-info"><div class="dish-name">Paneer Tikka Masala</div></div><div class="dish-price-wrap"><div class="dish-price">₹379</div></div></div>
     </section>
 
-    <!-- NON-VEG MAIN -->
     <section class="category" data-category="nonveg">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Main Course · Non-Veg</div><div class="category-line right"></div></div>
 
@@ -1667,7 +1664,6 @@
       <div class="dish half-full" data-name="Fish Curry" data-full-price="649" data-has-half="false" data-has-full="true" data-veg="false"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark nonveg"></span><div class="dish-info"><div class="dish-name">Fish Curry</div></div><div class="dish-price-wrap half-full-wrap"><div class="hf-label">Full only</div><div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹649</span></div></div></div>
     </section>
 
-    <!-- TANDOORI KHAZANA -->
     <section class="category" data-category="tandoori">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Tandoori Khazana</div><div class="category-line right"></div></div>
 
@@ -1697,7 +1693,6 @@
       <div class="dish half-full" data-name="Olive Spl. Non-Veg Platter" data-full-price="799" data-has-half="false" data-has-full="true" data-veg="false"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark nonveg"></span><div class="dish-info"><div class="dish-name">Olive Spl. Non-Veg Platter</div></div><div class="dish-price-wrap half-full-wrap"><div class="hf-label">Full only</div><div class="hf-price-row"><span class="hf-tag">Full</span><span class="hf-value">₹799</span></div></div></div>
     </section>
 
-    <!-- COMBOMEAL -->
     <section class="category" data-category="combomeal">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Combomeal</div><div class="category-line right"></div></div>
 
@@ -1709,7 +1704,6 @@
       <div class="dish" data-name="Veg Manchurian with Fried Rice" data-price="249" data-veg="true"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark"></span><div class="dish-info"><div class="dish-name">Veg Manchurian with Fried Rice</div></div><div class="dish-price-wrap"><div class="dish-price">₹249</div></div></div>
     </section>
 
-    <!-- INDIAN BREADS -->
     <section class="category" data-category="breads">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Indian Breads</div><div class="category-line right"></div></div>
 
@@ -1727,7 +1721,6 @@
       <div class="dish" data-name="Chicken Keema Naan" data-price="149" data-veg="false"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark nonveg"></span><div class="dish-info"><div class="dish-name">Chicken Keema Naan</div></div><div class="dish-price-wrap"><div class="dish-price">₹149</div></div></div>
     </section>
 
-    <!-- KHAZANA-E-BASMATI -->
     <section class="category" data-category="rice">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Khazana-E-Basmati</div><div class="category-line right"></div></div>
 
@@ -1740,7 +1733,6 @@
       <div class="dish" data-name="Mutton Biryani" data-price="479" data-veg="false" data-note="Served with Raita"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark nonveg"></span><div class="dish-info"><div class="dish-name">Mutton Biryani</div><div class="dish-note">Served with Raita</div></div><div class="dish-price-wrap"><div class="dish-price">₹479</div></div></div>
     </section>
 
-    <!-- RAITA -->
     <section class="category" data-category="raita">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Raita</div><div class="category-line right"></div></div>
 
@@ -1750,7 +1742,6 @@
       <div class="dish" data-name="Cucumber Raita" data-price="149" data-veg="true"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark"></span><div class="dish-info"><div class="dish-name">Cucumber Raita</div></div><div class="dish-price-wrap"><div class="dish-price">₹149</div></div></div>
     </section>
 
-    <!-- SALAD -->
     <section class="category" data-category="salad">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Salad &amp; Papad</div><div class="category-line right"></div></div>
 
@@ -1766,7 +1757,6 @@
       <div class="dish" data-name="Bar Salad" data-price="299" data-veg="true"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark"></span><div class="dish-info"><div class="dish-name">Bar Salad</div></div><div class="dish-price-wrap"><div class="dish-price">₹299</div></div></div>
     </section>
 
-    <!-- DESSERT -->
     <section class="category" data-category="dessert">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Dessert</div><div class="category-line right"></div></div>
 
@@ -1774,7 +1764,6 @@
       <div class="dish" data-name="Ice Cream" data-price="79" data-veg="true" data-note="1 Scoop"><img src="logo.png.jpeg" class="dish-watermark" alt=""><span class="veg-mark"></span><div class="dish-info"><div class="dish-name">Ice Cream</div><div class="dish-note">1 Scoop</div></div><div class="dish-price-wrap"><div class="dish-price">₹79</div></div></div>
     </section>
 
-    <!-- BEVERAGES -->
     <section class="category" data-category="beverages">
       <div class="category-header"><div class="category-line"></div><div class="category-title">Beverages</div><div class="category-line right"></div></div>
 
@@ -1878,6 +1867,16 @@
       </div>
     </div>
     <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-breakdown">
+        <div class="cart-breakdown-row">
+          <span>Subtotal</span>
+          <span id="cartSubtotal">₹0</span>
+        </div>
+        <div class="cart-breakdown-row">
+          <span>GST (5%)</span>
+          <span id="cartGST">₹0</span>
+        </div>
+      </div>
       <div class="cart-total-row">
         <div class="cart-total-label">Total</div>
         <div class="cart-total-value" id="cartTotal">₹0</div>
@@ -1898,6 +1897,7 @@
   <script>
     const HOTEL_WHATSAPP = '917400780030';
     const HOTEL_NAME = 'The Olive Hotel';
+    const GST_RATE = 0.05;
 
     let cart = [];
     try {
@@ -1917,6 +1917,8 @@
     const cartEmpty = document.getElementById('cartEmpty');
     const cartFooter = document.getElementById('cartFooter');
     const cartTotalEl = document.getElementById('cartTotal');
+    const cartSubtotalEl = document.getElementById('cartSubtotal');
+    const cartGSTEl = document.getElementById('cartGST');
     const checkoutBtn = document.getElementById('checkoutBtn');
 
     const modal = document.getElementById('dishModal');
@@ -1982,7 +1984,9 @@
       else { saveCart(); updateCartUI(); }
     }
 
-    function cartTotal(){ return cart.reduce((sum, item) => sum + (item.price * item.qty), 0); }
+    function cartSubtotal(){ return cart.reduce((sum, item) => sum + (item.price * item.qty), 0); }
+    function cartGST(){ return Math.round(cartSubtotal() * GST_RATE); }
+    function cartTotal(){ return cartSubtotal() + cartGST(); }
     function cartCount(){ return cart.reduce((sum, item) => sum + item.qty, 0); }
 
     function bounceCart(){
@@ -2014,11 +2018,14 @@
           const row = document.createElement('div');
           row.className = 'cart-item';
           const variantHtml = item.variant ? `<div class="cart-item-variant">${escapeHtml(item.variant)}</div>` : '';
+          const priceDisplay = item.price > 0
+            ? `₹${item.price} × ${item.qty} = ₹${item.price * item.qty}`
+            : `MRP × ${item.qty}`;
           row.innerHTML = `
             <div class="cart-item-info">
               <div class="cart-item-name">${escapeHtml(item.name)}</div>
               ${variantHtml}
-              <div class="cart-item-price">₹${item.price} × ${item.qty} = ₹${item.price * item.qty}</div>
+              <div class="cart-item-price">${priceDisplay}</div>
             </div>
             <div class="cart-item-qty">
               <button class="cart-qty-btn" data-action="minus" data-name="${escapeAttr(item.name)}" data-variant="${escapeAttr(item.variant || '')}" type="button">−</button>
@@ -2029,7 +2036,11 @@
           cartItemsEl.appendChild(row);
         });
 
-        cartTotalEl.textContent = '₹' + cartTotal();
+        const subtotal = cartSubtotal();
+        const gst = cartGST();
+        cartSubtotalEl.textContent = '₹' + subtotal;
+        cartGSTEl.textContent = '₹' + gst;
+        cartTotalEl.textContent = '₹' + (subtotal + gst);
       }
 
       if (cartCount() > 0){ cartBtn.classList.add('has-items'); }
@@ -2236,12 +2247,34 @@
 
     checkoutBtn.addEventListener('click', () => {
       if (cart.length === 0) return;
+
       let msg = 'Hi, I would like to place an order from ' + HOTEL_NAME + ':%0A%0A';
+      let pricedSubtotal = 0;
+      let mrpItems = [];
+
       cart.forEach((item, i) => {
         const variantLabel = item.variant ? ' (' + item.variant + ')' : '';
-        msg += (i + 1) + '. ' + item.name + variantLabel + ' × ' + item.qty + ' — ₹' + (item.price * item.qty) + '%0A';
+        if (item.price > 0){
+          const lineTotal = item.price * item.qty;
+          pricedSubtotal += lineTotal;
+          msg += (i + 1) + '. ' + item.name + variantLabel + ' × ' + item.qty + ' — ₹' + lineTotal + '%0A';
+        } else {
+          mrpItems.push(item.name + variantLabel + ' × ' + item.qty);
+        }
       });
-      msg += '%0A*Total: ₹' + cartTotal() + '*%0A%0AThanks!';
+
+      if (mrpItems.length){
+        msg += '%0A*MRP items (pay as per MRP):*%0A';
+        mrpItems.forEach((line) => { msg += '• ' + line + '%0A'; });
+      }
+
+      const gst = Math.round(pricedSubtotal * GST_RATE);
+      const grandTotal = pricedSubtotal + gst;
+
+      msg += '%0A*Subtotal: ₹' + pricedSubtotal + '*%0A';
+      msg += '*GST (5%): ₹' + gst + '*%0A';
+      msg += '*Total: ₹' + grandTotal + '*%0A%0AThanks!';
+
       window.open('https://wa.me/' + HOTEL_WHATSAPP + '?text=' + msg, '_blank');
     });
 
@@ -2294,7 +2327,7 @@
       lastScroll = y;
     }, { passive: true });
 
-        updateCartUI();
+    updateCartUI();
     toast.classList.remove('show');
 
     document.addEventListener('touchmove', (e) => {
@@ -2336,16 +2369,16 @@
       scene.add(particles);
 
       function makeTextSprite(text, fontsize){
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = 512;
-        canvas.height = 128;
+        const c = document.createElement('canvas');
+        const ctx = c.getContext('2d');
+        c.width = 512;
+        c.height = 128;
         ctx.font = `600 ${fontsize}px 'Cormorant Garamond', serif`;
         ctx.fillStyle = 'rgba(229,198,127,0.55)';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(text, 256, 64);
-        const texture = new THREE.CanvasTexture(canvas);
+        const texture = new THREE.CanvasTexture(c);
         const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false, opacity: 0.6 });
         const sprite = new THREE.Sprite(material);
         sprite.scale.set(14, 3.5, 1);
