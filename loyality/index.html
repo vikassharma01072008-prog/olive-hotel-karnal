@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="icon" href="logo.png.jpeg">
+<link rel="icon" href="/logo.png.jpeg">
 
 <style>
   :root{
@@ -63,6 +63,7 @@
 
   body.no-scroll{ overflow:hidden; }
 
+  /* ============ 3D BACKGROUND CANVAS ============ */
   #bg3d{
     position:fixed;
     inset:0;
@@ -73,6 +74,7 @@
     opacity:0.55;
   }
 
+  /* ============ PAGE LOGO WATERMARK ============ */
   .page-watermark{
     position:fixed;
     top:50%;
@@ -871,12 +873,12 @@
 <body>
 
   <canvas id="bg3d" aria-hidden="true"></canvas>
-  <img src="logo.png.jpeg" alt="" class="page-watermark" aria-hidden="true">
+  <img src="/logo.png.jpeg" alt="" class="page-watermark" aria-hidden="true">
 
   <!-- TOP BAR -->
   <div class="topbar">
     <div class="topbar-logo">
-      <img src="logo.png.jpeg" alt="Olive Hotel">
+      <img src="/logo.png.jpeg" alt="Olive Hotel">
     </div>
     <div class="topbar-title">
       Olive Hotel
@@ -1021,7 +1023,6 @@
   <script>
     /* ============================================================
        OLIVE HOTEL LOYALTY — CUSTOMER CARD
-       Supabase: gynphsibkcrivosuamxp
        ============================================================ */
 
     const SUPABASE_URL = 'https://gynphsibkcrivosuamxp.supabase.co';
@@ -1056,7 +1057,6 @@
     const toast          = document.getElementById('toast');
 
     let currentUser = null;
-    let qrInstance  = null;
     let toastTimer  = null;
 
     /* ------------------------------------------------------------
@@ -1135,7 +1135,7 @@
         qrBox.style.fontSize = '10px';
         return;
       }
-      qrInstance = new QRCode(qrBox, {
+      new QRCode(qrBox, {
         text: text,
         width: 200,
         height: 200,
@@ -1203,7 +1203,6 @@
       showLoading('Looking up your card...');
 
       try {
-        // Try lookup first
         const existing = await supabaseRpc('loyalty_lookup_by_phone', { p_phone: phone });
 
         if (existing && existing.length > 0) {
@@ -1215,7 +1214,6 @@
           return;
         }
 
-        // New user — must have name
         if (!name) {
           hideLoading();
           showToast('Please enter your name to register', true);
@@ -1280,8 +1278,6 @@
         return;
       }
 
-      // Lookup-first: if phone exists, name not needed
-      // We don't know until we call. So we attempt lookup first, then register if missing.
       await openCardByPhone(phone, name);
     });
 
