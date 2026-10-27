@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="icon" href="logo.png.jpeg">
+<link rel="icon" href="/logo.png.jpeg">
 
 <style>
   :root{
@@ -469,35 +469,6 @@
     box-shadow:0 0 20px rgba(212,180,106,0.15);
   }
 
-  .btn-scan{
-    flex-shrink:0;
-    padding:13px 16px;
-    border-radius:12px;
-    background:linear-gradient(180deg, rgba(212,180,106,0.28), rgba(212,180,106,0.12));
-    border:1px solid var(--gold);
-    color:var(--gold-bright);
-    font-family:inherit;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:1.2px;
-    text-transform:uppercase;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    transition:all .25s;
-  }
-
-  .btn-scan:active{
-    transform:scale(0.96);
-  }
-
-  .btn-scan svg{
-    width:15px;
-    height:15px;
-    stroke-width:2;
-  }
-
   /* ============ CUSTOMER LIST ============ */
   .list-wrap{
     width:100%;
@@ -888,112 +859,6 @@
     stroke-width:2.2;
   }
 
-  /* ============ SCANNER OVERLAY ============ */
-  .scanner-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(8,18,41,0.96);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    z-index:300;
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-  }
-
-  .scanner-overlay.show{ display:flex; }
-
-  .scanner-title{
-    font-family:'Cormorant Garamond',serif;
-    font-size:22px;
-    font-weight:600;
-    color:var(--gold-bright);
-    letter-spacing:1px;
-    margin-bottom:6px;
-    text-align:center;
-  }
-
-  .scanner-sub{
-    font-size:12px;
-    color:var(--text-dim);
-    font-style:italic;
-    margin-bottom:20px;
-    text-align:center;
-  }
-
-  .scanner-box{
-    width:100%;
-    max-width:340px;
-    aspect-ratio:1;
-    border-radius:20px;
-    overflow:hidden;
-    border:2px solid var(--gold);
-    box-shadow:0 0 40px rgba(212,180,106,0.4);
-    background:#000;
-    position:relative;
-  }
-
-  #qrReader{
-    width:100%;
-    height:100%;
-  }
-
-  #qrReader video{
-    width:100% !important;
-    height:100% !important;
-    object-fit:cover;
-    border-radius:16px;
-  }
-
-  .scanner-corners{
-    position:absolute;
-    inset:16px;
-    pointer-events:none;
-  }
-
-  .scanner-corners::before,
-  .scanner-corners::after{
-    content:'';
-    position:absolute;
-    width:36px;
-    height:36px;
-    border:3px solid var(--gold-bright);
-    filter:drop-shadow(0 0 8px rgba(212,180,106,0.8));
-  }
-
-  .scanner-corners::before{
-    top:0; left:0;
-    border-right:none; border-bottom:none;
-    border-top-left-radius:10px;
-  }
-  .scanner-corners::after{
-    bottom:0; right:0;
-    border-left:none; border-top:none;
-    border-bottom-right-radius:10px;
-  }
-
-  .btn-cancel-scan{
-    margin-top:22px;
-    padding:12px 28px;
-    border-radius:12px;
-    background:rgba(248,113,113,0.1);
-    border:1px solid rgba(248,113,113,0.3);
-    color:#fecaca;
-    font-family:inherit;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    cursor:pointer;
-    transition:all .2s;
-  }
-
-  .btn-cancel-scan:active{
-    transform:scale(0.95);
-  }
-
   /* ============ LOADING ============ */
   .loading-overlay{
     position:fixed;
@@ -1135,11 +1000,11 @@
 <body>
 
   <canvas id="bg3d" aria-hidden="true"></canvas>
-  <img src="logo.png.jpeg" alt="" class="page-watermark" aria-hidden="true">
+  <img src="/logo.png.jpeg" alt="" class="page-watermark" aria-hidden="true">
 
   <div class="topbar">
     <div class="topbar-logo">
-      <img src="logo.png.jpeg" alt="Olive Hotel">
+      <img src="/logo.png.jpeg" alt="Olive Hotel">
     </div>
     <div class="topbar-title">
       Olive Hotel
@@ -1221,15 +1086,6 @@
             autocapitalize="none"
           >
         </div>
-        <button class="btn-scan" id="btnScan" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
-            <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
-            <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
-            <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
-          </svg>
-          Scan
-        </button>
       </div>
 
       <div class="list-wrap" id="customerList">
@@ -1309,17 +1165,6 @@
     </div>
   </div>
 
-  <!-- SCANNER OVERLAY -->
-  <div class="scanner-overlay" id="scannerOverlay">
-    <div class="scanner-title">Scan Customer QR</div>
-    <div class="scanner-sub">Point the camera at the loyalty code</div>
-    <div class="scanner-box">
-      <div id="qrReader"></div>
-      <div class="scanner-corners"></div>
-    </div>
-    <button class="btn-cancel-scan" id="btnCancelScan" type="button">Cancel</button>
-  </div>
-
   <!-- LOADING -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner"></div>
@@ -1331,7 +1176,6 @@
 
   <!-- LIBS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
   <script>
     /* ============================================================
@@ -1355,7 +1199,6 @@
     const btnLogout      = document.getElementById('btnLogout');
 
     const searchInput    = document.getElementById('searchInput');
-    const btnScan        = document.getElementById('btnScan');
     const customerList   = document.getElementById('customerList');
     const statTotal      = document.getElementById('statTotal');
     const statReady      = document.getElementById('statReady');
@@ -1373,10 +1216,6 @@
     const btnAddStamp    = document.getElementById('btnAddStamp');
     const btnRedeem      = document.getElementById('btnRedeem');
 
-    const scannerOverlay = document.getElementById('scannerOverlay');
-    const btnCancelScan  = document.getElementById('btnCancelScan');
-    const qrReaderDiv    = document.getElementById('qrReader');
-
     const loadingOverlay = document.getElementById('loadingOverlay');
     const loadingText    = document.getElementById('loadingText');
     const toast          = document.getElementById('toast');
@@ -1384,7 +1223,6 @@
     let session = null;
     let customers = [];
     let selectedCustomer = null;
-    let qrScanner = null;
     let toastTimer = null;
     let searchTimer = null;
 
@@ -1746,7 +1584,6 @@
 
         if (result && result.length > 0) {
           const r = result[0];
-          // Update local customer object
           const idx = customers.findIndex(c => c.id === userId);
           if (idx >= 0) {
             customers[idx].stamps = r.new_stamps;
@@ -1760,7 +1597,6 @@
             showToast(`Visit added — ${r.new_stamps}/10`, 'success');
           }
 
-          // Reload this customer's fresh data
           await refreshCustomer(userId);
         }
       } catch (err) {
@@ -1820,66 +1656,6 @@
     }
 
     /* ------------------------------------------------------------
-       QR SCANNER
-       ------------------------------------------------------------ */
-    btnScan.addEventListener('click', startScan);
-    btnCancelScan.addEventListener('click', stopScan);
-
-    async function startScan() {
-      scannerOverlay.classList.add('show');
-      document.body.classList.add('no-scroll');
-
-      try {
-        qrScanner = new Html5Qrcode('qrReader');
-        await qrScanner.start(
-          { facingMode: 'environment' },
-          { fps: 10, qrbox: { width: 240, height: 240 } },
-          onQrScanSuccess,
-          () => { /* per-frame errors ignored */ }
-        );
-      } catch (err) {
-        console.error('Scanner start failed:', err);
-        showToast('Camera not available', 'error');
-        stopScan();
-      }
-    }
-
-    async function stopScan() {
-      scannerOverlay.classList.remove('show');
-      document.body.classList.remove('no-scroll');
-      if (qrScanner) {
-        try { await qrScanner.stop(); } catch (e) {}
-        try { await qrScanner.clear(); } catch (e) {}
-        qrScanner = null;
-      }
-    }
-
-    async function onQrScanSuccess(decodedText) {
-      await stopScan();
-
-      const code = decodedText.trim();
-      if (!code) return;
-
-      showLoading('Looking up customer...');
-      try {
-        const results = await supabaseRpc('admin_lookup', { p_query: code });
-        hideLoading();
-
-        if (results && results.length > 0) {
-          const found = results[0];
-          openDetailModal(found);
-          showToast('Found: ' + (found.name || 'Guest'), 'success');
-        } else {
-          showToast('No customer found for this code', 'error');
-        }
-      } catch (err) {
-        hideLoading();
-        console.error(err);
-        showToast('Lookup failed', 'error');
-      }
-    }
-
-    /* ------------------------------------------------------------
        AUTO-LOGIN
        ------------------------------------------------------------ */
     (async function boot() {
@@ -1888,7 +1664,6 @@
 
       showLoading('Restoring session...');
       try {
-        // Validate token by hitting admin_list_all
         const rt = getSavedRefresh();
         if (rt) {
           try {
